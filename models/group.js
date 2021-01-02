@@ -10,15 +10,10 @@ const groupSchema = new Schema({
 })
 
 
-const subGroupSchema = new Schema({
-    name: { type: String, required: true },
 
-})
 
-const Group = mongoose.model("group", message);
-const SubGroup = mongoose.model("subgroup", message);
+const Group = mongoose.model("group", groupSchema);
 
 
 module.exports = Group;
-module.exports = SubGroup;
 
