@@ -1,10 +1,15 @@
 const mongoose = require("mongoose");
-
+const message = require("./message");
 const Schema = mongoose.Schema;
 
 const groupSchema = new Schema({
     name: { type: String, required: true },
-    subgroups: {default: false},
+    subgroups: {type: String, default: false},
+    messages: {
+        type: [message],
+        default: undefined
+        
+    }
 
 
 })
