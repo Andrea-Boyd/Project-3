@@ -47,9 +47,9 @@
     font-size: xx-small;
 }
 
-.chat__reciever {
+.chat__receiver {
     margin-left: auto;
-    background-color: green;
+    background-color: blue;
 }
 
 .chat__footer {
