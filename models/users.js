@@ -9,10 +9,10 @@ const userSchema = new Schema({
     password: { type: String, required: true },
     password2: { type: String, required: true },
     groups: [{ type: Schema.Types.ObjectId, ref: "group" }],
-    subgroups: [{ type: Schema.Types.ObjectId, ref: "subgroup"}]
+    subgroups: [{ type: Schema.Types.ObjectId, ref: "group"}]
 
 });
 
-const User = mongoose.model("user", message);
+const User = mongoose.model("user", userSchema);
 
 module.exports = User;

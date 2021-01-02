@@ -1,4 +1,5 @@
 const express = require("express");
+const io = require("socket.io");
 
 const mongoose = require("mongoose");
 const routes = require("./routes");
@@ -14,11 +15,15 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes);
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/KIT", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/MessageApp", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
   useFindAndModify: false,
+});
+
+io.on("connection", (socket) => {
+  console.log("a user is connected");
 });
 
 app.listen(PORT, function () {
