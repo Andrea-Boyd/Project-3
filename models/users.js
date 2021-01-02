@@ -8,7 +8,7 @@ const userSchema = new Schema({
     email: {type: String, lowercase: true, required: [true, "can't be blank"], match: [/\S+@\S+\.\S+/, 'is invalid'], index: true},
     password: { type: String, required: true },
     password2: { type: String, required: true },
-    groups: [{ type: Schema.Types.ObjectId, ref: "Group" }],
+    groups: [{ type: Schema.Types.ObjectId, ref: "group" }],
     subgroups: [{ type: Schema.Types.ObjectId, ref: "subgroup"}]
 
 });
