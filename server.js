@@ -1,4 +1,5 @@
 const express = require("express");
+const io = require("socket.io");
 
 const mongoose = require("mongoose");
 const routes = require("./routes");
@@ -19,6 +20,10 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/MessageApp", {
   useUnifiedTopology: true,
   useCreateIndex: true,
   useFindAndModify: false,
+});
+
+io.on("connection", (socket) => {
+  console.log("a user is connected");
 });
 
 app.listen(PORT, function () {
