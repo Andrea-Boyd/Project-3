@@ -22,9 +22,10 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/MessageApp", {
   useFindAndModify: false,
 });
 
-io.on("connection", (socket) => {
-  console.log("a user is connected");
-});
+//Socket.io functionality to be built
+// io.on("connection", (socket) => {
+//   console.log("a user is connected");
+// });
 
 app.listen(PORT, function () {
   console.log(`Server is now listening on PORT ${PORT}!`);
