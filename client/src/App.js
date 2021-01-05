@@ -15,8 +15,8 @@ function App() {
               <Chat />
             </Route>
             <Route exact path="/signup"></Route>
-            <Route exact path="/user/"></Route>
-            <Route exact path="/group"></Route>
+            <Route exact path="/user/:id"></Route>
+            <Route exact path="/group/:id"></Route>
           </Switch>
         </div>
       </div>
