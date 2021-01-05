@@ -14,7 +14,9 @@ function App() {
           <Route exact path="/">
             <Group />
           </Route>
-          <Route exact path="/signup"></Route>
+          <Route exact path="/signup">
+            <SignUp />
+          </Route>
           <Route exact path="/user/:id"></Route>
           <Route exact path="/group/:id">
             <Group />
