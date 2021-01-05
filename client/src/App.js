@@ -3,23 +3,28 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Chat from "./components/Chat/Chat";
-import SignUp from "./pages/Signup"
+import SignUp from "./pages/Signup";
 
 function App() {
   return (
     <Router>
       <div className="app">
-        <div className="app__body">
-          <Switch>
-            <Route exact path="/">
+        <Switch>
+          <Route exact path="/">
+            <Sidebar />
+            <Chat />
+          </Route>
+          <Route exact path="/signup">
+            <SignUp />
+          </Route>
+          <Route exact path="/user/"></Route>
+          <Route exact path="/group">
+            <div className="app__body">
               <Sidebar />
               <Chat />
-            </Route>
-            <Route exact path="/signup"><SignUp /></Route>
-            <Route exact path="/user/:id"></Route>
-            <Route exact path="/group/:id"></Route>
-          </Switch>
-        </div>
+            </div>
+          </Route>
+        </Switch>
       </div>
     </Router>
   );
