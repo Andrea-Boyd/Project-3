@@ -12,14 +12,18 @@ function App() {
       <div className="app">
         <Switch>
           <Route exact path="/">
-            <Group />
+            <Sidebar />
+            <Chat />
           </Route>
           <Route exact path="/signup">
             <SignUp />
           </Route>
-          <Route exact path="/user/:id"></Route>
-          <Route exact path="/group/:id">
-            <Group />
+          <Route exact path="/user/"></Route>
+          <Route exact path="/group">
+            <div className="app__body">
+              <Sidebar />
+              <Chat />
+            </div>
           </Route>
         </Switch>
       </div>

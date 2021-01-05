@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import API from "../utils/API"
+import "./SignUp.css"
 
 
 function SignUp() {
@@ -30,7 +31,7 @@ function SignUp() {
       <div className="signup__container">
         <div className="signup__content">
           <form>
-            <h3>Sign Up</h3>
+            <h2>Sign Up</h2>
 
             <div className="form-group">
               <label>First Name</label>
@@ -39,7 +40,7 @@ function SignUp() {
                 name="first_name"
                 type="text"
                 className="form-control"
-                placeholder="Enter email"
+                placeholder="Enter first name"
               />
             </div>
 
@@ -52,7 +53,7 @@ function SignUp() {
                 name="last_name"
                 type="text"
                 className="form-control"
-                placeholder="Enter email"
+                placeholder="Enter last name"
               />
             </div>
 

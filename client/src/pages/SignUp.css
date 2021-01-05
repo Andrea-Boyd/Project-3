@@ -1,0 +1,52 @@
+.signup__content form {
+    width: 600px;
+    margin: 0 auto;
+    height: 800px;
+}
+
+form>h2 {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.signup__container {
+    background-color: lightgrey;
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75)
+}
+
+.form-group {
+    padding: 40px;
+    margin: auto;
+}
+
+.signup__content button {
+    display: block;
+    width: 200px;
+    margin: 40px auto;
+    border-radius: 20px;
+    height: 45px;
+    background-color: yellow;
+}
+
+.signup__content input {
+    width: 60%;
+    border: 2px solid blue;
+    border-radius: 20px;
+    height: 30px;
+}
+
+.signup__content ::placeholder {
+    text-align: center;
+    color: red;
+}
+
+.signup__content label {
+    float: left;
+    width: 10em;
+    margin-right: 1em;
+    font-size: large;
+}
+
+.signup__content p {
+    text-align: center;
+}
