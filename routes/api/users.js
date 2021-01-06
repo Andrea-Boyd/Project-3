@@ -2,7 +2,8 @@ const router = require("express").Router();
 const userController = require("../../controller/userController");
 
 // Matches with "/api/users"
-router.route("/").get(userController.findAll).post(userController.create);
+router.route("/").get(userController.findAll)
+router.route("/").post(userController.create);
 
 
 
