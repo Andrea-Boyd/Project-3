@@ -15,3 +15,7 @@ export default {
     return axios.post("/api/group/", messageBody);
   }
 };
+    saveUser: function(user) {
+        return axios.post("/api/user/new", user);
+    }
+}
