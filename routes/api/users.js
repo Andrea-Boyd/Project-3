@@ -1,7 +1,8 @@
 const express = require('express');
+const LocalStrategy = require("passport-local").Strategy
 
 const router = require("express").Router();
-//const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const userController = require("../../controller/userController");
 const User = require("../../models/users");
@@ -24,20 +25,24 @@ router
 
 
 
+passport.use(new LocalStrategy(
+  function(email, password, done) {
+    User.findOne({ email: email}, function(err, user) {
+      if (err) { return done(err); }
+
+      if (!user) {
+        return done(null, false, { message: "Incorret email"})
+      }
 
 
-router.get("/", forwardAuthenticated, (req, res) => res.render("login"));
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: "Incorrect password."});
 
-router.get("/signup", forwardAuthenticated, (req, res) => res.render("signup"));
-
-router.post("./signup", (req, res) => {
-    const { first_name, last_name, email, password, password2 } = req.body;
-    let errors = [];
-
-    if (!first_name || !last_name || !email || !password || !password ) {
-        errors.push({ msg: "Please enter all fields"})
-    }
-})
+      }
+      return done(null , user)
+    })
+  }
+))
 
 
 module.exports = router;

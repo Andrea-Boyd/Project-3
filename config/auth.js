@@ -3,8 +3,8 @@ module.exports = {
         if (req.isAuthenicated()) {
             return next();
         }
-        // req.flash("error_msg", "Please log in to view that resource");
-        // req.redirect("/users/login");
+        req.flash("error_msg", "Please log in to view that resource");
+        req.redirect("/login");
     },
     forwardAuthenicated: function(req, res, next) {
         if (!req.isAuthenicated()) {

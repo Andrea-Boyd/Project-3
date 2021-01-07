@@ -4,6 +4,9 @@ const io = require("socket.io");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
+const session = require("express-session");
+const passport = require("passport");
+const flash = require("connect-flash");
 const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({ extended: true }));
@@ -21,6 +24,9 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/MessageApp", {
   useCreateIndex: true,
   useFindAndModify: false,
 });
+
+
+
 
 //Socket.io functionality to be built
 // io.on("connection", (socket) => {
