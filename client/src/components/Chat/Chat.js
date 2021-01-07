@@ -5,7 +5,7 @@ import {AttachFile, MoreVert, SearchOutlined} from "@material-ui/icons"
 import {Avatar, IconButton} from "@material-ui/core"
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon"
 
-function Chat() {
+function Chat(props) {
     return (
       <div className="chat">
         <div className="chat__header">
@@ -43,12 +43,12 @@ function Chat() {
           <InsertEmoticonIcon />
           <form>
             <input 
-            // value={input}
-            // onChange={(e) => setInput(e.target.value)}
+             name = "message"
+             onChange={props.handleInputChange}
             placeholder="Type a message"
             type="text"
             />
-            <button type="submit">
+            <button type="submit" onClick={props.sendMessage}>
               Send a Message
             </button>
           </form>

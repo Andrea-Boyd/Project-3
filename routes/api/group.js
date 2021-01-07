@@ -1,14 +1,15 @@
 const router = require("express").Router();
 const groupController = require("../../controller/groupController");
 
+router.route("/")
+    .get(groupController.findAll)
+    .post(groupController.create);
 
 
-// // Matches with "/api/books/:id"
-// router
-//   .route("/:id")
-//   .get(booksController.findById)
-//   .put(booksController.update)
-//   .delete(booksController.remove);
+router.route("/:id")
+    .get(groupController.findById)
+    .put(groupController.update)
+    .delete(groupController.remove);
 
-// module.exports = router;
+module.exports = router; 
 
