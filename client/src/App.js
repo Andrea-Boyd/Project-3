@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Chat from "./components/Chat/Chat";
 import SignUp from "./pages/Signup";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -11,8 +12,7 @@ function App() {
       <div className="app">
         <Switch>
           <Route exact path="/">
-            <Sidebar />
-            <Chat />
+           <Login/>
           </Route>
           <Route exact path="/signup">
             <SignUp />
