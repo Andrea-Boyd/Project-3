@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState }from "react";
 import "./Login.css"
 import { Link } from "react-router-dom";
 
@@ -9,9 +9,11 @@ import { Link } from "react-router-dom";
 
 function Login() {
 
+  const [newLogin, setLogin] = useState({})
+
     function handleInputChange(event) {
       const { name, value } = event.target;
-    //   setUserArr({...userArr, [name]: value})
+       setLogin({...newLogin, [name]: value})
     };
 
 
