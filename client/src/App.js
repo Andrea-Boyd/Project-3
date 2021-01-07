@@ -6,14 +6,21 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Chat from "./components/Chat/Chat";
 import SignUp from "./pages/Signup";
 import Login from "./pages/Login";
+import socketClient from "socket.io-client";
 
 function App() {
+  let socket = socketClient();
+
+  socket.on("connection", () => {
+    console.log("Connected to backend");
+  });
+
   return (
     <Router>
       <div className="app">
         <Switch>
           <Route exact path="/">
-           <Login/>
+            <Login />
           </Route>
           <Route exact path="/signup">
             <SignUp />
