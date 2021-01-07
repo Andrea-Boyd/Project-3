@@ -18,6 +18,7 @@ function SignUp() {
     event.preventDefault();
     console.log(userArr);
     API.saveUser({
+      
           first_name: userArr.first_name,
           last_name: userArr.last_name,
           email: userArr.email,
