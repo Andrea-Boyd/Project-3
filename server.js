@@ -25,6 +25,10 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/MessageApp", {
   useFindAndModify: false,
 });
 
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 
 
