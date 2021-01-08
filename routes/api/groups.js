@@ -3,9 +3,9 @@ const LocalStrategy = require("passport-local").Strategy;
 
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const groupController = require("../../../controller/groupController");
-const Group = require("../../../models/group");
-const { forwardAuthenticated } = require("../../../config/auth");
+const groupController = require("../../controller/groupController");
+const Group = require("../../models/group");
+const { forwardAuthenticated } = require("../../config/auth");
 
 // Matches with "/api/users"
 //router.route("/").get(userController.findAll);

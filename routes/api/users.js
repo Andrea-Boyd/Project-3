@@ -19,7 +19,7 @@ router
 
   router.route("/").post(userController.login, (req, res, next) => {
     console.log(req.body)
-    passport.auth("local", {
+    passport.authenticate("local", {
       successRedirect: "/group",
       failureRedirect: "/"
     }) (req, res, next);
@@ -28,7 +28,7 @@ router
 // Matches with "/api/users/:id"
 router
   .route("/:id")
-  .get(userController.findById)
+  .get(userController.findOne)
   .put(userController.update)
   .delete(userController.remove);
 
