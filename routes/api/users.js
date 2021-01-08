@@ -19,7 +19,7 @@ router
 
   router.route("/").post(userController.login, (req, res, next) => {
     console.log(req.body)
-    passport.auth("local", {
+    passport.authenticate("local", {
       successRedirect: "/group",
       failureRedirect: "/"
     }) (req, res, next);

@@ -11,6 +11,10 @@ export default {
     return axios.get("/api/group/" + id);
   },
 
+
+  loginUser: function(credentials) {
+    return axios.post("/api/login", credentials )
+
   //Posts a message to the database
   postMessage: function(messageBody) {
     return axios.post("/api/group/", messageBody);
@@ -19,5 +23,6 @@ export default {
   saveUser: function(user) {
     return axios.post("/api/user/", user);
     }
+
 
 };
