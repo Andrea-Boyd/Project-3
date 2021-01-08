@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Chat from "../components/Chat/Chat";
 import API from "../utils/API";
-import { Link } from "react-router-dom";
+
 // will need to import any of the individual component features like 
 // col/row/container/list/textarea/btn/etc
 
@@ -17,7 +17,8 @@ function Group() {
    
     //load all groups and store them with setGroup
     useEffect(() => {
-        loadGroup()
+        //loadGroup()
+        setGroup(messages)
     }, [])
 
     //loads all groups and sets them to group
@@ -58,7 +59,7 @@ function Group() {
       <Chat 
         handleInputChange={handleInputChange} 
         sendMessage={sendMessage} 
-        messages={messages}
+        messages = {group}
       />
       
     </div>
