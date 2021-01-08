@@ -1,10 +1,14 @@
 const express = require("express");
-const io = require("socket.io");
-
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
+const session = require("express-session");
+const passport = require("./config/passport");
+const flash = require("connect-flash");
 const PORT = process.env.PORT || 3001;
+
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -22,11 +26,22 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/MessageApp", {
   useFindAndModify: false,
 });
 
-//Socket.io functionality to be built
-// io.on("connection", (socket) => {
-//   console.log("a user is connected");
-// });
+app.use(
+  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.listen(PORT, function () {
-  console.log(`Server is now listening on PORT ${PORT}!`);
+//Socket.io functionality
+http.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
+
+io.on("connection", (socket) => {
+  console.log("New user connected");
+  socket.emit("connection", null);
+});
+
+// app.listen(PORT, function () {
+//   console.log(`Server is now listening on PORT ${PORT}!`);
+// });

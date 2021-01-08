@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export default {
+
   // Gets all groups a user is in
   getUser: function() {
     return axios.get("/api/users/");
@@ -16,6 +17,7 @@ export default {
   },
     
   saveUser: function(user) {
-    return axios.post("/api/user/new", user);
+    return axios.post("/api/user/", user);
     }
+
 };
