@@ -4,8 +4,12 @@ import './Chat.css'
 import {AttachFile, MoreVert, SearchOutlined} from "@material-ui/icons"
 import {Avatar, IconButton} from "@material-ui/core"
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon"
+import Message from '../Message/Message'
 
-function Chat() {
+function Chat(props) {
+  //console.log(messages);
+  //console.log(sendMessage);
+  //let messages = [{name:"Andrea",message:"Please work",timeStamp:"Today 8pm"}];
     return (
       <div className="chat">
         <div className="chat__header">
@@ -26,29 +30,18 @@ function Chat() {
             </IconButton>
           </div>
         </div>
-        <div className="chat__body">
-          <p className="chat__message">
-            <span className="chat__name">Kevin</span>
-            This is a Message
-            <span className="chat__timestamp">{new Date().toUTCString()}</span>
-          </p>
-          <p className="chat__message chat__receiver">
-            <span className="chat__name">Kevin</span>
-            This is a Message
-            <span className="chat__timestamp">{new Date().toUTCString()}</span>
-          </p>
-        </div>
+        <Message messages= {props.messages} />
 
         <div className="chat__footer">
           <InsertEmoticonIcon />
           <form>
             <input 
-            // value={input}
-            // onChange={(e) => setInput(e.target.value)}
+             name = "message"
+             onChange={props.handleInputChange}
             placeholder="Type a message"
             type="text"
             />
-            <button type="submit">
+            <button type="submit" onClick={props.sendMessage}>
               Send a Message
             </button>
           </form>
@@ -56,4 +49,4 @@ function Chat() {
       </div>
     );
 }
-export default Chat
+export default Chat;
