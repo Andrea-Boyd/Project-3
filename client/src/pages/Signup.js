@@ -34,6 +34,10 @@ function SignUp() {
     }
   }
 
+  // This commented code needs to go on the User page in order to query db for User info
+  // let pathArray = window.location.pathname.split("/");
+  // let username = pathArray[pathArray.length - 1];
+
   return (
     <div className="signup__container">
       <div className="signup__content">
