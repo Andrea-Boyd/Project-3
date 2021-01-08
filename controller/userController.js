@@ -40,11 +40,12 @@ module.exports = {
       db.User.create({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
+        username: req.body.username,
         email: req.body.email,
         password: hashedPassword,
       }).then((userData) => {
         console.log("Then");
-        res.send({ user: userData.id, message: "Welcome!" });
+        res.send({ user: userData.username, message: "Welcome!" });
       });
     } catch (err) {
       res.send(err);

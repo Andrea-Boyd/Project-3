@@ -1,3 +1,4 @@
+import createSpacing from "@material-ui/core/styles/createSpacing";
 import React, { useState, useEffect } from "react";
 import API from "../utils/API";
 import "./SignUp.css";
@@ -13,18 +14,26 @@ function SignUp() {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    console.log(userArr);
+    console.log(window.location.origin);
     if (userArr.password === userArr.password2 && userArr.password !== "") {
       API.saveUser({
         first_name: userArr.first_name,
         last_name: userArr.last_name,
+        username: userArr.username,
         email: userArr.email,
         password: userArr.password,
-      });
+      })
+        .then((res) =>
+          window.location.replace(
+            window.location.origin + "/user/" + res.data.user
+          )
+        )
+        .catch((err) => console.log(err));
     } else {
       console.log("Your passwords do not match or are empty");
     }
   }
+
   return (
     <div className="signup__container">
       <div className="signup__content">
@@ -47,6 +56,17 @@ function SignUp() {
             <input
               onChange={handleInputChange}
               name="last_name"
+              type="text"
+              className="form-control"
+              placeholder="Enter last name"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Username</label>
+            <input
+              onChange={handleInputChange}
+              name="username"
               type="text"
               className="form-control"
               placeholder="Enter last name"
