@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Chat from "./components/Chat/Chat";
 import SignUp from "./pages/Signup";
 import Login from "./pages/Login";
+import User from "./pages/User";
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
           <Route exact path="/signup">
             <SignUp />
           </Route>
-          <Route exact path="/user/"></Route>
+          <Route exact path="/user">
+            <User/>
+          </Route>
           <Route exact path="/group">
             <div className="app__body">
               <Sidebar />
