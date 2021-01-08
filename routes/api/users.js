@@ -17,8 +17,9 @@ router
   //.get(userController.login)
   .post(userController.register);
 
-  router.route("/").post(userController.register, (req, res, next) => {
-    passport.authenticate("local", {
+  router.route("/").post(userController.login, (req, res, next) => {
+    console.log(req.body)
+    passport.auth("local", {
       successRedirect: "/group",
       failureRedirect: "/"
     }) (req, res, next);

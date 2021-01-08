@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const session = require("express-session");
-const passport = require("passport");
+const passport = require("./config/passport");
 const flash = require("connect-flash");
 const PORT = process.env.PORT || 3001;
 
