@@ -26,3 +26,6 @@ export default {
 
 
 };
+
+saveGroup: function(group) {
+    return axios.post("/api/group", group)

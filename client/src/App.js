@@ -10,7 +10,9 @@ import SignUp from "./pages/Signup";
 import Group from "./pages/Group"
 
 import Login from "./pages/Login";
+
 import socketClient from "socket.io-client";
+
 
 function App() {
   let socket = socketClient();
@@ -32,12 +34,14 @@ function App() {
             <SignUp />
           </Route>
 
+
       
           <Route exact path="/group">            
               <Group />       
           </Route>
           <Route exact path="/user/:id">
             <User />
+
           </Route>
    
         </Switch>
