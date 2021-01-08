@@ -11,9 +11,10 @@ import { Link } from "react-router-dom";
 
 function Group() {
     //setting the initial state 
-    const [group, setGroup] = useState([])
-    const [formObject, setFormObject] = useState({})
-
+    const [group, setGroup] = useState([]);
+    const [formObject, setFormObject] = useState({});
+    let messages = [{name:"Andrea",message:"Please work",timeStamp:"Today 8pm"}];
+   
     //load all groups and store them with setGroup
     useEffect(() => {
         loadGroup()
@@ -48,13 +49,18 @@ function Group() {
                 .catch(err => console.log(err));
         }
     };
-
+ 
 // a lot of what is here in the example from 21.5, we have in the actual component
 // rather here in the page?
   return (
     <div className="app__body">
       <Sidebar />
-      <Chat handleInputChange={handleInputChange} sendMessage={sendMessage} />
+      <Chat 
+        handleInputChange={handleInputChange} 
+        sendMessage={sendMessage} 
+        messages={messages}
+      />
+      
     </div>
   );
 }
