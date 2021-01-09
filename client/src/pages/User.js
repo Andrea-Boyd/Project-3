@@ -37,9 +37,14 @@ function User() {
   function handleFormSubmit(e) {
     e.preventDefault();
     console.log(newGroup);
-    API.saveGroup({
-      name: newGroup.groupName,
-    });
+    API.saveGroup(newGroup.groupName)
+      .then((res) => {
+        console.log(res.data);
+        window.location.replace(
+          window.location.origin + "/user/" + username + "/" + res.data.name
+        );
+      })
+      .catch((err) => console.log(err));
   }
   return (
     <>
@@ -62,7 +67,7 @@ function User() {
           {user.groups === "0" ? (
             <div>
               {user.groups.map((group) => (
-                <Link to={"/group/" + group.groupName}>
+                <Link to={"/user/" + username + "/" + group.groupName}>
                   <button
                     key={group.id}
                     className="group__btn"

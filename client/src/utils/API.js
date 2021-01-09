@@ -9,16 +9,17 @@ export default {
     return axios.post("/api/login/", credentials);
   },
 
-  saveGroup: function (group) {
-    return axios.post("/api/group", group);
+  saveGroup: function (groupName) {
+    console.log("API.saveGroup");
+    return axios.post("/api/groups/" + groupName);
   },
 
   postMessage: function (messageBody) {
     return axios.post("/api/group/", messageBody);
   },
 
-  getGroups: function (id) {
-    return axios.get("/api/group/" + id);
+  getGroups: function (groupName) {
+    return axios.get("/api/groups/" + groupName);
   },
 
   getUser: function (username) {
