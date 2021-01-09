@@ -31,7 +31,7 @@ function Group() {
   function loadGroup(groupName) {
     console.log(groupName);
     API.getGroup(groupName)
-      .then((res) => console.log(res.data))
+      .then((res) => setGroup(res.data))
       .catch((err) => console.log(err));
   }
 
@@ -69,7 +69,7 @@ function Group() {
         text: formObject.message,
         name: fullName,
         date: timeStamp,
-      })
+      }, groupName)
         .then((res) => loadGroup())
         .catch((err) => console.log(err));
     }
@@ -83,7 +83,7 @@ function Group() {
       <Chat 
         handleInputChange={handleInputChange} 
         sendMessage={sendMessage} 
-        group = {group}
+        messages = {group}
       />
     </div>
   );

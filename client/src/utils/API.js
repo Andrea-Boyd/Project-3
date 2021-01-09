@@ -21,17 +21,14 @@ export default {
     },
 
     //Posts a message to the database
-    postMessage: function (messageBody) {
-        return axios.post("/api/group/", messageBody);
+    postMessage: function (messageBody, groupName) {
+        return axios.put("/api/groups/" + groupName, messageBody);
     },
 
     saveUser: function (user) {
         return axios.post("/api/users/", user);
     },
-    saveGroup: function (group) {
-        return axios.post("/api/group", group)
-    },
-
+   
     getGroup: function (groupName) {
         return axios.get("/api/groups/" + groupName);
     },

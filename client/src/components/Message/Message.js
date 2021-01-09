@@ -10,7 +10,7 @@ function Message(props) {
                 {messages.map(message => (
                         <p className="chat__message">
                             <span className="chat__name">{message.name}</span>
-                            {message.text}
+                            {message.message}
                             <span className="chat__timestamp">{message.date}</span>
                         </p>
                     ))
