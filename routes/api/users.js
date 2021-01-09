@@ -3,7 +3,7 @@ const LocalStrategy = require("passport-local").Strategy;
 
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const passport = require("passport");
+const passport = require("../../config/passport");
 const userController = require("../../controller/userController");
 const User = require("../../models/users");
 const { forwardAuthenticated } = require("../../config/auth");
@@ -20,7 +20,7 @@ router
   router.route("/").post(userController.login, (req, res, next) => {
     console.log(req.body)
     passport.authenticate("local", {
-      successRedirect: "/group",
+      successRedirect: "/user/:id" ,
       failureRedirect: "/"
     }) (req, res, next);
   })
