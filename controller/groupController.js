@@ -14,7 +14,7 @@ module.exports = {
   findOne: function (req, res) {
     //console.log(req.params);
     console.log("Find one Group function");
-    db.Group.findOne({ groupName: req.params.groupName })
+    db.Group.findOne({ name: req.params.groupName })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
@@ -28,7 +28,10 @@ module.exports = {
   update: function (req, res) {
     console.log("findOneAndUpdate");
     console.log(req.body);
-    db.Group.update({ name: req.params.groupName }, { $push: { messages: req.body}})
+    db.Group.update(
+      { name: req.params.groupName },
+      { $push: { messages: req.body } }
+    )
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },

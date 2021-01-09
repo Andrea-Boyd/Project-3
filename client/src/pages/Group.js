@@ -12,9 +12,9 @@ function Group() {
   const [user, setUser] = useState({});
   const [group, setGroup] = useState([]);
   const [formObject, setFormObject] = useState({});
-  let messages = [
-    { name: "Andrea", message: "Please work", timeStamp: "Today 8pm" },
-  ];
+  // let messages = [
+  //   { name: "Andrea", message: "Please work", timeStamp: "Today 8pm" },
+  // ];
 
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
@@ -29,9 +29,14 @@ function Group() {
 
   //loads all groups and sets them to group
   function loadGroup(groupName) {
-    console.log(groupName);
+    //console.log(groupName);
     API.getGroup(groupName)
-      .then((res) => setGroup(res.data))
+      .then((res) => {
+        console.log("load group response");
+        //console.log(res);
+        setGroup(res.data);
+        console.log(group);
+      })
       .catch((err) => console.log(err));
   }
 
@@ -42,8 +47,8 @@ function Group() {
       .then((res) => {
         console.log(res.data);
         setUser(res.data);
-        //loadGroup(groupName);
-        setGroup(messages);
+        loadGroup(groupName);
+        //setGroup(messages);
       })
       .catch((err) => console.log(err));
   }
@@ -65,12 +70,18 @@ function Group() {
     console.log(fullName);
     console.log(timeStamp);
     if (formObject.message) {
-      API.postMessage({
-        text: formObject.message,
-        name: fullName,
-        date: timeStamp,
-      }, groupName)
-        .then((res) => loadGroup())
+      API.postMessage(
+        {
+          text: formObject.message,
+          name: fullName,
+          date: timeStamp,
+        },
+        groupName
+      )
+        .then((res) => {
+          console.log(res.data);
+          loadGroup(groupName);
+        })
         .catch((err) => console.log(err));
     }
   }
@@ -80,10 +91,10 @@ function Group() {
   return (
     <div className="app__body">
       <Sidebar />
-      <Chat 
-        handleInputChange={handleInputChange} 
-        sendMessage={sendMessage} 
-        messages = {group}
+      <Chat
+        handleInputChange={handleInputChange}
+        sendMessage={sendMessage}
+        messages={group}
       />
     </div>
   );
