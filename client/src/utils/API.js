@@ -1,31 +1,29 @@
 import axios from "axios";
 
-export default {
 
-  // Gets all groups a user is in
-  getUser: function() {
-    return axios.get("/api/users/");
+
+export default {
+  saveUser: function (user) {
+    return axios.post("/api/users", user)
   },
-  // Gets a group by id to view messages in that group
-  getGroups: function(id) {
+
+  loginUser: function (credentials) {
+    return axios.post("/api/login/", credentials)
+  },
+
+  saveGroup: function (group) {
+    return axios.post("/api/group", group)
+  },
+
+  postMessage: function (messageBody) {
+    return axios.post("/api/group/", messageBody);
+  },
+
+  getGroups: function (id) {
     return axios.get("/api/group/" + id);
   },
 
-
-  loginUser: function(credentials) {
-    return axios.post("/api/login", credentials )
-
-  //Posts a message to the database
-  postMessage: function(messageBody) {
-    return axios.post("/api/group/", messageBody);
+  getUser: function () {
+    return axios.get("/api/users/");
   },
-    
-  saveUser: function(user) {
-    return axios.post("/api/user/", user);
-    }
-
-
-};
-
-saveGroup: function(group) {
-    return axios.post("/api/group", group)
+}

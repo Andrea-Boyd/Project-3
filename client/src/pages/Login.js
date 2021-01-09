@@ -25,6 +25,11 @@ function Login() {
         password: newLogin.password
 
       })
+      .then((res) => {
+        window.location.replace(
+          window.location.origin + "/user/" + res.data.user
+        )
+      })
 
     }
 

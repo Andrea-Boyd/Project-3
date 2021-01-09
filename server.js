@@ -33,15 +33,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Socket.io functionality
-http.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
-});
-
-io.on("connection", (socket) => {
-  console.log("New user connected");
-  socket.emit("connection", null);
-});
-
-// app.listen(PORT, function () {
-//   console.log(`Server is now listening on PORT ${PORT}!`);
+// http.listen(PORT, () => {
+//   console.log(`Listening on port ${PORT}`);
 // });
+
+// io.on("connection", (socket) => {
+//   console.log("New user connected");
+//   socket.emit("connection", null);
+// });
+
+app.listen(PORT, function () {
+  console.log(`Server is now listening on PORT ${PORT}!`);
+});

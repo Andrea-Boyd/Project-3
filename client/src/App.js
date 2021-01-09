@@ -7,7 +7,6 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Chat from "./components/Chat/Chat";
 import SignUp from "./pages/Signup";
 
-import Group from "./pages/Group"
 
 import Login from "./pages/Login";
 
@@ -39,7 +38,7 @@ function App() {
           <Route exact path="/group">            
               <Group />       
           </Route>
-          <Route exact path="/user/:id">
+          <Route exact path="/user/:username">
             <User />
 
           </Route>
