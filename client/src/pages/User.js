@@ -30,8 +30,9 @@ function User() {
       .catch((err) => console.log(err));
   }
   function handleInputChange(event) {
-    console.log(event.target.value);
+    //console.log(event.target.value);
     const { name, value } = event.target;
+    console.log(`${name} ; ${value}`)
     setNewGroup({ ...newGroup, [name]: value });
   }
   function handleFormSubmit(e) {

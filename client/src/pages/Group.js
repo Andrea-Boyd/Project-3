@@ -30,7 +30,7 @@ function Group() {
   //loads all groups and sets them to group
   function loadGroup(groupName) {
     console.log(groupName);
-    API.getGroups(groupName)
+    API.getGroup(groupName)
       .then((res) => setGroup(res.data))
       .catch((err) => console.log(err));
   }
@@ -69,7 +69,7 @@ function Group() {
         text: formObject.message,
         name: fullName,
         date: timeStamp,
-      })
+      }, groupName)
         .then((res) => loadGroup())
         .catch((err) => console.log(err));
     }
@@ -80,10 +80,10 @@ function Group() {
   return (
     <div className="app__body">
       <Sidebar />
-      <Chat
-        handleInputChange={handleInputChange}
-        sendMessage={sendMessage}
-        messages={group}
+      <Chat 
+        handleInputChange={handleInputChange} 
+        sendMessage={sendMessage} 
+        messages = {group}
       />
     </div>
   );
