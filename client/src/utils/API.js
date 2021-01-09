@@ -2,6 +2,7 @@ import axios from "axios";
 
 
 
+
 export default {
   saveUser: function (user) {
     return axios.post("/api/users", user)
@@ -19,6 +20,7 @@ export default {
     return axios.post("/api/group/", messageBody);
   },
 
+
   getGroups: function (id) {
     return axios.get("/api/group/" + id);
   },
@@ -27,3 +29,4 @@ export default {
     return axios.get("/api/users/");
   },
 }
+

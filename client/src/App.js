@@ -7,11 +7,9 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Chat from "./components/Chat/Chat";
 import SignUp from "./pages/Signup";
 
-
 import Login from "./pages/Login";
 
 import socketClient from "socket.io-client";
-
 
 function App() {
   let socket = socketClient();
@@ -25,24 +23,18 @@ function App() {
       <div className="app">
         <Switch>
           <Route exact path="/">
-
             <Login />
-
           </Route>
           <Route exact path="/signup">
             <SignUp />
           </Route>
 
-
-      
-          <Route exact path="/group">            
-              <Group />       
+          <Route exact path="/group">
+            <Group />
           </Route>
           <Route exact path="/user/:username">
             <User />
-
           </Route>
-   
         </Switch>
       </div>
     </Router>
