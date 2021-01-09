@@ -12,8 +12,7 @@ const groupSchema = new Schema({
   name: { type: String, required: true },
   subgroups: { type: String, default: false },
   messages: {
-    type: [messageSchema],
-    default: undefined,
+    type: [messageSchema]
   },
 });
 

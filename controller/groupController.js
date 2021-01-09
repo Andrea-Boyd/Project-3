@@ -26,7 +26,9 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   update: function (req, res) {
-    db.Group.findOneAndUpdate({ _id: req.params.id }, req.body)
+    console.log("findOneAndUpdate");
+    console.log(req.body);
+    db.Group.update({ name: req.params.groupName }, { $push: { messages: req.body}})
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
