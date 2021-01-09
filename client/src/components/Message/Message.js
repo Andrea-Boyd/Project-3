@@ -2,9 +2,7 @@ import React from 'react';
 
 
 function Message(props) {
-    let messages = props.messages;
-    //let messages = [{name:"Andrea",message:"Please work",timeStamp:"Today 8pm"}];
-    console.log(messages);
+    let messages = props.messages;    
     return (
         <div className="chat__body">
             {messages.length ? (
@@ -12,8 +10,8 @@ function Message(props) {
                 {messages.map(message => (
                         <p className="chat__message">
                             <span className="chat__name">{message.name}</span>
-                            {message.message}
-                            <span className="chat__timestamp">{message.timeStamp}</span>
+                            {message.text}
+                            <span className="chat__timestamp">{message.date}</span>
                         </p>
                     ))
                 }

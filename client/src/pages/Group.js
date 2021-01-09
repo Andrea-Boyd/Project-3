@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Chat from "../components/Chat/Chat";
-
 import API from "../utils/API";
 
 // will need to import any of the individual component features like 
@@ -60,7 +59,7 @@ function Group() {
       <Chat 
         handleInputChange={handleInputChange} 
         sendMessage={sendMessage} 
-        messages = {group}
+        group = {group}
       />
       
     </div>
