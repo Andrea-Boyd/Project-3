@@ -26,7 +26,7 @@ function App() {
           </Route>
 
           {/* Route below will only work once proper group name is retrun from db in Users.js */}
-          <Route exact path="/group/:groupName">
+          <Route exact path="/user/:username/:group">
             <Group />
           </Route>
 

@@ -11,8 +11,17 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+  findOne: function (req, res) {
+    //console.log(req.params);
+    console.log("Find one Group function");
+    db.Group.findOne({ groupName: req.params.groupName })
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
   create: function (req, res) {
-    db.Group.create(req.body)
+    console.log("Group create funciton");
+    console.log(req.params.groupName);
+    db.Group.create({ name: req.params.groupName })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },

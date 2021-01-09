@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const messageSchema = new Schema({
   name: { type: String, required: true },
   text: { type: String, required: true },
-  date: { type: Date, default: Date.now },
+  date: { type: Date, required: true },
 });
 
 const groupSchema = new Schema({
