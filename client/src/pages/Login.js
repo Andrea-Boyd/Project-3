@@ -2,6 +2,7 @@ import React, { useState }from "react";
 import "./Login.css"
 import { Link } from "react-router-dom";
 import API from "../utils/API"
+import { response } from "express";
 
 
 
@@ -26,8 +27,9 @@ function Login() {
 
       })
       .then((res) => {
+        console.log(res)
         window.location.replace(
-          window.location.origin + "/user/" + res.data.user
+          window.location.origin + "/user/" + res.data.username
         )
       })
 

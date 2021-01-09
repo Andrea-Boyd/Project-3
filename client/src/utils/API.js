@@ -6,7 +6,7 @@ export default {
   },
 
   loginUser: function (credentials) {
-    return axios.post("/api/login/", credentials);
+    return axios.post("/api/users/login",   credentials);
   },
 
   saveGroup: function (groupName) {
