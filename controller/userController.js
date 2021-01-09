@@ -42,7 +42,7 @@ module.exports = {
     console.log(req.body);
     try {
       // creates the hashedpasswords
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const hashedPassword = await bcrypt.hashSync(req.body.password, 10);
 
       console.log(hashedPassword);
       db.User.create({
