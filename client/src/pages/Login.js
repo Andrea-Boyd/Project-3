@@ -1,6 +1,7 @@
 import React, { useState }from "react";
 import "./Login.css"
 import { Link } from "react-router-dom";
+import API from "../utils/API"
 
 
 
@@ -15,6 +16,22 @@ function Login() {
       const { name, value } = event.target;
        setLogin({...newLogin, [name]: value})
     };
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      console.log(newLogin);
+      API.loginUser({
+        email: newLogin.email,
+        password: newLogin.password
+
+      })
+      .then((res) => {
+        window.location.replace(
+          window.location.origin + "/user/" + res.data.user
+        )
+      })
+
+    }
 
 
 
@@ -47,7 +64,7 @@ function Login() {
           </div>
 
           <button
-            // onClick={handleFormSubmit}
+            onClick={handleFormSubmit}
             type="submit"
             className="btn btn-primary btn-block"
           >
