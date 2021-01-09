@@ -7,42 +7,39 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Chat from "./components/Chat/Chat";
 import SignUp from "./pages/Signup";
 
-
 import Login from "./pages/Login";
 
 import socketClient from "socket.io-client";
 
-
 function App() {
-  let socket = socketClient();
+  // let socket = socketClient();
 
-  socket.on("connection", () => {
-    console.log("Connected to backend");
-  });
+  // socket.on("connection", () => {
+  //   console.log("Connected to backend");
+  // });
 
   return (
     <Router>
       <div className="app">
         <Switch>
           <Route exact path="/">
-
             <Login />
-
           </Route>
           <Route exact path="/signup">
             <SignUp />
           </Route>
 
+          {/* Route below will only work once proper group name is retrun from db in Users.js */}
+          <Route exact path="/user/:username/:group">
+            <Group />
+          </Route>
 
-      
-          <Route exact path="/group">            
-              <Group />       
+          <Route exact path="/group">
+            <Group />
           </Route>
           <Route exact path="/user/:username">
             <User />
-
           </Route>
-   
         </Switch>
       </div>
     </Router>

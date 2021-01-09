@@ -17,6 +17,7 @@ router
   //.get(userController.login)
   .post(userController.register);
 
+<<<<<<< HEAD
   router.route("/").post(userController.login, (req, res, next) => {
     console.log(req.body)
     passport.authenticate("local", {
@@ -24,10 +25,19 @@ router
       failureRedirect: "/"
     }) (req, res, next);
   })
+=======
+router.route("/").post(userController.login, (req, res, next) => {
+  console.log(req.body);
+  passport.authenticate("local", {
+    successRedirect: "/group",
+    failureRedirect: "/",
+  })(req, res, next);
+});
+>>>>>>> main
 
 // Matches with "/api/users/:id"
 router
-  .route("/:id")
+  .route("/:username")
   .get(userController.findOne)
   .put(userController.update)
   .delete(userController.remove);

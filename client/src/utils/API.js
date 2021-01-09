@@ -1,29 +1,28 @@
 import axios from "axios";
 
-
-
 export default {
   saveUser: function (user) {
-    return axios.post("/api/users", user)
+    return axios.post("/api/users", user);
   },
 
   loginUser: function (credentials) {
-    return axios.post("/api/login/", credentials)
+    return axios.post("/api/login/", credentials);
   },
 
-  saveGroup: function (group) {
-    return axios.post("/api/group", group)
+  saveGroup: function (groupName) {
+    console.log("API.saveGroup");
+    return axios.post("/api/groups/" + groupName);
   },
 
   postMessage: function (messageBody) {
     return axios.post("/api/group/", messageBody);
   },
 
-  getGroups: function (id) {
-    return axios.get("/api/group/" + id);
+  getGroups: function (groupName) {
+    return axios.get("/api/groups/" + groupName);
   },
 
-  getUser: function () {
-    return axios.get("/api/users/");
+  getUser: function (username) {
+    return axios.get("/api/users/" + username);
   },
-}
+};
