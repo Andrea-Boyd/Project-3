@@ -26,7 +26,13 @@ export default {
     },
     saveGroup: function (group) {
         return axios.post("/api/group", group)
-    }
+    },
 
+  getGroups: function (id) {
+    return axios.get("/api/group/" + id);
+  },
 
+  getUser: function (username) {
+    return axios.get("/api/users/" + username);
+  },
 };

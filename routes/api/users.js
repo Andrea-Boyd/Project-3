@@ -17,17 +17,17 @@ router
   //.get(userController.login)
   .post(userController.register);
 
-  router.route("/").post(userController.login, (req, res, next) => {
-    console.log(req.body)
-    passport.authenticate("local", {
-      successRedirect: "/group",
-      failureRedirect: "/"
-    }) (req, res, next);
-  })
+router.route("/").post(userController.login, (req, res, next) => {
+  console.log(req.body);
+  passport.authenticate("local", {
+    successRedirect: "/group",
+    failureRedirect: "/",
+  })(req, res, next);
+});
 
 // Matches with "/api/users/:id"
 router
-  .route("/:id")
+  .route("/:username")
   .get(userController.findOne)
   .put(userController.update)
   .delete(userController.remove);
