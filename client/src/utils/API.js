@@ -11,10 +11,10 @@ export default {
         return axios.get("/api/group/" + id);
     },
 
-  saveGroup: function (groupName) {
-    console.log("API.saveGroup");
-    return axios.post("/api/groups/" + groupName);
-  },
+    saveGroup: function (groupName) {
+        console.log("API.saveGroup");
+        return axios.post("/api/groups/" + groupName);
+    },
 
     loginUser: function (credentials) {
         return axios.post("/api/login", credentials)
@@ -26,17 +26,17 @@ export default {
     },
 
     saveUser: function (user) {
-        return axios.post("/api/user/", user);
+        return axios.post("/api/users/", user);
     },
     saveGroup: function (group) {
         return axios.post("/api/group", group)
     },
 
-  getGroups: function (groupName) {
-    return axios.get("/api/groups/" + groupName);
-  },
+    getGroup: function (groupName) {
+        return axios.get("/api/groups/" + groupName);
+    },
 
-  getUser: function (username) {
-    return axios.get("/api/users/" + username);
-  },
+    getUser: function (username) {
+        return axios.get("/api/users/" + username);
+    },
 };

@@ -30,8 +30,8 @@ function Group() {
   //loads all groups and sets them to group
   function loadGroup(groupName) {
     console.log(groupName);
-    API.getGroups(groupName)
-      .then((res) => setGroup(res.data))
+    API.getGroup(groupName)
+      .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
   }
 
