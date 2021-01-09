@@ -1,5 +1,5 @@
 const db = require("../models");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 // Defining methods for the userController
 module.exports = {
@@ -43,6 +43,7 @@ module.exports = {
     try {
       // creates the hashedpasswords
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
       console.log(hashedPassword);
       db.User.create({
         first_name: req.body.first_name,
@@ -60,6 +61,7 @@ module.exports = {
   },
 
   login: (req, res) => {
+    console.log("test")
     db.User.findOne({
       where: {
         email: req.body.email,
@@ -72,7 +74,12 @@ module.exports = {
         }
 
         if (await bcrypt.compare(req.body.password, userData.password)) {
+          passport.authenticate("local", {
+            successRedirect: "/group",
+            failureRedirect: "/",
+          })
           res.send({ user: userData.id, message: "Welcome Back" });
+          
         } else {
           res.send({ user: false, message: "Password Incorrect" });
         }

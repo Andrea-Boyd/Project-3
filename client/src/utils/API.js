@@ -2,6 +2,11 @@ import axios from "axios";
 
 export default {
 
+
+  loginUser: function (credentials) {
+    return axios.post("/api/users/login",   credentials);
+  },
+
     // Gets all groups a user is in
     getUser: function () {
         return axios.get("/api/users/");
@@ -10,6 +15,7 @@ export default {
     getGroups: function (id) {
         return axios.get("/api/group/" + id);
     },
+
 
     saveGroup: function (groupName) {
         console.log("API.saveGroup");

@@ -2,8 +2,7 @@ const express = require("express");
 const LocalStrategy = require("passport-local").Strategy;
 
 const router = require("express").Router();
-const bcrypt = require("bcryptjs");
-const passport = require("passport");
+const passport = require("../../config/passport");
 const userController = require("../../controller/userController");
 const User = require("../../models/users");
 const { forwardAuthenticated } = require("../../config/auth");
@@ -17,13 +16,12 @@ router
   //.get(userController.login)
   .post(userController.register);
 
-router.route("/").post(userController.login, (req, res, next) => {
-  console.log(req.body);
-  passport.authenticate("local", {
-    successRedirect: "/group",
-    failureRedirect: "/",
-  })(req, res, next);
-});
+router.route("/login").post(passport.authenticate("local"), (req, res) => {
+  res.json(req.user)
+}
+);
+
+
 
 // Matches with "/api/users/:id"
 router
