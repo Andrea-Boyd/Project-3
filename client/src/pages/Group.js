@@ -20,14 +20,14 @@ function Group() {
   let username = pathArray[2];
   let groupName = pathArray[3];
 
-  //load all groups and store them with setGroup
+  //loads user data
   useEffect(() => {
     //loadGroup(groupName);
     loadUser(username);
     //setGroup(messages);
   }, []);
 
-  //loads all groups and sets them to group
+  //loads the current group and sets it to group
   function loadGroup(groupName) {
     //console.log(groupName);
     API.getGroup(groupName)
