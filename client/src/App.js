@@ -32,7 +32,7 @@ function App() {
           <Route exact path="/group">
             <Group />
           </Route>
-          <Route exact path="/user/:id">
+          <Route exact path="/user/:username">
             <User />
           </Route>
         </Switch>
