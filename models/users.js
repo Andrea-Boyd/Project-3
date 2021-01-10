@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+const groupObjectSchema = new Schema({
+  _id: { type: Schema.Types.ObjectId, ref: "group" },
+  name: { type: String, required: true },
+});
+
 const userSchema = new Schema({
   first_name: {
     type: String,
@@ -34,7 +39,9 @@ const userSchema = new Schema({
     index: true,
   },
   password: { type: String, required: true },
-  groups: [{ type: Schema.Types.ObjectId, ref: "group" }],
+  groups: {
+    type: [groupObjectSchema],
+  },
   subgroups: [{ type: Schema.Types.ObjectId, ref: "group" }],
 });
 

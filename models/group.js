@@ -8,11 +8,18 @@ const messageSchema = new Schema({
   date: { type: Date, required: true },
 });
 
+const groupMembersSchema = new Schema({
+  name: { type: String, required: true },
+});
+
 const groupSchema = new Schema({
   name: { type: String, required: true },
   subgroups: { type: String, default: false },
   messages: {
-    type: [messageSchema]
+    type: [messageSchema],
+  },
+  groupMembers: {
+    type: [groupMembersSchema],
   },
 });
 

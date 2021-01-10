@@ -1,3 +1,4 @@
+import { SentimentSatisfied } from "@material-ui/icons";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import API from "../utils/API";
@@ -6,6 +7,7 @@ import "./User.css";
 function User() {
   const [user, setUser] = useState({}); //groups that users are part of
   const [newGroup, setNewGroup] = useState({});
+  let groupData = {};
 
   let groupsTest = [
     { name: "Javascript", _id: "1" },
@@ -29,24 +31,36 @@ function User() {
       })
       .catch((err) => console.log(err));
   }
+
   function handleInputChange(event) {
     //console.log(event.target.value);
     const { name, value } = event.target;
-    console.log(`${name} ; ${value}`)
+    //console.log(`${name} ; ${value}`);
     setNewGroup({ ...newGroup, [name]: value });
   }
+
   function handleFormSubmit(e) {
     e.preventDefault();
     console.log(newGroup);
-    API.saveGroup(newGroup.groupName)
+    API.createGroup(newGroup.groupName)
       .then((res) => {
         console.log(res.data);
-        window.location.replace(
-          window.location.origin + "/user/" + username + "/" + res.data.name
-        );
+        groupData = {
+          _id: res.data._id,
+          name: res.data.name,
+        };
+        addGroupToUser(username, groupData);
       })
       .catch((err) => console.log(err));
   }
+
+  function addGroupToUser(username, groupData) {
+    API.addGroupToUser(username, groupData).then((res) => {
+      console.log(res);
+      loadUser(username);
+    });
+  }
+
   return (
     <>
       <div className="user__container">
@@ -65,16 +79,16 @@ function User() {
         </form>
         <div>
           {/* This condition will need to be changed when groupdata is being returned properly */}
-          {user.groups === "0" ? (
+          {user.groups !== "0" ? (
             <div>
               {user.groups.map((group) => (
-                <Link to={"/user/" + username + "/" + group.groupName}>
+                <Link to={"/user/" + username + "/" + group.name}>
                   <button
-                    key={group.id}
+                    key={group._id}
                     className="group__btn"
-                    value={group.id}
+                    value={group._id}
                   >
-                    {group.groupName}
+                    {group.name}
                   </button>
                 </Link>
               ))}

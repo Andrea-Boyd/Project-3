@@ -19,16 +19,20 @@ router
 
 router.route("/login").post(passport.authenticate("local"), (req, res) => {
   res.json(req.user);
+<<<<<<< HEAD
 }
 );
 
 
+=======
+});
+>>>>>>> main
 
 // Matches with "/api/users/:id"
 router
   .route("/:username")
   .get(userController.findOne)
-  .put(userController.update)
+  .put(userController.updateGroup)
   .delete(userController.remove);
 
 module.exports = router;
