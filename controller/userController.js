@@ -1,5 +1,5 @@
 const db = require("../models");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 // Defining methods for the userController
 module.exports = {
@@ -26,8 +26,13 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
-  update: function (req, res) {
-    db.User.findOneAndUpdate({ _id: req.params.id }, req.body)
+  updateGroup: function (req, res) {
+    console.log("Update Group Function");
+    console.log(req.params);
+    db.User.update(
+      { username: req.params.username },
+      { $push: { groups: req.body } }
+    )
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
@@ -43,6 +48,7 @@ module.exports = {
     try {
       // creates the hashedpasswords
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
       console.log(hashedPassword);
       db.User.create({
         first_name: req.body.first_name,
@@ -60,6 +66,7 @@ module.exports = {
   },
 
   login: (req, res) => {
+    console.log("test");
     db.User.findOne({
       where: {
         email: req.body.email,
@@ -72,6 +79,10 @@ module.exports = {
         }
 
         if (await bcrypt.compare(req.body.password, userData.password)) {
+          passport.authenticate("local", {
+            successRedirect: "/group",
+            failureRedirect: "/",
+          });
           res.send({ user: userData.id, message: "Welcome Back" });
         } else {
           res.send({ user: false, message: "Password Incorrect" });

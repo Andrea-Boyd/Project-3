@@ -18,15 +18,14 @@ function Group() {
 
   let messages = {
     name: groupName,
-    messages: [
-      { name: "Andrea", message: "Please work", timeStamp: "Today 8pm" },
-    ],
+    messages: [{ name: "Admin", text: "Messages are loading", date: "Now" }],
   };
 
   //load all groups and store them with setGroup
   useEffect(() => {
+    console.log(groupName);
     //loadGroup(groupName);
-    //setGroup(messages);
+    setGroup(messages);
     loadUser(username);
   }, []);
 

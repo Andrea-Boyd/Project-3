@@ -6,6 +6,7 @@ import "./User.css";
 function User() {
   const [user, setUser] = useState({}); //groups that users are part of
   const [newGroup, setNewGroup] = useState({});
+  let groupData = {};
 
   let groupsTest = [
     { name: "Javascript", _id: "1" },
@@ -32,18 +33,21 @@ function User() {
   function handleInputChange(event) {
     //console.log(event.target.value);
     const { name, value } = event.target;
-    console.log(`${name} ; ${value}`);
+    //console.log(`${name} ; ${value}`);
     setNewGroup({ ...newGroup, [name]: value });
   }
   function handleFormSubmit(e) {
     e.preventDefault();
     console.log(newGroup);
-    API.saveGroup(newGroup.groupName)
+    API.createGroup(newGroup.groupName)
       .then((res) => {
         console.log(res.data);
-        window.location.replace(
-          window.location.origin + "/user/" + username + "/" + res.data.name
-        );
+        console.log(res.data._id);
+        console.log(res.data.name);
+        groupData = {};
+      })
+      .then(() => {
+        API.saveGroupToUser(username);
       })
       .catch((err) => console.log(err));
   }
