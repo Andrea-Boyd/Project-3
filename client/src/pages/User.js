@@ -32,7 +32,7 @@ function User() {
   function handleInputChange(event) {
     //console.log(event.target.value);
     const { name, value } = event.target;
-    console.log(`${name} ; ${value}`)
+    console.log(`${name} ; ${value}`);
     setNewGroup({ ...newGroup, [name]: value });
   }
   function handleFormSubmit(e) {
@@ -47,6 +47,7 @@ function User() {
       })
       .catch((err) => console.log(err));
   }
+
   return (
     <>
       <div className="user__container">

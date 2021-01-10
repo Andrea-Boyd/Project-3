@@ -10,21 +10,24 @@ import API from "../utils/API";
 function Group() {
   //setting the initial state
   const [user, setUser] = useState({});
-  const [group, setGroup] = useState([]);
+  const [group, setGroup] = useState({});
   const [formObject, setFormObject] = useState({});
-  // let messages = [
-  //   { name: "Andrea", message: "Please work", timeStamp: "Today 8pm" },
-  // ];
-
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
   let groupName = pathArray[3];
 
+  let messages = {
+    name: groupName,
+    messages: [
+      { name: "Andrea", message: "Please work", timeStamp: "Today 8pm" },
+    ],
+  };
+
   //load all groups and store them with setGroup
   useEffect(() => {
     //loadGroup(groupName);
-    loadUser(username);
     //setGroup(messages);
+    loadUser(username);
   }, []);
 
   //loads all groups and sets them to group
@@ -47,6 +50,7 @@ function Group() {
       .then((res) => {
         console.log(res.data);
         setUser(res.data);
+        //console.log(groupName);
         loadGroup(groupName);
         //setGroup(messages);
       })

@@ -21,7 +21,12 @@ module.exports = {
   create: function (req, res) {
     console.log("Group create funciton");
     console.log(req.params.groupName);
-    db.Group.create({ name: req.params.groupName })
+    db.Group.create({
+      name: req.params.groupName,
+      messages: [
+        { name: "admin", text: "Send you first message now", date: Date.now() },
+      ],
+    })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
