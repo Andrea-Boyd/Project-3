@@ -26,8 +26,13 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
-  update: function (req, res) {
-    db.User.findOneAndUpdate({ _id: req.params.id }, req.body)
+  updateGroup: function (req, res) {
+    console.log("Update Group Function");
+    console.log(req.body);
+    db.User.update(
+      { username: req.params.username },
+      { $push: { groups: req.body } }
+    )
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
@@ -61,7 +66,7 @@ module.exports = {
   },
 
   login: (req, res) => {
-    console.log("test")
+    console.log("test");
     db.User.findOne({
       where: {
         email: req.body.email,
@@ -77,9 +82,8 @@ module.exports = {
           passport.authenticate("local", {
             successRedirect: "/group",
             failureRedirect: "/",
-          })
+          });
           res.send({ user: userData.id, message: "Welcome Back" });
-          
         } else {
           res.send({ user: false, message: "Password Incorrect" });
         }
