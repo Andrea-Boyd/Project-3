@@ -28,7 +28,7 @@ module.exports = {
   },
   updateGroup: function (req, res) {
     console.log("Update Group Function");
-    console.log(req.params);
+    console.log(req.body);
     db.User.update(
       { username: req.params.username },
       { $push: { groups: req.body } }

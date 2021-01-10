@@ -22,6 +22,7 @@ function Group() {
   };
 
   //load all groups and store them with setGroup
+  //loads user data
   useEffect(() => {
     console.log(groupName);
     //loadGroup(groupName);
@@ -29,7 +30,7 @@ function Group() {
     loadUser(username);
   }, []);
 
-  //loads all groups and sets them to group
+  //loads the current group and sets it to group
   function loadGroup(groupName) {
     //console.log(groupName);
     API.getGroup(groupName)

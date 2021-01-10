@@ -1,3 +1,4 @@
+import { SentimentSatisfied } from "@material-ui/icons";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import API from "../utils/API";
@@ -30,26 +31,34 @@ function User() {
       })
       .catch((err) => console.log(err));
   }
+
   function handleInputChange(event) {
     //console.log(event.target.value);
     const { name, value } = event.target;
     //console.log(`${name} ; ${value}`);
     setNewGroup({ ...newGroup, [name]: value });
   }
+
   function handleFormSubmit(e) {
     e.preventDefault();
     console.log(newGroup);
     API.createGroup(newGroup.groupName)
       .then((res) => {
         console.log(res.data);
-        console.log(res.data._id);
-        console.log(res.data.name);
-        groupData = {};
-      })
-      .then(() => {
-        API.saveGroupToUser(username);
+        groupData = {
+          _id: res.data._id,
+          name: res.data.name,
+        };
+        addGroupToUser(username, groupData);
       })
       .catch((err) => console.log(err));
+  }
+
+  function addGroupToUser(username, groupData) {
+    API.addGroupToUser(username, groupData).then((res) => {
+      console.log(res);
+      loadUser(username);
+    });
   }
 
   return (
@@ -70,16 +79,16 @@ function User() {
         </form>
         <div>
           {/* This condition will need to be changed when groupdata is being returned properly */}
-          {user.groups === "0" ? (
+          {user.groups !== "0" ? (
             <div>
               {user.groups.map((group) => (
-                <Link to={"/user/" + username + "/" + group.groupName}>
+                <Link to={"/user/" + username + "/" + group.name}>
                   <button
-                    key={group.id}
+                    key={group._id}
                     className="group__btn"
-                    value={group.id}
+                    value={group._id}
                   >
-                    {group.groupName}
+                    {group.name}
                   </button>
                 </Link>
               ))}

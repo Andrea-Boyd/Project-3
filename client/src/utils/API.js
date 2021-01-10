@@ -28,7 +28,7 @@ export default {
     return axios.post("/api/groups/" + groupName);
   },
 
-  saveGroupToUser: function (user, groupData) {
+  addGroupToUser: function (user, groupData) {
     return axios.put("/api/users/" + user, groupData);
   },
 
