@@ -13,9 +13,6 @@ export default {
         toast("please enter all fields")
       },
 
-     allFields: function() {
-        toast("please enter all fields")
-      },
      userPassword: function() {
         toast("passwords don't match")
       }
