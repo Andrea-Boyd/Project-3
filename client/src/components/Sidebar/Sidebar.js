@@ -6,6 +6,9 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import ChatIcon from "@material-ui/icons/Chat";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SideBarChat from "../SideBarChat/SideBarChat";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import NewGroupModal from "../../NewGroupModal/NewGroupModal";
 
 function Sidebar() {
   return (
@@ -29,12 +32,13 @@ function Sidebar() {
           <SearchOutlinedIcon />
           <input placeholder="Search" type="text"></input>
         </div>
+        <NewGroupModal/>
       </div>
 
       <div className="sidebar__chats">
-        <SideBarChat/> 
-        <SideBarChat/> 
-        <SideBarChat/>
+        <SideBarChat />
+        <SideBarChat />
+        <SideBarChat />
       </div>
     </div>
   );
