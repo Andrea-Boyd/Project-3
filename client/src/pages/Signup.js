@@ -1,12 +1,26 @@
 import createSpacing from "@material-ui/core/styles/createSpacing";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Redirect } from "react-router-dom";
 import API from "../utils/API";
 import Toast from "../utils/Toast"
 import "./SignUp.css";
+import { UserContext } from "../utils/UserStore";
 
 function SignUp() {
   const [newUser, setNewUser] = useState({ input: "" });
   const [userArr, setUserArr] = useState({});
+  const [redirect, setRedirect] = useState({ redirect: null });
+  const { userState, setUserState } = useContext(UserContext);
+
+  useEffect(() => {
+    //console.log("State Change");
+    console.log(userState);
+    //console.log(userState.password);
+    //console.log(redirect);
+    if (userState.password !== "spaceoddity") {
+      setRedirect({ redirect: true });
+    }
+  }, [userState]);
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -30,10 +44,11 @@ function SignUp() {
         email: userArr.email,
         password: userArr.password,
       })
-        .then((res) =>
-          window.location.replace(
-            window.location.origin + "/user/" + res.data.username
-          )
+        .then(
+          (res) => setUserState(res.data)
+          // window.location.replace(
+          //   window.location.origin + "/user/" + res.data.user
+          // )
         )
         .catch((err) => console.log(err));
     } else {
@@ -45,91 +60,95 @@ function SignUp() {
   // let pathArray = window.location.pathname.split("/");
   // let username = pathArray[pathArray.length - 1];
 
-  return (
-    <div className="signup__container">
-      <div className="signup__content">
-        <form>
-          <h2>Sign Up</h2>
+  if (redirect.redirect) {
+    return <Redirect to={"/user/" + userState.username} />;
+  } else {
+    return (
+      <div className="signup__container">
+        <div className="signup__content">
+          <form>
+            <h2>Sign Up</h2>
 
-          <div className="form-group">
-            <label>First Name</label>
-            <input
-              onChange={handleInputChange}
-              name="first_name"
-              type="text"
-              className="form-control"
-              placeholder="Enter first name"
-            />
-          </div>
+            <div className="form-group">
+              <label>First Name</label>
+              <input
+                onChange={handleInputChange}
+                name="first_name"
+                type="text"
+                className="form-control"
+                placeholder="Enter first name"
+              />
+            </div>
 
-          <div className="form-group">
-            <label>Last Name</label>
-            <input
-              onChange={handleInputChange}
-              name="last_name"
-              type="text"
-              className="form-control"
-              placeholder="Enter last name"
-            />
-          </div>
+            <div className="form-group">
+              <label>Last Name</label>
+              <input
+                onChange={handleInputChange}
+                name="last_name"
+                type="text"
+                className="form-control"
+                placeholder="Enter last name"
+              />
+            </div>
 
-          <div className="form-group">
-            <label>Username</label>
-            <input
-              onChange={handleInputChange}
-              name="username"
-              type="text"
-              className="form-control"
-              placeholder="Enter last name"
-            />
-          </div>
+            <div className="form-group">
+              <label>Username</label>
+              <input
+                onChange={handleInputChange}
+                name="username"
+                type="text"
+                className="form-control"
+                placeholder="Enter last name"
+              />
+            </div>
 
-          <div className="form-group">
-            <label>Email address</label>
-            <input
-              onChange={handleInputChange}
-              name="email"
-              type="email"
-              className="form-control"
-              placeholder="Enter email"
-            />
-          </div>
+            <div className="form-group">
+              <label>Email address</label>
+              <input
+                onChange={handleInputChange}
+                name="email"
+                type="email"
+                className="form-control"
+                placeholder="Enter email"
+              />
+            </div>
 
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              onChange={handleInputChange}
-              name="password"
-              type="password"
-              className="form-control"
-              placeholder="Enter password"
-            />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              onChange={handleInputChange}
-              name="password2"
-              type="password"
-              className="form-control"
-              placeholder="Re-Enter password"
-            />
-          </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                onChange={handleInputChange}
+                name="password"
+                type="password"
+                className="form-control"
+                placeholder="Enter password"
+              />
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                onChange={handleInputChange}
+                name="password2"
+                type="password"
+                className="form-control"
+                placeholder="Re-Enter password"
+              />
+            </div>
 
-          <button
-            onClick={handleFormSubmit}
-            type="submit"
-            className="btn btn-primary btn-block"
-          >
-            Submit
-          </button>
-          <p className="forgot-password text-right">
-            Forgot <a href="#">password?</a>
-          </p>
-        </form>
+            <button
+              onClick={handleFormSubmit}
+              type="submit"
+              className="btn btn-primary btn-block"
+            >
+              Submit
+            </button>
+            <p className="forgot-password text-right">
+              Forgot <a href="#">password?</a>
+            </p>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default SignUp;

@@ -58,7 +58,7 @@ module.exports = {
         password: hashedPassword,
       }).then((userData) => {
         console.log("Then");
-        res.send({ user: userData.username, message: "Welcome!" });
+        res.send(userData);
       });
     } catch (err) {
       res.send(err);
