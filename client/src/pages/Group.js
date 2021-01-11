@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Chat from "../components/Chat/Chat";
 import API from "../utils/API";
+import { UserContext } from "../utils/UserStore";
+import { GroupContext } from "../utils/GroupStore";
+
 //import { User } from "../../../models";
 
 // will need to import any of the individual component features like
@@ -12,6 +15,9 @@ function Group() {
   const [user, setUser] = useState({});
   const [group, setGroup] = useState({});
   const [formObject, setFormObject] = useState({});
+  const { userState, setUserState } = useContext(UserContext);
+  const { groupState, setGroupState } = useContext(GroupContext);
+
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
   let groupName = pathArray[3];
@@ -24,10 +30,10 @@ function Group() {
   //load all groups and store them with setGroup
   //loads user data
   useEffect(() => {
-    console.log(groupName);
-    //loadGroup(groupName);
-    setGroup(messages);
-    loadUser(username);
+    console.log(groupState);
+    loadGroup(groupName);
+    //setGroup(messages);
+    //loadUser(username);
   }, []);
 
   //loads the current group and sets it to group
@@ -36,9 +42,9 @@ function Group() {
     API.getGroup(groupName)
       .then((res) => {
         console.log("load group response");
-        //console.log(res);
-        setGroup(res.data);
-        console.log(group);
+        console.log(res);
+        setGroupState(res.data);
+        //console.log(groupState);
       })
       .catch((err) => console.log(err));
   }
@@ -69,7 +75,7 @@ function Group() {
   //the message, then reload messages from the database
   function sendMessage(event) {
     event.preventDefault();
-    let fullName = user.first_name + " " + user.last_name;
+    let fullName = userState.first_name + " " + userState.last_name;
     let timeStamp = Date.now();
     console.log(fullName);
     console.log(timeStamp);

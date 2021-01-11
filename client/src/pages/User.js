@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 import API from "../utils/API";
 import "./User.css";
 
-import { UserContext } from "../utils/Store";
+import { UserContext } from "../utils/UserStore";
 
 function User() {
   const [user, setUser] = useState({}); //groups that users are part of
   const [newGroup, setNewGroup] = useState({});
   const { userState, setUserState } = useContext(UserContext);
 
-  console.log(userState);
+  //console.log(userState);
 
   let groupData = {};
   let groupsTest = [
@@ -22,9 +22,9 @@ function User() {
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
 
-  // useEffect(() => {
-  //   loadUser(username);
-  // }, []);
+  useEffect(() => {
+    loadUser(username);
+  }, []);
 
   function loadUser(username) {
     console.log("before");
@@ -32,7 +32,7 @@ function User() {
     API.getUser(username)
       .then((res) => {
         console.log(res.data);
-        setUser(res.data);
+        setUserState(res.data);
       })
       .catch((err) => console.log(err));
   }

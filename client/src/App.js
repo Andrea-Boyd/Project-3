@@ -6,11 +6,8 @@ import User from "./pages/User";
 import SignUp from "./pages/Signup";
 import Login from "./pages/Login";
 import socketClient from "socket.io-client";
-import UserStore from "./utils/Store";
-
-const StaticComponent = memo(({ children }) => {
-  return <div className="Test">{children}</div>;
-});
+import UserStore from "./utils/UserStore";
+import GroupStore from "./utils/GroupStore";
 
 function App() {
   // let socket = socketClient();
@@ -22,7 +19,7 @@ function App() {
   return (
     <div>
       <UserStore>
-        <StaticComponent>
+        <GroupStore>
           <div className="app">
             <Router>
               <Switch>
@@ -47,7 +44,7 @@ function App() {
               </Switch>
             </Router>
           </div>
-        </StaticComponent>
+        </GroupStore>
       </UserStore>
     </div>
   );

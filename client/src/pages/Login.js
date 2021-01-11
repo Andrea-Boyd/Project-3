@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import "./Login.css";
 import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
-import { UserContext } from "../utils/Store";
+import { UserContext } from "../utils/UserStore";
 import { ContactsOutlined } from "@material-ui/icons";
 // import { response } from "express";
 
@@ -18,9 +18,6 @@ function Login() {
     //console.log(redirect);
     if (userState.password !== "spaceoddity") {
       setRedirect({ redirect: true });
-      // window.location.replace(
-      //   window.location.origin + "/user/" + userState.username
-      // );
     }
   }, [userState]);
 
@@ -35,15 +32,17 @@ function Login() {
     API.loginUser({
       email: newLogin.email,
       password: newLogin.password,
-    }).then((res) => {
-      //console.log(res);
-      console.log("Before");
-      console.log(res.data);
-      setUserState(res.data);
-      console.log("After");
-      //setUserState(res.data);
-      //redirect();
-    });
+    })
+      .then((res) => {
+        //console.log(res);
+        console.log("Before");
+        console.log(res.data);
+        setUserState(res.data);
+        console.log("After");
+        //setUserState(res.data);
+        //redirect();
+      })
+      .catch((err) => console.log(err));
   }
 
   if (redirect.redirect) {
