@@ -1,18 +1,10 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-import API from "../utils/API"
-//import { response } from "express";
-
-
-
-
-
-=======
-import API from "../utils/API";
+import API from "../utils/API.js";
+ import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 // import { response } from "express";
->>>>>>> main
 
 function Login() {
   const [newLogin, setLogin] = useState({});
@@ -21,6 +13,13 @@ function Login() {
     const { name, value } = event.target;
     setLogin({ ...newLogin, [name]: value });
   }
+toast.configure()
+  const notify = () => {
+    toast("You are logged in")
+  }
+
+ 
+  
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -33,6 +32,8 @@ function Login() {
       window.location.replace(
         window.location.origin + "/user/" + res.data.username
       );
+        notify();
+
     });
   }
 

@@ -17,16 +17,9 @@ router
   //.get(userController.login)
   .post(userController.register);
 
-router.route("/login").post(passport.authenticate("local"), (req, res) => {
+router.route("/").post(passport.authenticate("local"), (req, res) => {
   res.json(req.user);
-<<<<<<< HEAD
-}
-);
-
-
-=======
 });
->>>>>>> main
 
 // Matches with "/api/users/:id"
 router
