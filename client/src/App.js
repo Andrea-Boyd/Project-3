@@ -1,11 +1,13 @@
 import "./App.css";
-import React from "react";
+import React, { memo } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Group from "./pages/Group";
 import User from "./pages/User";
 import SignUp from "./pages/Signup";
 import Login from "./pages/Login";
 import socketClient from "socket.io-client";
+import UserStore from "./utils/UserStore";
+import GroupStore from "./utils/GroupStore";
 
 function App() {
   // let socket = socketClient();
@@ -15,30 +17,36 @@ function App() {
   // });
 
   return (
-    <Router>
-      <div className="app">
-        <Switch>
-          <Route exact path="/">
-            <Login />
-          </Route>
-          <Route exact path="/signup">
-            <SignUp />
-          </Route>
+    <div>
+      <UserStore>
+        <GroupStore>
+          <div className="app">
+            <Router>
+              <Switch>
+                <Route exact path="/">
+                  <Login />
+                </Route>
+                <Route exact path="/signup">
+                  <SignUp />
+                </Route>
 
-          {/* Route below will only work once proper group name is retrun from db in Users.js */}
-          <Route exact path="/user/:username/:group">
-            <Group />
-          </Route>
+                {/* Route below will only work once proper group name is retrun from db in Users.js */}
+                <Route exact path="/user/:username/:group">
+                  <Group />
+                </Route>
 
-          <Route exact path="/group">
-            <Group />
-          </Route>
-          <Route exact path="/user/:username">
-            <User />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+                <Route exact path="/group">
+                  <Group />
+                </Route>
+                <Route exact path="/user/:username">
+                  <User />
+                </Route>
+              </Switch>
+            </Router>
+          </div>
+        </GroupStore>
+      </UserStore>
+    </div>
   );
 }
 
