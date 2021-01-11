@@ -1,14 +1,19 @@
 import { SentimentSatisfied } from "@material-ui/icons";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import API from "../utils/API";
 import "./User.css";
 
+import { UserContext } from "../utils/Store";
+
 function User() {
   const [user, setUser] = useState({}); //groups that users are part of
   const [newGroup, setNewGroup] = useState({});
-  let groupData = {};
+  const { userState, setUserState } = useContext(UserContext);
 
+  console.log(userState);
+
+  let groupData = {};
   let groupsTest = [
     { name: "Javascript", _id: "1" },
     { name: "React", _id: "2" },
@@ -17,9 +22,9 @@ function User() {
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
 
-  useEffect(() => {
-    loadUser(username);
-  }, []);
+  // useEffect(() => {
+  //   loadUser(username);
+  // }, []);
 
   function loadUser(username) {
     console.log("before");
@@ -79,9 +84,9 @@ function User() {
         </form>
         <div>
           {/* This condition will need to be changed when groupdata is being returned properly */}
-          {user.groups !== "0" ? (
+          {userState.groups !== "0" ? (
             <div>
-              {user.groups.map((group) => (
+              {userState.groups.map((group) => (
                 <Link to={"/user/" + username + "/" + group.name}>
                   <button
                     key={group._id}
