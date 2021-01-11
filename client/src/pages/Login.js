@@ -18,12 +18,19 @@ toast.configure()
     toast("You are logged in")
   }
 
+  const allFields = () => {
+    toast("please enter all fields")
+  }
+
  
   
 
   function handleFormSubmit(e) {
     e.preventDefault();
     console.log(newLogin);
+   if (!newLogin.email || !newLogin.password) {
+     allFields()
+   } else 
     API.loginUser({
       email: newLogin.email,
       password: newLogin.password,
