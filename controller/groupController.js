@@ -14,21 +14,29 @@ module.exports = {
   findOne: function (req, res) {
     //console.log(req.params);
     console.log("Find one Group function");
-    db.Group.findOne({ groupName: req.params.groupName })
+    db.Group.findOne({ name: req.params.groupName })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
   create: function (req, res) {
     console.log("Group create funciton");
     console.log(req.params.groupName);
-    db.Group.create({ name: req.params.groupName })
+    db.Group.create({
+      name: req.params.groupName,
+      messages: [
+        { name: "admin", text: "Send you first message now", date: Date.now() },
+      ],
+    })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
   update: function (req, res) {
     console.log("findOneAndUpdate");
     console.log(req.body);
-    db.Group.update({ name: req.params.groupName }, { $push: { messages: req.body}})
+    db.Group.update(
+      { name: req.params.groupName },
+      { $push: { messages: req.body } }
+    )
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },

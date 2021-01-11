@@ -1,41 +1,30 @@
-import React, { useState }from "react";
-import "./Login.css"
+import React, { useState } from "react";
+import "./Login.css";
 import { Link } from "react-router-dom";
-import API from "../utils/API"
-import { response } from "express";
-
-
-
-
-
+import API from "../utils/API";
+// import { response } from "express";
 
 function Login() {
+  const [newLogin, setLogin] = useState({});
 
-  const [newLogin, setLogin] = useState({})
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    setLogin({ ...newLogin, [name]: value });
+  }
 
-    function handleInputChange(event) {
-      const { name, value } = event.target;
-       setLogin({...newLogin, [name]: value})
-    };
-
-    function handleFormSubmit(e) {
-      e.preventDefault();
-      console.log(newLogin);
-      API.loginUser({
-        email: newLogin.email,
-        password: newLogin.password
-
-      })
-      .then((res) => {
-        console.log(res)
-        window.location.replace(
-          window.location.origin + "/user/" + res.data.username
-        )
-      })
-
-    }
-
-
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    console.log(newLogin);
+    API.loginUser({
+      email: newLogin.email,
+      password: newLogin.password,
+    }).then((res) => {
+      console.log(res);
+      window.location.replace(
+        window.location.origin + "/user/" + res.data.username
+      );
+    });
+  }
 
   return (
     <div className="login__container">
@@ -77,8 +66,6 @@ function Login() {
             <button className="signup__btn">Sign Up!</button>
           </Link>
         </form>
-
-        
       </div>
     </div>
   );

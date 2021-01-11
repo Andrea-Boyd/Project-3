@@ -10,28 +10,36 @@ import API from "../utils/API";
 function Group() {
   //setting the initial state
   const [user, setUser] = useState({});
-  const [group, setGroup] = useState([]);
+  const [group, setGroup] = useState({});
   const [formObject, setFormObject] = useState({});
-  let messages = [
-    { name: "Andrea", message: "Please work", timeStamp: "Today 8pm" },
-  ];
-
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
   let groupName = pathArray[3];
 
+  let messages = {
+    name: groupName,
+    messages: [{ name: "Admin", text: "Messages are loading", date: "Now" }],
+  };
+
   //load all groups and store them with setGroup
+  //loads user data
   useEffect(() => {
+    console.log(groupName);
     //loadGroup(groupName);
+    setGroup(messages);
     loadUser(username);
-    //setGroup(messages);
   }, []);
 
-  //loads all groups and sets them to group
+  //loads the current group and sets it to group
   function loadGroup(groupName) {
-    console.log(groupName);
+    //console.log(groupName);
     API.getGroup(groupName)
-      .then((res) => setGroup(res.data))
+      .then((res) => {
+        console.log("load group response");
+        //console.log(res);
+        setGroup(res.data);
+        console.log(group);
+      })
       .catch((err) => console.log(err));
   }
 
@@ -42,8 +50,9 @@ function Group() {
       .then((res) => {
         console.log(res.data);
         setUser(res.data);
-        //loadGroup(groupName);
-        setGroup(messages);
+        //console.log(groupName);
+        loadGroup(groupName);
+        //setGroup(messages);
       })
       .catch((err) => console.log(err));
   }
@@ -65,12 +74,18 @@ function Group() {
     console.log(fullName);
     console.log(timeStamp);
     if (formObject.message) {
-      API.postMessage({
-        text: formObject.message,
-        name: fullName,
-        date: timeStamp,
-      }, groupName)
-        .then((res) => loadGroup())
+      API.postMessage(
+        {
+          text: formObject.message,
+          name: fullName,
+          date: timeStamp,
+        },
+        groupName
+      )
+        .then((res) => {
+          console.log(res.data);
+          loadGroup(groupName);
+        })
         .catch((err) => console.log(err));
     }
   }
@@ -80,10 +95,10 @@ function Group() {
   return (
     <div className="app__body">
       <Sidebar />
-      <Chat 
-        handleInputChange={handleInputChange} 
-        sendMessage={sendMessage} 
-        messages = {group}
+      <Chat
+        handleInputChange={handleInputChange}
+        sendMessage={sendMessage}
+        messages={group}
       />
     </div>
   );
