@@ -1,8 +1,7 @@
 import createSpacing from "@material-ui/core/styles/createSpacing";
 import React, { useState, useEffect } from "react";
 import API from "../utils/API";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"
+import Toast from "../utils/Toast"
 import "./SignUp.css";
 
 function SignUp() {
@@ -14,21 +13,15 @@ function SignUp() {
     setUserArr({ ...userArr, [name]: value });
   }
 
-  toast.configure()
-  const allFields = () => {
-    toast("please enter all fields")
-  }
-  const userPassword = () => {
-    toast("passwords don't match")
-  }
+  
 
   function handleFormSubmit(event, res) {
     event.preventDefault();
     console.log(window.location.origin);
-    if (!userArr.first_name || !userArr.last_name || !userArr.username || !userArr.password ) {
-        allFields();
+    if (!userArr.first_name || !userArr.last_name || !userArr.username || !userArr.password) {
+      Toast.allFields();
     }
-    
+
     else if (userArr.password === userArr.password2 && userArr.password !== "") {
       API.saveUser({
         first_name: userArr.first_name,
@@ -44,7 +37,7 @@ function SignUp() {
         )
         .catch((err) => console.log(err));
     } else {
-      userPassword();
+      Toast.userPassword();
     }
   }
 

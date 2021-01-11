@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import API from "../utils/API.js";
- import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"
-// import { response } from "express";
+import Toast from "../utils/Toast";
 
 function Login() {
   const [newLogin, setLogin] = useState({});
@@ -12,14 +10,6 @@ function Login() {
   function handleInputChange(event) {
     const { name, value } = event.target;
     setLogin({ ...newLogin, [name]: value });
-  }
-toast.configure()
-  const notify = () => {
-    toast("You are logged in")
-  }
-
-  const allFields = () => {
-    toast("please enter all fields")
   }
 
  
@@ -29,7 +19,7 @@ toast.configure()
     e.preventDefault();
     console.log(newLogin);
    if (!newLogin.email || !newLogin.password) {
-     allFields()
+     Toast.allFields()
    } else 
     API.loginUser({
       email: newLogin.email,
@@ -39,7 +29,7 @@ toast.configure()
       window.location.replace(
         window.location.origin + "/user/" + res.data.username
       );
-        notify();
+        Toast.notify();
 
     });
   }
