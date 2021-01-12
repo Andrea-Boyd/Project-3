@@ -41,31 +41,27 @@ function User() {
   function handleInputChange(event) {
     if (event.target.name === "groupName") {
       const { name, value } = event.target;
-    //console.log(`${name} ; ${value}`);
+      //console.log(`${name} ; ${value}`);
       setNewGroup({ ...newGroup, [name]: value });
-  } else {
-      const{ name, value } = event.target;
-      setInviteCode({...inviteCode, [name]: value});
+    } else {
+      const { name, value } = event.target;
+      setInviteCode({ ...inviteCode, [name]: value });
+    }
   }
-    };
 
   function addUserToGroup(e) {
     e.preventDefault();
-    let fullName = userState.first_name + " "+ userState.last_name;
-    API.addUserToGroup({name:fullName ,_id: userState._id, inviteCode:inviteCode.inviteCode})
+    let fullName = userState.first_name + " " + userState.last_name;
+    API.addUserToGroup({
+      name: fullName,
+      _id: userState._id,
+      inviteCode: inviteCode.inviteCode,
+    })
       .then((res) => {
         console.log(res.data);
-
       })
       .catch((err) => console.log(err));
   }
-
-  
-
-
-
-   
-  
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -80,21 +76,20 @@ function User() {
         addGroupToUser(username, groupData);
       })
       .catch((err) => console.log(err));
-  };
+  }
 
   function addGroupToUser(username, groupData) {
     API.addGroupToUser(username, groupData).then((res) => {
       console.log(res);
       loadUser(username);
     });
-  };
+  }
 
   return (
     <>
       <div className="user__container">
         <form>
           <input
-            onSubmit={handleFormSubmit}
             className="user-form-control"
             type="text"
             placeholder="Enter A New Group"
@@ -107,7 +102,6 @@ function User() {
         </form>
         <form>
           <input
-            onSubmit={handleFormSubmit}
             className="user-form-control"
             type="text"
             placeholder="Enter An Invite Code for an Existing Group"

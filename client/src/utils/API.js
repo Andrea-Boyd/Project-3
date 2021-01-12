@@ -10,7 +10,7 @@ export default {
     return axios.get("/api/group/" + id);
   },
 
-  // logs user in by email 
+  // logs user in by email
   loginUser: function (credentials) {
     return axios.post("/api/users/login", credentials);
   },
@@ -34,7 +34,8 @@ export default {
   },
 
   addUserToGroup: function (userData) {
-    return axios.put("/api/groups/addUser", userData);
+    console.log("API.addUserToGroup");
+    return axios.put("/api/groups/addUser/", userData);
   },
 
   //Posts a message to the database

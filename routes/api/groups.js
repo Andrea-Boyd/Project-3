@@ -2,6 +2,7 @@ const router = require("express").Router();
 const groupController = require("../../controller/groupController");
 
 //router.route("/").get(groupController.findAll).post(groupController.create);
+router.route("/addUser/").put(groupController.invite);
 
 router
   .route("/:groupName")
@@ -9,9 +10,5 @@ router
   .get(groupController.findOne)
   .put(groupController.update)
   .delete(groupController.remove);
-
-router 
-  .route("/addUser")
-  .put(groupController.invite);
 
 module.exports = router;
