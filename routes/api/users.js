@@ -7,6 +7,7 @@ const userController = require("../../controller/userController");
 const User = require("../../models/users");
 const { forwardAuthenticated } = require("../../config/auth");
 
+
 // Matches with "/api/users"
 //router.route("/").get(userController.findAll);
 //router.route("/").post(userController.create);

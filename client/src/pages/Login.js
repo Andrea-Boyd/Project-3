@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./Login.css";
+import Toast from "../utils/Toast";
 import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
 import { UserContext } from "../utils/UserStore";
@@ -26,9 +27,15 @@ function Login() {
     setLogin({ ...newLogin, [name]: value });
   }
 
+ 
+  
+
   function handleFormSubmit(e) {
     e.preventDefault();
     console.log(newLogin);
+   if (!newLogin.email || !newLogin.password) {
+     Toast.allFields()
+   } else 
     API.loginUser({
       email: newLogin.email,
       password: newLogin.password,
@@ -42,7 +49,7 @@ function Login() {
         //setUserState(res.data);
         //redirect();
       })
-      .catch((err) => console.log(err));
+      Toast.userPassword();
   }
 
   if (redirect.redirect) {

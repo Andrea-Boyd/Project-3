@@ -47,7 +47,7 @@ module.exports = {
     console.log(req.body);
     try {
       // creates the hashedpasswords
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const hashedPassword = await bcrypt.hashSync(req.body.password, 10);
 
       console.log(hashedPassword);
       db.User.create({
@@ -65,32 +65,32 @@ module.exports = {
     }
   },
 
-  login: (req, res) => {
-    console.log("test");
-    db.User.findOne({
-      where: {
-        email: req.body.email,
-      },
-    })
-      .then(async function (userData) {
-        if (!userData) {
-          res.send({ user: false, message: "No user with that email" });
-          return;
-        }
+  // login: (req, res) => {
+  //   console.log("test");
+  //   db.User.findOne({
+  //     where: {
+  //       email: req.body.email,
+  //     },
+  //   })
+  //     .then(async function (userData) {
+  //       if (!userData) {
+  //         res.send({ user: false, message: "No user with that email" });
+  //         return;
+  //       }
 
-        if (await bcrypt.compare(req.body.password, userData.password)) {
-          passport.authenticate("local", {
-            successRedirect: "/group",
-            failureRedirect: "/",
-          });
-          res.send({ user: userData.id, message: "Welcome Back" });
-        } else {
-          res.send({ user: false, message: "Password Incorrect" });
-        }
-      })
-      .catch((err) => {
-        res.send(err);
-        console.log("We caught an error");
-      });
-  },
+  //       if (await bcrypt.compare(req.body.password, userData.password)) {
+  //         passport.authenticate("local", {
+  //           successRedirect: "/group",
+  //           failureRedirect: "/",
+  //         });
+  //         res.send({ user: userData.id, message: "Welcome Back" });
+  //       } else {
+  //         res.send({ user: false, message: "Password Incorrect" });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       res.send(err);
+  //       console.log("We caught an error");
+  //     });
+  // },
 };
