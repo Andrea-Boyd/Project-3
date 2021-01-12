@@ -2,6 +2,7 @@ import createSpacing from "@material-ui/core/styles/createSpacing";
 import React, { useState, useEffect, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import API from "../utils/API";
+import Toast from "../utils/Toast"
 import "./SignUp.css";
 import { UserContext } from "../utils/UserStore";
 
@@ -26,10 +27,16 @@ function SignUp() {
     setUserArr({ ...userArr, [name]: value });
   }
 
-  function handleFormSubmit(event) {
+  
+
+  function handleFormSubmit(event, res) {
     event.preventDefault();
     console.log(window.location.origin);
-    if (userArr.password === userArr.password2 && userArr.password !== "") {
+    if (!userArr.first_name || !userArr.last_name || !userArr.username || !userArr.password) {
+      Toast.allFields();
+    }
+
+     if (userArr.password === userArr.password2 && userArr.password !== "") {
       API.saveUser({
         first_name: userArr.first_name,
         last_name: userArr.last_name,
@@ -45,7 +52,7 @@ function SignUp() {
         )
         .catch((err) => console.log(err));
     } else {
-      console.log("Your passwords do not match or are empty");
+      Toast.userPassword();
     }
   }
 
