@@ -15,6 +15,7 @@ const groupMembersSchema = new Schema({
 const groupSchema = new Schema({
   name: { type: String, required: true },
   subgroups: { type: String, default: false },
+  isSubgroup: { type: Boolean, default: false },
   messages: {
     type: [messageSchema],
   },
