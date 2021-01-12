@@ -1,19 +1,11 @@
-const db = require("../models")
 
-module.exports = {
-    ensureAuthenticated: function(req, res, next) {
-        if (req.isAuthenicated()) {
-            return next();
-        }
-        req.flash("error_msg", "Please log in to view that resource");
-        req.redirect("/login");
-    },
-    forwardAuthenicated: function(req, res, next) {
-        if (!req.isAuthenicated()) {
-            return next();
-        }
-        res.redirect("/login");
-    },
-
-    
-}
+module.exports = function(req, res, next) {
+    // If the user is logged in, continue with the request to the restricted route
+    if (req.user) {
+      return next();
+    }
+  
+    // If the user isn't logged in, redirect them to the login page
+    return res.redirect("/");
+  };
+  

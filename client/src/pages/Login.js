@@ -41,7 +41,7 @@ function Login() {
       password: newLogin.password,
     })
       .then((res) => {
-        //console.log(res);
+        console.log(res);
         console.log("Before");
         console.log(res.data);
         setUserState(res.data);
