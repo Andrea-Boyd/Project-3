@@ -49,7 +49,7 @@ function Login() {
         //setUserState(res.data);
         //redirect();
       })
-      Toast.userPassword();
+      .catch((err) => Toast.validPassword());
   }
 
   if (redirect.redirect) {

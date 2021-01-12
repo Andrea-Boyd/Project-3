@@ -11,15 +11,19 @@ const { forwardAuthenticated } = require("../../config/auth");
 // Matches with "/api/users"
 //router.route("/").get(userController.findAll);
 //router.route("/").post(userController.create);
-
+router.route("/session")
+  .get(userController.session)
 router
   .route("/")
   //.get(userController.login)
   .post(userController.register);
 
 router.route("/login").post(passport.authenticate("local"), (req, res) => {
-  res.json(req.user);
-});
+  res.json(req.user)
+
+})
+
+
 
 // Matches with "/api/users/:id"
 router

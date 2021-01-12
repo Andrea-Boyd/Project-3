@@ -91,6 +91,7 @@ function Group() {
         .then((res) => {
           console.log(res.data);
           loadGroup(groupName);
+          event.target.reset();
         })
         .catch((err) => console.log(err));
     }

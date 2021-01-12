@@ -65,6 +65,15 @@ module.exports = {
     }
   },
 
+  session:  function(req, res, next) {
+    console.log('===== user!! =====');
+    console.log(req.session);
+    if(req.session) {
+      res.json({user: req.session})
+    }else{
+      res.redirect("/login")
+    }
+  }
   // login: (req, res) => {
   //   console.log("test");
   //   db.User.findOne({

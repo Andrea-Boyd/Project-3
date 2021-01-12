@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const session = require("express-session");
-const passport = require("./config/passport");
+const passport = require("passport");
+
 const flash = require("connect-flash");
 const PORT = process.env.PORT || 3001;
 
@@ -37,6 +38,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use( (req, res, next) => {
   console.log('req.session', req.session);
+  console.log("passport: ", req.session.passport)
   return next();
 })
 app.use(routes);

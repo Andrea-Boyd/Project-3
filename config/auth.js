@@ -1,7 +1,7 @@
 const db = require("../models")
 
 module.exports = {
-    ensureAuthenicated: function(req, res, next) {
+    ensureAuthenticated: function(req, res, next) {
         if (req.isAuthenicated()) {
             return next();
         }
