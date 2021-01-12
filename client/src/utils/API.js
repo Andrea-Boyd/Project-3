@@ -33,6 +33,9 @@ export default {
     return axios.put("/api/users/" + user, groupData);
   },
 
+  addUserToGroup: function (userData) {
+    return axios.put("/api/groups/addUser", userData);
+  },
 
   //Posts a message to the database
   postMessage: function (messageBody, groupName) {
