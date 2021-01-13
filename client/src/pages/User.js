@@ -1,5 +1,7 @@
 import { SentimentSatisfied } from "@material-ui/icons";
 import React, { useState, useEffect, useContext } from "react";
+import Login from "../pages/Login"
+
 import { Link } from "react-router-dom";
 import API from "../utils/API";
 import "./User.css";
@@ -132,6 +134,10 @@ function User() {
         </form>
         <div>
           {/* This condition will need to be changed when groupdata is being returned properly */}
+          {userState.groups === "0" (
+            <Login />
+          )}
+          
           {userState.groups !== "0" ? (
             <div>
               {userState.groups.map((group) => (

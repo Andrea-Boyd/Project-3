@@ -17,7 +17,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended: true}));
 // app.use(cors({
 //   origin: "http://localhost:3000",
 //   credentials: true
@@ -41,16 +40,19 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/MessageApp", {
 
 
 app.use(
-  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+  session({ secret: "keyboard cat", resave: false, saveUninitialized: false })
 );
 
 app.use(cookieParser("secretcode"));
 const passport = require("./config/passport.js")
 app.use(passport.initialize());
 app.use(passport.session());
+ app.use(bodyParser.urlencoded({extended: true}));
+
 app.use( (req, res, next) => {
  // console.log('req.session', req.session);
- console.log("passport: ", req.session.passport)
+ console.log("user")
+ console.log(req.session.cookie)
   return next();
 })
 app.use(routes);

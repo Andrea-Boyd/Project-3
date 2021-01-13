@@ -18,13 +18,14 @@ passport.use(new localStrategy(
             if (err) throw err
             console.log(user)
             if (!user) {
-            console.log("localStrategy")
-            return done(null, false, {
+                console.log("localStrategy")
+                return done(null, false, {
                     message: "Incorrect Email."
                 });
             } else {
 
                 bcrypt.compare(password, user.password, (err, result) => {
+                    console.log("pass!!!!!:", user.password)
                     // If there is a user with the given email, but the password the user gives us is incorrect
                     if (!result) {
                         return done(null, false, {
@@ -38,22 +39,24 @@ passport.use(new localStrategy(
 
             }
 
-        });
-        passport.serializeUser((user, cb) => {
-            cb(null, user.id);
+
+
         });
 
-        passport.deserializeUser((id, cb) => {
-            db.User.findOne({_id: id}, (err, user) => {
-                const userInformation = {
-                    username: user.email
-                };
-                cb(err, userInformation);
-            })
-        })
+
 
     }
-))
+)
+)
+passport.serializeUser((user, cb) => {
+    console.log("serUser: " , user)
+    cb(null, user);
+});
+
+passport.deserializeUser(function(obj, cb) {
+    console.log("done: ", obj)
+    cb(null, obj);
+  });
 
 
 

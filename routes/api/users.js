@@ -4,6 +4,8 @@ const passport = require("../../config/passport");
 const userController = require("../../controller/userController");
 const User = require("../../models/users");
 const { forwardAuthenticated } = require("../../config/auth");
+var isAuth = require("../../config/auth").isAuth;
+
 
 
 // Matches with "/api/users"
