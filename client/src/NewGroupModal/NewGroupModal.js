@@ -8,70 +8,73 @@ import { GroupContext } from "../utils/GroupStore";
 import API from "../utils/API";
 
 function NewGroupModal() {
-
   const [newSubGroup, setNewSubGroup] = useState({});
-  const [ userFormState, setUserFormState ] = useState([]);
+  const [userFormState, setUserFormState] = useState([]);
   const { groupState, setGroupState } = useContext(GroupContext);
-  
 
+  // console.log(groupState.groupMembers)
+  console.log("after rata");
+  // access array, .map
+  let subGroupData = {};
 
-// console.log(groupState.groupMembers)
-console.log("after rata")
-// access array, .map
-  let subGroupData = {}
+  //   useEffect(() => {
+  //       loadSubGroup(users)
+  //   }, [])
 
-//   useEffect(() => {
-//       loadSubGroup(users)
-//   }, [])
-
-function buildUserForm(event) {
-    console.log(event.target)
+  function buildUserForm(event) {
+    console.log(event.target);
     const id = event.target.value;
-    const name = event.target.innerHTML
-    const userObject = {name: name, _id: id }
-    setUserFormState([ ...userFormState, userObject])
-    console.log(userFormState)
-}
-
+    const name = event.target.innerHTML;
+    const userObject = { name: name, _id: id };
+    setUserFormState([...userFormState, userObject]);
+    console.log(userFormState);
+  }
 
   function handleInputChange(event) {
     const { name, value } = event.target;
     setNewSubGroup({ ...newSubGroup, [name]: value });
   }
 
-    function handleFormSubmit(e) {
-      e.preventDefault();
-      console.log(newSubGroup);
-      console.log(userFormState)
-      API.createSubGroup(newSubGroup.subGroupName, userFormState) 
-        .then((res) => {
-            subGroupData = {
-                _id: res.data._id,
-                name: res.data.name    
-            };
-           
-        
-        })
-        .catch((err) => console.log(err));
-    }
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    console.log(newSubGroup);
+    console.log(userFormState);
+    API.createSubGroup(newSubGroup.subGroupName, userFormState)
+      .then((res) => {
+        console.log(res.data);
+        // let subGroupName = res.data.name;
+        // let subGroupId = res.data._id;
+        let subGroupData = { name: res.data.name, _id: res.data.id };
+        addSubGroupToUsers(res.data.groupMembers, subGroupData);
+      })
+      .catch((err) => console.log(err));
+  }
 
-    function addSubGroup(subGroupData, users) {
-        API.addSubGroup(subGroupData, users).then((res) => {
-      console.log(res);
-    //   loadSubGroup(users);
+  function addSubGroupToUsers(users, subGroupData) {
+    users.forEach((user) => {
+      API.addSubGroupToUser(user._id, subGroupData).then((res) => {
+        console.log(res);
+        //   loadSubGroup(users);
+      });
     });
-    }
+  }
 
-    //   function loadSubGroup(users) {
-    //     // console.log("before");
-    //     // console.log(username);
-    //     API.getUser(users)
-    //       .then((res) => {
-    //         console.log(res.data);
-    //         setGroupState(res.data);
-    //       })
-    //       .catch((err) => console.log(err));
-    //   }
+  function addSubGroupToGroup() {
+    API.addSubGroupToGroup().then((res) => {
+      console.log(res);
+    });
+  }
+
+  //   function loadSubGroup(users) {
+  //     // console.log("before");
+  //     // console.log(username);
+  //     API.getUser(users)
+  //       .then((res) => {
+  //         console.log(res.data);
+  //         setGroupState(res.data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
 
   return (
     <Popup
@@ -95,17 +98,14 @@ function buildUserForm(event) {
           </form>
         </div>
 
-        <div>{userFormState.map((user) => (
-        
-            <p>
-                {user.name}
-            </p>
-      
-        ))}</div>
+        <div>
+          {userFormState.map((user) => (
+            <p>{user.name}</p>
+          ))}
+        </div>
         <br></br>
         <div className="modal__group__members">
           Click to Add to Group
-          
           {groupState.groupMembers.map((groupMembers) => (
             <button
               key={groupMembers._id}

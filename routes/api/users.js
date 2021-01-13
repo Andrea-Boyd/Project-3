@@ -7,7 +7,6 @@ const userController = require("../../controller/userController");
 const User = require("../../models/users");
 const { forwardAuthenticated } = require("../../config/auth");
 
-
 // Matches with "/api/users"
 //router.route("/").get(userController.findAll);
 //router.route("/").post(userController.create);
@@ -20,6 +19,8 @@ router
 router.route("/login").post(passport.authenticate("local"), (req, res) => {
   res.json(req.user);
 });
+
+router.route("/subgroup/:id").put(userController.addSubGroup);
 
 // Matches with "/api/users/:id"
 router
