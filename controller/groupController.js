@@ -15,15 +15,17 @@ module.exports = {
   },
   findOne: function (req, res) {
     //console.log(req.params);
-    console.log("Find one Group function");
+    // console.log("Find one Group function");
     db.Group.findOne({ name: req.params.groupName })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
   create: function (req, res) {
+
     console.log("Group create funciton");
     console.log(req.params.groupName);
     let inviteCode = uuidv4();
+
     db.Group.create({
       name: req.params.groupName,
       messages: [
@@ -34,9 +36,42 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
-  update: function (req, res) {
-    console.log("findOneAndUpdate");
+
+  createSubGroup: function (req, res) {
+    console.log("createSubGroup Function");
     console.log(req.body);
+    db.Group.create({
+      name: req.params.subGroupName,
+      //  subgroups: req.params.subGroupName,
+      isSubGroup: true,
+      groupMembers: req.body
+    })
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
+
+  // findOneSubGroup: function (req, res) {
+  //   //console.log(req.params);
+  //   // console.log("Find one Group function");
+  //   db.Group.findOne({ name: req.params.subGroupName })
+  //     .then((dbModel) => res.json(dbModel))
+  //     .catch((err) => res.status(422).json(err));
+  // },
+
+  // updateSubGroup: function (req, res) {
+  //   // console.log("findOneAndUpdate");
+  //   // console.log(req.body);
+  //   db.Group.update(
+  //     { name: req.params.subGroupName },
+  //     { $push: { messages: req.body } }
+  //   )
+  //     .then((dbModel) => res.json(dbModel))
+  //     .catch((err) => res.status(422).json(err));
+  // },
+
+  update: function (req, res) {
+    // console.log("findOneAndUpdate");
+    // console.log(req.body);
     db.Group.update(
       { name: req.params.groupName },
       { $push: { messages: req.body } }
