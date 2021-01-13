@@ -15,6 +15,10 @@ export default {
 
      userPassword: function() {
         toast("passwords don't match")
+      },
+
+      validPassword: function() {
+          toast("incorrect password")
       }
     
 }

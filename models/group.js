@@ -10,7 +10,6 @@ const messageSchema = new Schema({
 
 const groupMembersSchema = new Schema({
   name: { type: String, required: true },
-
   _id: { type: String, required: true },
 });
 

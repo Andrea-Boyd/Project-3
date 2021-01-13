@@ -40,14 +40,28 @@ function NewGroupModal() {
     console.log(newSubGroup);
     console.log(userFormState);
     API.createSubGroup(newSubGroup.subGroupName, userFormState)
-      .then((res) => {})
+      .then((res) => {
+        console.log(res.data);
+        // let subGroupName = res.data.name;
+        // let subGroupId = res.data._id;
+        let subGroupData = { name: res.data.name, _id: res.data.id };
+        addSubGroupToUsers(res.data.groupMembers, subGroupData);
+      })
       .catch((err) => console.log(err));
   }
 
-  function addSubGroup(subGroupData, users) {
-    API.addSubGroup(subGroupData, users).then((res) => {
+  function addSubGroupToUsers(users, subGroupData) {
+    users.forEach((user) => {
+      API.addSubGroupToUser(user._id, subGroupData).then((res) => {
+        console.log(res);
+        //   loadSubGroup(users);
+      });
+    });
+  }
+
+  function addSubGroupToGroup() {
+    API.addSubGroupToGroup().then((res) => {
       console.log(res);
-      //   loadSubGroup(users);
     });
   }
 

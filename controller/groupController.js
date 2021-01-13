@@ -42,10 +42,10 @@ module.exports = {
 
   createSubGroup: function (req, res) {
     console.log("createSubGroup Function");
+    console.log(req.params.subGroupName);
     console.log(req.body);
     db.Group.create({
       name: req.params.subGroupName,
-      //  subgroups: req.params.subGroupName,
       isSubGroup: true,
       groupMembers: req.body,
       messages: [
@@ -56,7 +56,11 @@ module.exports = {
         },
       ],
     })
-      .then((dbModel) => res.json(dbModel))
+      .then((dbModel) => {
+        console.log("Then");
+        console.log(dbModel);
+        res.json(dbModel);
+      })
       .catch((err) => res.status(422).json(err));
   },
 

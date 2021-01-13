@@ -1,3 +1,5 @@
+const Auth = require("../../config/auth")
+
 const router = require("express").Router();
 const userRoutes = require("./users");
 const groupRoutes = require("./groups");
