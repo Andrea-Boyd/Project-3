@@ -24,9 +24,9 @@ export default {
     return axios.get("/api/group/" + id);
   },
 
-  createGroup: function (groupName) {
+  createGroup: function (groupName, userData) {
     console.log("API.createGroup funciton");
-    return axios.post("/api/groups/" + groupName);
+    return axios.post("/api/groups/" + groupName, userData);
   },
 
   addGroupToUser: function (user, groupData) {

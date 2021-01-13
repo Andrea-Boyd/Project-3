@@ -59,6 +59,7 @@ function User() {
     })
       .then((res) => {
         console.log(res.data);
+        addGroupToUser(username, res.data);
       })
       .catch((err) => console.log(err));
   }
@@ -66,7 +67,9 @@ function User() {
   function handleFormSubmit(e) {
     e.preventDefault();
     console.log(newGroup);
-    API.createGroup(newGroup.groupName)
+    let name = userState.first_name + " " + userState.last_name;
+    let userData = [{ name: name, _id: userState._id }];
+    API.createGroup(newGroup.groupName, userData)
       .then((res) => {
         console.log(res.data);
         groupData = {
