@@ -4,6 +4,7 @@ import Chat from "../components/Chat/Chat";
 import API from "../utils/API";
 import { UserContext } from "../utils/UserStore";
 import { GroupContext } from "../utils/GroupStore";
+import { Redirect } from "react-router-dom";
 
 //import { User } from "../../../models";
 
@@ -99,6 +100,9 @@ function Group() {
 
   // a lot of what is here in the example from 21.5, we have in the actual component
   // rather here in the page?
+  if (userState.username === ""){
+    return <Redirect to={"/"} />
+}else {
   return (
     <div className="app__body">
       <Sidebar />
@@ -109,6 +113,7 @@ function Group() {
       />
     </div>
   );
+}
 }
 
 export default Group;
