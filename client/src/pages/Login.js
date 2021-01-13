@@ -11,13 +11,14 @@ function Login() {
   const [newLogin, setLogin] = useState({});
   const [redirect, setRedirect] = useState({ redirect: null });
   const { userState, setUserState } = useContext(UserContext);
+  //console.log("seeing user: ", userState);
 
   useEffect(() => {
     //console.log("State Change");
     //console.log(userState);
     //console.log(userState.password);
     //console.log(redirect);
-    if (userState.password !== "spaceoddity") {
+    if (userState.password !== "") {
       setRedirect({ redirect: true });
     }
   }, [userState]);
@@ -41,7 +42,7 @@ function Login() {
       password: newLogin.password,
     })
       .then((res) => {
-        //console.log(res);
+        console.log(res);
         console.log("Before");
         console.log(res.data);
         setUserState(res.data);
@@ -49,12 +50,13 @@ function Login() {
         //setUserState(res.data);
         //redirect();
       })
-      Toast.userPassword();
+      .catch((err) => Toast.validPassword());
   }
 
   if (redirect.redirect) {
     return <Redirect to={"/user/" + userState.username} />;
-  } else {
+  } 
+  else {
     return (
       <div className="login__container">
         <div className="login__content">

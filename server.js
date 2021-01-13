@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const session = require("express-session");
-const passport = require("./config/passport");
+const bodyParser = require("body-parser")
+const cors = require("cors")
+const cookieParser = require("cookie-parser")
+
 const flash = require("connect-flash");
 const PORT = process.env.PORT || 3001;
 
@@ -12,6 +15,12 @@ const io = require("socket.io")(http);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// app.use(bodyParser.json());
+// app.use(cors({
+//   origin: "http://localhost:3000",
+//   credentials: true
+// }))
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -31,12 +40,19 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/MessageApp", {
 
 
 app.use(
-  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+  session({ secret: "keyboard cat", resave: false, saveUninitialized: false })
 );
+
+app.use(cookieParser("secretcode"));
+const passport = require("./config/passport.js")
 app.use(passport.initialize());
 app.use(passport.session());
+ app.use(bodyParser.urlencoded({extended: true}));
+
 app.use( (req, res, next) => {
-  console.log('req.session', req.session);
+ // console.log('req.session', req.session);
+ console.log("user")
+ console.log(req.session.cookie)
   return next();
 })
 app.use(routes);

@@ -1,9 +1,9 @@
 import { SentimentSatisfied } from "@material-ui/icons";
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import Login from "../pages/Login"
+import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
 import "./User.css";
-
 import { UserContext } from "../utils/UserStore";
 
 function User() {
@@ -11,6 +11,8 @@ function User() {
   const [newGroup, setNewGroup] = useState({});
   const [inviteCode, setInviteCode] = useState({});
   const { userState, setUserState } = useContext(UserContext);
+  const { logout } = useState("")
+
 
   //console.log(userState);
 
@@ -24,7 +26,8 @@ function User() {
   let username = pathArray[2];
 
   useEffect(() => {
-    loadUser(username);
+    //loadUser(username);
+    console.log(userState)
   }, []);
 
   function loadUser(username) {
@@ -60,6 +63,15 @@ function User() {
       .catch((err) => console.log(err));
   }
 
+  function logoutUser() {
+    API.logout()
+    .then(({ status }) => {
+      if (status === 200) {
+        window.location.href = "/";
+      }
+    });
+  };
+
   
 
 
@@ -89,9 +101,15 @@ function User() {
     });
   };
 
+  if (userState.username === ""){
+      return <Redirect to={"/"} />
+  } else {
+
+  
   return (
     <>
       <div className="user__container">
+        <button onClick={logoutUser}> Log Out</button>
         <form>
           <input
             onSubmit={handleFormSubmit}
@@ -118,9 +136,10 @@ function User() {
             Submit
           </button>
         </form>
-        <div>
+        <div> 
           {/* This condition will need to be changed when groupdata is being returned properly */}
-          {userState.groups !== "0" ? (
+          
+           {userState.groups !== "0" ? (
             <div>
               {userState.groups.map((group) => (
                 <Link to={"/user/" + username + "/" + group.name}>
@@ -141,5 +160,6 @@ function User() {
       </div>
     </>
   );
+          }
 }
 export default User;
