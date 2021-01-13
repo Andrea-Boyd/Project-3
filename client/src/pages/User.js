@@ -1,6 +1,6 @@
 import { SentimentSatisfied } from "@material-ui/icons";
 import React, { useState, useEffect, useContext } from "react";
-import Login from "../pages/Login"
+import Login from "../pages/Login";
 import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
 import "./User.css";
@@ -11,8 +11,7 @@ function User() {
   const [newGroup, setNewGroup] = useState({});
   const [inviteCode, setInviteCode] = useState({});
   const { userState, setUserState } = useContext(UserContext);
-  const { logout } = useState("")
-
+  const { logout } = useState("");
 
   //console.log(userState);
 
@@ -27,7 +26,7 @@ function User() {
 
   useEffect(() => {
     //loadUser(username);
-    console.log(userState)
+    console.log(userState);
   }, []);
 
   function loadUser(username) {
@@ -68,13 +67,12 @@ function User() {
   }
 
   function logoutUser() {
-    API.logout()
-    .then(({ status }) => {
+    API.logout().then(({ status }) => {
       if (status === 200) {
         window.location.href = "/";
       }
     });
-  };
+  }
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -100,63 +98,64 @@ function User() {
     });
   }
 
-  if (userState.username === ""){
-      return <Redirect to={"/"} />
+  if (userState.username === "") {
+    return <Redirect to={"/"} />;
   } else {
+    return (
+      <>
+        <div className="user__container">
+          <button onClick={logoutUser}> Log Out</button>
+          <form>
+            <input
+              className="user-form-control"
+              type="text"
+              placeholder="Enter A New Group"
+              name="groupName"
+              onChange={handleInputChange}
+            />
+            <button onClick={handleFormSubmit} className="user__btn">
+              Submit
+            </button>
+          </form>
+          <form>
+            <input
+              className="user-form-control"
+              type="text"
+              placeholder="Enter An Invite Code for an Existing Group"
+              name="inviteCode"
+              onChange={handleInputChange}
+            />
+            <button onClick={addUserToGroup} className="user__btn">
+              Submit
+            </button>
+          </form>
+          <div>
+            {/* This condition will need to be changed when groupdata is being returned properly */}
 
-  
-  return (
-    <>
-      <div className="user__container">
-        <button onClick={logoutUser}> Log Out</button>
-        <form>
-          <input
-            className="user-form-control"
-            type="text"
-            placeholder="Enter A New Group"
-            name="groupName"
-            onChange={handleInputChange}
-          />
-          <button onClick={handleFormSubmit} className="user__btn">
-            Submit
-          </button>
-        </form>
-        <form>
-          <input
-            className="user-form-control"
-            type="text"
-            placeholder="Enter An Invite Code for an Existing Group"
-            name="inviteCode"
-            onChange={handleInputChange}
-          />
-          <button onClick={addUserToGroup} className="user__btn">
-            Submit
-          </button>
-        </form>
-        <div> 
-          {/* This condition will need to be changed when groupdata is being returned properly */}
-          
-           {userState.groups !== "0" ? (
-            <div>
-              {userState.groups.map((group) => (
-                <Link to={"/user/" + username + "/" + group.name}>
-                  <button
+            {userState.groups !== "0" ? (
+              <div>
+                {userState.groups.map((group) => (
+                  <Link
+                    to={"/user/" + username + "/" + group.name}
                     key={group._id}
-                    className="group__btn"
-                    value={group._id}
                   >
-                    {group.name}
-                  </button>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <h3>Start your first group above!</h3>
-          )}
+                    <button
+                      key={group._id}
+                      className="group__btn"
+                      value={group._id}
+                    >
+                      {group.name}
+                    </button>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <h3>Start your first group above!</h3>
+            )}
+          </div>
         </div>
-      </div>
-    </>
-  );
-          }
+      </>
+    );
+  }
 }
 export default User;
