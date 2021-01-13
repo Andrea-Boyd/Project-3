@@ -36,7 +36,7 @@ function SignUp() {
       Toast.allFields();
     }
 
-     if (userArr.password === userArr.password2 && userArr.password !== "") {
+     else if (userArr.password === userArr.password2 && userArr.password !== "") {
       API.saveUser({
         first_name: userArr.first_name,
         last_name: userArr.last_name,
