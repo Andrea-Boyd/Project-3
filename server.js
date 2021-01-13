@@ -26,18 +26,12 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-
-
-
-
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/MessageApp", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
   useFindAndModify: false,
 });
-
-
 
 app.use(
   session({ secret: "keyboard cat", resave: false, saveUninitialized: false })
@@ -47,6 +41,7 @@ app.use(cookieParser("secretcode"));
 const passport = require("./config/passport.js")
 app.use(passport.initialize());
 app.use(passport.session());
+
  app.use(bodyParser.urlencoded({extended: true}));
 
 app.use( (req, res, next) => {
@@ -55,11 +50,8 @@ app.use( (req, res, next) => {
  console.log(req.session.cookie)
   return next();
 })
+
 app.use(routes);
-
-
-
-
 
 //Socket.io functionality
 // http.listen(PORT, () => {
@@ -70,7 +62,6 @@ app.use(routes);
 //   console.log("New user connected");
 //   socket.emit("connection", null);
 // });
-
 
 app.listen(PORT, function () {
   console.log(`Server is now listening on PORT ${PORT}!`);

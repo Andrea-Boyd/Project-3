@@ -7,7 +7,6 @@ const { forwardAuthenticated } = require("../../config/auth");
 var isAuth = require("../../config/auth").isAuth;
 
 
-
 // Matches with "/api/users"
 //router.route("/").get(userController.findAll);
 //router.route("/").post(userController.create);
@@ -46,6 +45,8 @@ router.route("/logout").get((req, res) => {
 })
 
 
+
+router.route("/subgroup/:id").put(userController.addSubGroup);
 
 // Matches with "/api/users/:id"
 router

@@ -24,20 +24,27 @@ export default {
     return axios.get("/api/group/" + id);
   },
 
-  createGroup: function (groupName) {
+  createGroup: function (groupName, userData) {
     console.log("API.createGroup funciton");
-    return axios.post("/api/groups/" + groupName);
+    return axios.post("/api/groups/" + groupName, userData);
   },
 
   createSubGroup: function (subGroup, users) {
     return axios.post("/api/groups/subgroup/" + subGroup, users);
   },
 
-
-  addUserToGroup: function (userData) {
-    return axios.put("/api/groups/addUser", userData);
+  addGroupToUser: function (user, groupData) {
+    return axios.put("/api/users/" + user, groupData);
   },
 
+  addSubGroupToUser: function (id, subGroupData) {
+    return axios.put("/api/users/subgroup/" + id, subGroupData);
+  },
+
+  addUserToGroup: function (userData) {
+    console.log("API.addUserToGroup");
+    return axios.put("/api/groups/addUser/", userData);
+  },
 
   //Posts a message to the database
   postMessage: function (messageBody, groupName) {

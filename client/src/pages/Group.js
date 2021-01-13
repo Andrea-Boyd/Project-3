@@ -32,7 +32,7 @@ function Group() {
   //loads user data
   useEffect(() => {
     console.log(groupState);
-    // loadGroup(groupName);
+    loadGroup(groupName);
     //setGroup(messages);
     //loadUser(username);
   }, []);
