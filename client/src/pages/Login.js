@@ -56,9 +56,6 @@ function Login() {
   if (redirect.redirect) {
     return <Redirect to={"/user/" + userState.username} />;
   } 
-  // else if (!redirect.redirect) {
-  //    return <Redirect to={"/"}/>
-  // }
   else {
     return (
       <div className="login__container">

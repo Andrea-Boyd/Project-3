@@ -8,8 +8,8 @@ let initialUserState = {
   username: "",
   email: "",
   password: "",
-  // groups: [{ _id: "weirdandgilly", name: "spidersfrommars" }],
-  // subgroups: [{ id_: "jeangenie", name: "diamonddogs" }],
+  groups: [{ _id: "weirdandgilly", name: "spidersfrommars" }],
+  subgroups: [{ id_: "jeangenie", name: "diamonddogs" }],
 };
 
 export const UserContext = React.createContext();

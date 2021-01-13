@@ -1,11 +1,9 @@
 import { SentimentSatisfied } from "@material-ui/icons";
 import React, { useState, useEffect, useContext } from "react";
 import Login from "../pages/Login"
-
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
 import "./User.css";
-
 import { UserContext } from "../utils/UserStore";
 
 function User() {
@@ -28,7 +26,8 @@ function User() {
   let username = pathArray[2];
 
   useEffect(() => {
-    loadUser(username);
+    //loadUser(username);
+    console.log(userState)
   }, []);
 
   function loadUser(username) {
@@ -102,6 +101,11 @@ function User() {
     });
   };
 
+  if (userState.username === ""){
+      return <Redirect to={"/"} />
+  } else {
+
+  
   return (
     <>
       <div className="user__container">
@@ -132,13 +136,10 @@ function User() {
             Submit
           </button>
         </form>
-        <div>
+        <div> 
           {/* This condition will need to be changed when groupdata is being returned properly */}
-          {userState.groups === "0" (
-            <Login />
-          )}
           
-          {userState.groups !== "0" ? (
+           {userState.groups !== "0" ? (
             <div>
               {userState.groups.map((group) => (
                 <Link to={"/user/" + username + "/" + group.name}>
@@ -159,5 +160,6 @@ function User() {
       </div>
     </>
   );
+          }
 }
 export default User;
