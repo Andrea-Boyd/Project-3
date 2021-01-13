@@ -17,5 +17,9 @@ router
   .delete(groupController.remove);
 
 
+router 
+  .route("/addUser")
+  .put(groupController.invite);
+
 
 module.exports = router;
