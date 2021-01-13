@@ -84,8 +84,8 @@ function NewGroupModal() {
       closeOnDocumentClick
       nested
     >
-      <div modal__container>
-        <div modal__content>
+      <div className="modal__container">
+        <div className="modal__content">
           {/* Enter Group Name */}
           <form>
             <input
@@ -106,14 +106,14 @@ function NewGroupModal() {
         <br></br>
         <div className="modal__group__members">
           Click to Add to Group
-          {groupState.groupMembers.map((groupMembers) => (
+          {groupState.groupMembers.map((groupMember) => (
             <button
-              key={groupMembers._id}
+              key={groupMember._id}
               className="sub__btn"
-              value={groupMembers._id}
+              value={groupMember._id}
               onClick={buildUserForm}
             >
-              {groupMembers.name}
+              {groupMember.name}
               {/* <Avatar /> */}
             </button>
           ))}
