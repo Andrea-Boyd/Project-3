@@ -27,8 +27,8 @@ function User() {
   }, []);
 
   function loadUser(username) {
-    console.log("before");
-    console.log(username);
+    // console.log("before");
+    // console.log(username);
     API.getUser(username)
       .then((res) => {
         console.log(res.data);
@@ -61,7 +61,7 @@ function User() {
 
   function addGroupToUser(username, groupData) {
     API.addGroupToUser(username, groupData).then((res) => {
-      console.log(res);
+      // console.log(res);
       loadUser(username);
     });
   }
