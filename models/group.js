@@ -10,13 +10,28 @@ const messageSchema = new Schema({
 
 const groupMembersSchema = new Schema({
   name: { type: String, required: true },
-  _id: { type: String, required: true }
+
+  _id: {type: String, required: true}
+});
+
+const subGroupSchema = new Schema({
+  name: { type: String, required: true },
+  _id: { type: String, required: true },
+  subGroupMembers: {
+    type: [groupMembersSchema],
+  },
+
 });
 
 const groupSchema = new Schema({
   name: { type: String, required: true },
+<<<<<<< HEAD
   subgroups: { type: String, default: false },
   isSubgroup: { type: Boolean, default: false },
+=======
+  subgroups: {type: [subGroupSchema]},
+  isSubGroup: {type: Boolean, default: false},
+>>>>>>> main
   messages: {
     type: [messageSchema],
   },

@@ -33,7 +33,7 @@ const initialGroupState = {
       name: "Zak",
       _id: "123",
     },
-    { name: "Kevin", _id: "321" },
+    { name: "KevinP", _id: "321" },
     { name: "Chad", _id: "1234" },
     { name: "Andrea", _id: "4321" },
   ],

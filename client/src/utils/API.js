@@ -29,14 +29,16 @@ export default {
     return axios.post("/api/groups/" + groupName, userData);
   },
 
-  addGroupToUser: function (user, groupData) {
-    return axios.put("/api/users/" + user, groupData);
+  createSubGroup: function (subGroup, users) {
+    return axios.post("/api/groups/subgroup/" + subGroup, users);
   },
+
 
   addUserToGroup: function (userData) {
     console.log("API.addUserToGroup");
     return axios.put("/api/groups/addUser/", userData);
   },
+
 
   //Posts a message to the database
   postMessage: function (messageBody, groupName) {

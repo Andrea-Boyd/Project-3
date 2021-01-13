@@ -20,3 +20,6 @@ const subGroupSchema = new Schema({
 const SubGroup = mongoose.model("subgroup", subGroupSchema);
 
 module.exports = SubGroup;
+
+
+
