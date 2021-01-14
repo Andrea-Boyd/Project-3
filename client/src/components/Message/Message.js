@@ -14,6 +14,8 @@ function Message(props) {
   let messages = currentGroupState.messages;
   //console.log(new Date(messages[0].date).toLocaleString());
 
+  //adding something
+
   return (
     <div className="chat__body">
       {messages.length ? (
