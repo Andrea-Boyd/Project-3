@@ -10,8 +10,7 @@ const messageSchema = new Schema({
 
 const groupMembersSchema = new Schema({
   name: { type: String, required: true },
-
-  _id: {type: String, required: true}
+  _id: { type: String, required: true },
 });
 
 const subGroupSchema = new Schema({
@@ -20,20 +19,19 @@ const subGroupSchema = new Schema({
   subGroupMembers: {
     type: [groupMembersSchema],
   },
-
 });
 
 const groupSchema = new Schema({
   name: { type: String, required: true },
-  subgroups: {type: [subGroupSchema]},
-  isSubGroup: {type: Boolean, default: false},
+  subgroups: { type: [subGroupSchema] },
+  isSubGroup: { type: Boolean, default: false },
   messages: {
     type: [messageSchema],
   },
   groupMembers: {
     type: [groupMembersSchema],
   },
-  inviteCode: {type:String, required: true, unique: true}
+  inviteCode: { type: String, unique: true },
 });
 
 const Group = mongoose.model("group", groupSchema);

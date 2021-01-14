@@ -15,8 +15,8 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   findOne: function (req, res) {
-    console.log(req.params);
-    console.log("Find one function");
+    // console.log(req.params.username);
+    // console.log("Find one function");
     db.User.findOne({ username: req.params.username })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
@@ -35,6 +35,15 @@ module.exports = {
     )
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
+  },
+
+  addSubGroup: function (req, res) {
+    db.User.findOneAndUpdate(
+      { _id: req.params.id },
+      { $push: { subgoups: req.boyd } }
+    )
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => console.log(err));
   },
   remove: function (req, res) {
     db.User.findById({ _id: req.params.id })
@@ -65,6 +74,15 @@ module.exports = {
     }
   },
 
+  session:  function(req, res, next) {
+    console.log('===== user!! =====');
+    console.log(req.session);
+    if(req.session) {
+      res.json({user: req.session})
+    }else{
+      res.redirect("/login")
+    }
+  }
   // login: (req, res) => {
   //   console.log("test");
   //   db.User.findOne({

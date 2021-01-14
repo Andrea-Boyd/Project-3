@@ -2,11 +2,12 @@
 import React, { useState } from "react";
 
 let initialUserState = {
-  first_name: "David",
-  last_name: "Bowie",
-  username: "manwhofelltoearth47",
-  email: "ziggy@stardust.com",
-  password: "spaceoddity",
+  loggedIn: false,
+  first_name: "",
+  last_name: "",
+  username: "",
+  email: "",
+  password: "",
   groups: [{ _id: "weirdandgilly", name: "spidersfrommars" }],
   subgroups: [{ id_: "jeangenie", name: "diamonddogs" }],
 };
