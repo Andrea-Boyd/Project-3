@@ -101,7 +101,7 @@ function Group() {
   //updates component state when the user types a message
   function handleInputChange(event) {
     const { name, value } = event.target;
-    setFormObject({ ...formObject, [name]: value });
+    setFormObject({ ...formObject, [name]: value.trim() });
   }
 
   //when new message is submitted, use API.postMessage metohd to save

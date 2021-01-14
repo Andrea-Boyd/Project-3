@@ -47,7 +47,7 @@ function User() {
       setNewGroup({ ...newGroup, [name]: value });
     } else {
       const { name, value } = event.target;
-      setInviteCode({ ...inviteCode, [name]: value });
+      setInviteCode({ ...inviteCode, [name]: value.trim() });
     }
   }
 

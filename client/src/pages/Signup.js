@@ -24,7 +24,7 @@ function SignUp() {
 
   function handleInputChange(event) {
     const { name, value } = event.target;
-    setUserArr({ ...userArr, [name]: value });
+    setUserArr({ ...userArr, [name]: value.trim() });
   }
 
   function handleFormSubmit(event, res) {

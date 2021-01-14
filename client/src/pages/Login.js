@@ -24,8 +24,8 @@ function Login() {
   }, [userState]);
 
   function handleInputChange(event) {
-    const { name, value } = event.target;
-    setLogin({ ...newLogin, [name]: value });
+    const { name, value } = event.target.value.trim();
+    setLogin({ ...newLogin, [name]: value.trim() });
   }
 
  
