@@ -5,6 +5,8 @@ import Group from "./pages/Group";
 import User from "./pages/User";
 import SignUp from "./pages/Signup";
 import Login from "./pages/Login";
+import API from "../src/utils/API";
+
 import socketClient from "socket.io-client";
 import UserStore from "./utils/UserStore";
 import GroupStore from "./utils/GroupStore";
@@ -18,6 +20,13 @@ function App() {
   // });
 
   const [user, setUser] = useState(false);
+  function logOutUser() {
+    API.logout().then(({ status }) => {
+      if (status === 200) {
+        window.location.href = "/";
+      }
+    });
+  }
   return (
     <div>
       <UserStore>
@@ -37,14 +46,14 @@ function App() {
                   {/* Route below will only work once proper group name is retrun from db in Users.js */}
 
                   <Route exact path="/user/:username/:group">
-                    <Group />
+                    <Group logOutUser={logOutUser}/>
                   </Route>
 
                   {/* <Route exact path="/group">
                   <Group />
                 </Route> */}
                   <Route exact path="/user/:username">
-                    <User />
+                    <User logOutUser={logOutUser}/>
                   </Route>
                 </Switch>
               </Router>

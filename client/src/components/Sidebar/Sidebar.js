@@ -12,7 +12,7 @@ import NewGroupModal from "../../NewGroupModal/NewGroupModal";
 import { GroupContext } from "../../utils/GroupStore";
 
 
-function Sidebar() {
+function Sidebar(props) {
   const { groupState, setGroupState } = useContext(GroupContext);
 
   return (
