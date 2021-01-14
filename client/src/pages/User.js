@@ -6,7 +6,7 @@ import API from "../utils/API";
 import "./User.css";
 import { UserContext } from "../utils/UserStore";
 
-function User() {
+function User(props) {
   const [user, setUser] = useState({}); //groups that users are part of
   const [newGroup, setNewGroup] = useState({});
   const [inviteCode, setInviteCode] = useState({});
@@ -66,13 +66,13 @@ function User() {
       .catch((err) => console.log(err));
   }
 
-  function logoutUser() {
-    API.logout().then(({ status }) => {
-      if (status === 200) {
-        window.location.href = "/";
-      }
-    });
-  }
+  // function logoutUser() {
+  //   API.logout().then(({ status }) => {
+  //     if (status === 200) {
+  //       window.location.href = "/";
+  //     }
+  //   });
+  // }
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -104,7 +104,7 @@ function User() {
     return (
       <>
         <div className="user__container">
-          <button onClick={logoutUser}> Log Out</button>
+          <button onClick={props.logOutUser}> Log Out</button>
           <form>
             <input
               className="user-form-control"

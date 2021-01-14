@@ -16,7 +16,7 @@ function Login() {
   useEffect(() => {
     //console.log("State Change");
     //console.log(userState);
-    //console.log(userState.password);
+   // console.log(userState.password);
     //console.log(redirect);
     if (userState.password !== "") {
       setRedirect({ redirect: true });
@@ -24,7 +24,7 @@ function Login() {
   }, [userState]);
 
   function handleInputChange(event) {
-    const { name, value } = event.target.value.trim();
+    const { name, value } = event.target;
     setLogin({ ...newLogin, [name]: value.trim() });
   }
 
@@ -44,8 +44,13 @@ function Login() {
       .then((res) => {
         console.log(res);
         console.log("Before");
+        if (res.data !== "No User exists") {
+          setUserState(res.data);
+        } else {
+          Toast.validPassword();
+        }
         console.log(res.data);
-        setUserState(res.data);
+       //setUserState(res.data);
         console.log("After");
         //setUserState(res.data);
         //redirect();

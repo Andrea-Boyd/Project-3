@@ -5,14 +5,14 @@ import API from "../utils/API";
 import { UserContext } from "../utils/UserStore";
 import { GroupContext } from "../utils/GroupStore";
 import { CurrentGroupContext } from "../utils/CurrentGroupStore";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 //import { User } from "../../../models";
 
 // will need to import any of the individual component features like
 // col/row/container/list/textarea/btn/etc
 
-function Group() {
+function Group(props) {
   //setting the initial state
   const [user, setUser] = useState({});
   const [group, setGroup] = useState({});
@@ -142,7 +142,9 @@ function Group() {
           handleInputChange={handleInputChange}
           sendMessage={sendMessage}
           messages={group}
+          logOutUser={props.logOutUser}
         />
+        
       </div>
     );
   }
