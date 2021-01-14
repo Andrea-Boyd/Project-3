@@ -19,11 +19,9 @@ function Group() {
   const [formObject, setFormObject] = useState({});
   const { userState, setUserState } = useContext(UserContext);
   const { groupState, setGroupState } = useContext(GroupContext);
-
   const { currentGroupState, setCurrentGroupState } = useContext(
     CurrentGroupContext
   );
-
 
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];

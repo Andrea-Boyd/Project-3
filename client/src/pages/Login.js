@@ -28,35 +28,32 @@ function Login() {
     setLogin({ ...newLogin, [name]: value });
   }
 
- 
-  
-
   function handleFormSubmit(e) {
     e.preventDefault();
     console.log(newLogin);
-   if (!newLogin.email || !newLogin.password) {
-     Toast.allFields()
-   } else 
-    API.loginUser({
-      email: newLogin.email,
-      password: newLogin.password,
-    })
-      .then((res) => {
-        console.log(res);
-        console.log("Before");
-        console.log(res.data);
-        setUserState(res.data);
-        console.log("After");
-        //setUserState(res.data);
-        //redirect();
+    if (!newLogin.email || !newLogin.password) {
+      Toast.allFields();
+    } else
+      API.loginUser({
+        email: newLogin.email,
+        password: newLogin.password,
       })
-      .catch((err) => Toast.validPassword());
+        .then((res) => {
+          console.log(res);
+          console.log("Before");
+          console.log(res.data);
+
+          setUserState(res.data);
+          console.log("After");
+          //setUserState(res.data);
+          //redirect();
+        })
+        .catch((err) => Toast.validPassword());
   }
 
   if (redirect.redirect) {
     return <Redirect to={"/user/" + userState.username} />;
-  } 
-  else {
+  } else {
     return (
       <div className="login__container">
         <div className="login__content">
