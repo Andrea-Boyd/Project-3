@@ -12,6 +12,9 @@ function Message(props) {
   //console.log(groupState);
 
   let messages = currentGroupState.messages;
+  //console.log(new Date(messages[0].date).toLocaleString());
+
+  //adding something
 
   return (
     <div className="chat__body">
@@ -21,7 +24,9 @@ function Message(props) {
             <p className="chat__message">
               <span className="chat__name">{message.name}</span>
               {`  ${message.text}`}
-              <span className="chat__timestamp">{message.date}</span>
+              <span className="chat__timestamp">
+                {new Date(message.date).toLocaleString()}
+              </span>
             </p>
           ))}
         </div>
