@@ -44,6 +44,7 @@ module.exports = {
     console.log("createSubGroup Function");
     console.log(req.params.subGroupName);
     console.log(req.body);
+    let inviteCode = uuidv4();
     db.Group.create({
       name: req.params.subGroupName,
       isSubGroup: true,
@@ -55,13 +56,17 @@ module.exports = {
           date: Date.now(),
         },
       ],
+      inviteCode: inviteCode,
     })
       .then((dbModel) => {
         console.log("Then");
         console.log(dbModel);
         res.json(dbModel);
       })
-      .catch((err) => res.status(422).json(err));
+      .catch((err) => {
+        console.log(err);
+        res.status(422).json(err);
+      });
   },
 
   // findOneSubGroup: function (req, res) {
