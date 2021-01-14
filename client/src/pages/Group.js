@@ -4,6 +4,7 @@ import Chat from "../components/Chat/Chat";
 import API from "../utils/API";
 import { UserContext } from "../utils/UserStore";
 import { GroupContext } from "../utils/GroupStore";
+import { CurrentGroupContext } from "../utils/CurrentGroupStore";
 import { Redirect } from "react-router-dom";
 
 //import { User } from "../../../models";
@@ -18,6 +19,9 @@ function Group() {
   const [formObject, setFormObject] = useState({});
   const { userState, setUserState } = useContext(UserContext);
   const { groupState, setGroupState } = useContext(GroupContext);
+  const { currentGroupState, setCurrentGroupState } = useContext(
+    CurrentGroupContext
+  );
 
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
@@ -29,13 +33,16 @@ function Group() {
   };
 
   //load all groups and store them with setGroup
-  //loads user data
   useEffect(() => {
     console.log(groupState);
     loadGroup(groupName);
     //setGroup(messages);
     //loadUser(username);
   }, []);
+
+  useEffect(() => {
+    loadGroup(groupName);
+  }, [userState]);
 
   //loads the current group and sets it to group
   function loadGroup(groupName) {
@@ -45,10 +52,33 @@ function Group() {
         console.log("load group response");
         console.log(res);
         setGroupState(res.data);
-        //console.log(groupState);
+        setCurrentGroupState(res.data);
       })
       .catch((err) => console.log(err));
   }
+
+  function loadCurrentGroup(groupName) {
+    //console.log(groupName);
+    API.getGroup(groupName)
+      .then((res) => {
+        //console.log("load group response");
+        console.log(res.data);
+        setCurrentGroupState(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  // function loadSubGroup(groupName) {
+  //   console.log("Load SubGroup");
+  //   API.getGroup(groupName)
+  //     .then((res) => {
+  //       console.log("load Sub Group response");
+  //       console.log(res);
+  //       setCurrentGroupState(res.data);
+  //       //console.log(groupState);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
 
   function loadUser(username) {
     //console.log("before");
@@ -78,8 +108,8 @@ function Group() {
     event.preventDefault();
     let fullName = userState.first_name + " " + userState.last_name;
     let timeStamp = Date.now();
-    console.log(fullName);
-    console.log(timeStamp);
+    console.log("Send Message Funciton");
+    console.log(currentGroupState.name);
     if (formObject.message) {
       API.postMessage(
         {
@@ -87,12 +117,12 @@ function Group() {
           name: fullName,
           date: timeStamp,
         },
-        groupName
+        currentGroupState.name
       )
         .then((res) => {
           console.log(res.data);
-          loadGroup(groupName);
-          event.target.reset();
+          loadCurrentGroup(currentGroupState.name);
+          //event.target.reset();
         })
         .catch((err) => console.log(err));
     }
@@ -100,20 +130,20 @@ function Group() {
 
   // a lot of what is here in the example from 21.5, we have in the actual component
   // rather here in the page?
-  if (userState.username === ""){
-    return <Redirect to={"/"} />
-}else {
-  return (
-    <div className="app__body">
-      <Sidebar />
-      <Chat
-        handleInputChange={handleInputChange}
-        sendMessage={sendMessage}
-        messages={group}
-      />
-    </div>
-  );
-}
+  if (userState.username === "") {
+    return <Redirect to={"/"} />;
+  } else {
+    return (
+      <div className="app__body">
+        <Sidebar />
+        <Chat
+          handleInputChange={handleInputChange}
+          sendMessage={sendMessage}
+          messages={group}
+        />
+      </div>
+    );
+  }
 }
 
 export default Group;

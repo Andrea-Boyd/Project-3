@@ -1,13 +1,17 @@
 import React, { useContext } from "react";
 import { UserContext } from "../../utils/UserStore";
 import { GroupContext } from "../../utils/GroupStore";
+import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
 
 function Message(props) {
   const { userState, setUserState } = useContext(UserContext);
   const { groupState, setGroupState } = useContext(GroupContext);
-  console.log(groupState);
+  const { currentGroupState, setCurrentGroupState } = useContext(
+    CurrentGroupContext
+  );
+  //console.log(groupState);
 
-  let messages = groupState.messages;
+  let messages = currentGroupState.messages;
 
   return (
     <div className="chat__body">

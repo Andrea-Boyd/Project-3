@@ -10,16 +10,28 @@ import API from "../utils/API";
 function NewGroupModal() {
   const [newSubGroup, setNewSubGroup] = useState({});
   const [userFormState, setUserFormState] = useState([]);
+  const { userState, setUserState } = useContext(UserContext);
   const { groupState, setGroupState } = useContext(GroupContext);
 
   // console.log(groupState.groupMembers)
-  console.log("after rata");
+  //console.log("after rata");
   // access array, .map
   let subGroupData = {};
 
   //   useEffect(() => {
   //       loadSubGroup(users)
   //   }, [])
+
+  function refreshUser(username) {
+    // console.log("before");
+    // console.log(username);
+    API.getUser(username)
+      .then((res) => {
+        console.log(res.data);
+        setUserState(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
 
   function buildUserForm(event) {
     console.log(event.target);
@@ -58,16 +70,31 @@ function NewGroupModal() {
   }
 
   function addSubGroupToUsers(users, subGroupData) {
-    users.forEach((user) => {
-      API.addSubGroupToUser(user._id, subGroupData)
+    let totalCount = users.length;
+    let completedCount = 0;
+    for (let i = 0; i < totalCount; i++) {
+      API.addSubGroupToUser(users[i]._id, subGroupData)
         .then((res) => {
           console.log(res);
-          //   loadSubGroup(users);
+          completedCount += 1;
+          if (completedCount === totalCount) {
+            refreshUser(userState.username);
+          }
         })
         .catch((err) => console.log(err));
-    });
+    }
   }
+  //   users.forEach((user) => {
+  //     API.addSubGroupToUser(user._id, subGroupData)
+  //       .then((res) => {
+  //         console.log(res);
+  //         //   loadSubGroup(users);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   });
+  // }
 
+  // loadUser(userState.username)
   function addSubGroupToGroup(groupID, subGroupData) {
     API.addSubGroupToGroup(groupID, subGroupData)
       .then((res) => {

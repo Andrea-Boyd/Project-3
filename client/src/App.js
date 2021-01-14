@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import socketClient from "socket.io-client";
 import UserStore from "./utils/UserStore";
 import GroupStore from "./utils/GroupStore";
+import CurrentGroupStore from "./utils/CurrentGroupStore";
 import { useState } from "react";
 function App() {
   // let socket = socketClient();
@@ -21,32 +22,34 @@ function App() {
     <div>
       <UserStore>
         <GroupStore>
-          <div className="app">
-            <Router>
-              <Switch>
-                {/* {user ? <User /> : <Login />} */}
-                <Route exact path="/">
-                  <Login />
-                </Route>
-                <Route exact path="/signup">
-                  <SignUp />
-                </Route>
+          <CurrentGroupStore>
+            <div className="app">
+              <Router>
+                <Switch>
+                  {/* {user ? <User /> : <Login />} */}
+                  <Route exact path="/">
+                    <Login />
+                  </Route>
+                  <Route exact path="/signup">
+                    <SignUp />
+                  </Route>
 
-                {/* Route below will only work once proper group name is retrun from db in Users.js */}
+                  {/* Route below will only work once proper group name is retrun from db in Users.js */}
 
-                <Route exact path="/user/:username/:group">
-                  <Group />
-                </Route>
+                  <Route exact path="/user/:username/:group">
+                    <Group />
+                  </Route>
 
-                {/* <Route exact path="/group">
+                  {/* <Route exact path="/group">
                   <Group />
                 </Route> */}
-                <Route exact path="/user/:username">
-                  <User />
-                </Route>
-              </Switch>
-            </Router>
-          </div>
+                  <Route exact path="/user/:username">
+                    <User />
+                  </Route>
+                </Switch>
+              </Router>
+            </div>
+          </CurrentGroupStore>
         </GroupStore>
       </UserStore>
     </div>
