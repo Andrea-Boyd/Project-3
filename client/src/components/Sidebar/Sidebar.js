@@ -36,6 +36,7 @@ function Sidebar() {
           <SearchOutlinedIcon />
           <input placeholder="Search" type="text"></input>
         </div>
+
         <Popup
       className="popup__content"
       trigger={<button className="button"> Copy Invite </button>}
@@ -50,11 +51,11 @@ function Sidebar() {
       
        
         <NewGroupModal/>
+
       </div>
 
       <div className="sidebar__chats">
         <SideBarChat />
-       
       </div>
     
     </div>

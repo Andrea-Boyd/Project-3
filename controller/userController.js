@@ -1,5 +1,6 @@
 const db = require("../models");
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 
 // Defining methods for the userController
 module.exports = {
@@ -38,9 +39,18 @@ module.exports = {
   },
 
   addSubGroup: function (req, res) {
+    // console.log("Add Subgroup to User");
+    // console.log(req.params);
+    let userID = mongoose.Types.ObjectId(req.params.id);
+    // console.log(req.body);
+    let groupID = mongoose.Types.ObjectId(req.body._id);
+    // console.log(groupID);
+    // console.log(typeof userID);
+    // console.log(userID);
+    let name = req.body.name;
     db.User.findOneAndUpdate(
-      { _id: req.params.id },
-      { $push: { subgoups: req.boyd } }
+      { _id: userID },
+      { $push: { subgroups: { name: name, _id: groupID } } }
     )
       .then((dbModel) => res.json(dbModel))
       .catch((err) => console.log(err));
@@ -74,15 +84,15 @@ module.exports = {
     }
   },
 
-  session:  function(req, res, next) {
-    console.log('===== user!! =====');
+  session: function (req, res, next) {
+    console.log("===== user!! =====");
     console.log(req.session);
-    if(req.session) {
-      res.json({user: req.session})
-    }else{
-      res.redirect("/login")
+    if (req.session) {
+      res.json({ user: req.session });
+    } else {
+      res.redirect("/login");
     }
-  }
+  },
   // login: (req, res) => {
   //   console.log("test");
   //   db.User.findOne({
