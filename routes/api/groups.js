@@ -3,8 +3,10 @@ const groupController = require("../../controller/groupController");
 
 //router.route("/").get(groupController.findAll).post(groupController.create);
 router.route("/addUser/").put(groupController.invite);
-router.route("/subgroup/:subGroupName").post(groupController.createSubGroup);
-// .get(groupController.findOneSubGroup)
+router
+  .route("/subgroup/:subGroupName")
+  .post(groupController.createSubGroup)
+  .put(groupController.addSubGroup);
 // .put(groupController.updateSubGroup)
 // .delete(groupController.removeSubGroup);
 

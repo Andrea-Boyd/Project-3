@@ -10,7 +10,7 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import NewGroupModal from "../../NewGroupModal/NewGroupModal";
 
-function Sidebar() {
+function Sidebar(props) {
   return (
     <div className="sidebar">
       <div className="sidebar__header">
@@ -32,12 +32,11 @@ function Sidebar() {
           <SearchOutlinedIcon />
           <input placeholder="Search" type="text"></input>
         </div>
-        <NewGroupModal/>
+        <NewGroupModal />
       </div>
 
       <div className="sidebar__chats">
         <SideBarChat />
-       
       </div>
     </div>
   );
