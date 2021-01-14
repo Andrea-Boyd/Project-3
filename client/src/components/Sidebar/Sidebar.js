@@ -38,15 +38,13 @@ function Sidebar() {
         </div>
         <Popup
       className="popup__content"
-      trigger={<button className="button"> Invite </button>}
+      trigger={<button className="button"> Copy Invite </button>}
       position="bottom center"
       closeOnDocumentClick
       nested
     >
-      <div>
     {groupState.inviteCode}
 
-      </div>
      
     </Popup>
       
