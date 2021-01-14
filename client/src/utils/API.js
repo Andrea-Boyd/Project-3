@@ -33,6 +33,10 @@ export default {
     return axios.post("/api/groups/subgroup/" + subGroup, users);
   },
 
+  addUserToGroup: function (userData) {
+    return axios.put("/api/groups/addUser", userData);
+  },
+
   //Posts a message to the database
   postMessage: function (messageBody, groupName) {
     return axios.put("/api/groups/" + groupName, messageBody);

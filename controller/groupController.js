@@ -1,4 +1,6 @@
 const db = require("../models");
+const { v4: uuidv4 } = require('uuid');
+
 
 module.exports = {
   findAll: function (req, res) {
@@ -19,13 +21,15 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   create: function (req, res) {
-    // console.log("Group create funciton");
-    // console.log(req.params.groupName);
+    console.log("Group create funciton");
+    console.log(req.params.groupName);
+    let inviteCode = uuidv4();
     db.Group.create({
       name: req.params.groupName,
       messages: [
-        { name: "admin", text: "Send you first message now", date: Date.now() },
+        { name: "admin", text: "Send your first message now", date: Date.now() },
       ],
+      inviteCode: inviteCode,
     })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
@@ -79,4 +83,13 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+  invite: function (req, res) {
+    console.log(req.body);
+    db.Group.update(
+      { inviteCode: req.body.inviteCode },
+      { $push: { groupMembers: {name: req.body.name, _id: req.body._id} } }
+    )
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  }
 };
