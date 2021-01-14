@@ -21,9 +21,11 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   create: function (req, res) {
+
     console.log("Group create funciton");
     console.log(req.params.groupName);
     let inviteCode = uuidv4();
+
     db.Group.create({
       name: req.params.groupName,
       messages: [
