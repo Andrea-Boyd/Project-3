@@ -42,7 +42,9 @@ const userSchema = new Schema({
   groups: {
     type: [groupObjectSchema],
   },
-  subgroups: [{ type: Schema.Types.ObjectId, ref: "group" }],
+  subgroups: {
+    type: [groupObjectSchema],
+  },
 });
 
 const User = mongoose.model("user", userSchema);

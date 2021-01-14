@@ -44,25 +44,36 @@ function NewGroupModal() {
         console.log(res.data);
         // let subGroupName = res.data.name;
         // let subGroupId = res.data._id;
-        let subGroupData = { name: res.data.name, _id: res.data.id };
+        let subGroupData = { name: res.data.name, _id: res.data._id };
+        let subGroupUserData = {
+          name: res.data.name,
+          _id: res.data._id,
+          subGroupMembers: res.data.groupMembers,
+        };
+        console.log(subGroupUserData);
         addSubGroupToUsers(res.data.groupMembers, subGroupData);
+        addSubGroupToGroup(groupState._id, subGroupUserData);
       })
       .catch((err) => console.log(err));
   }
 
   function addSubGroupToUsers(users, subGroupData) {
     users.forEach((user) => {
-      API.addSubGroupToUser(user._id, subGroupData).then((res) => {
-        console.log(res);
-        //   loadSubGroup(users);
-      });
+      API.addSubGroupToUser(user._id, subGroupData)
+        .then((res) => {
+          console.log(res);
+          //   loadSubGroup(users);
+        })
+        .catch((err) => console.log(err));
     });
   }
 
-  function addSubGroupToGroup() {
-    API.addSubGroupToGroup().then((res) => {
-      console.log(res);
-    });
+  function addSubGroupToGroup(groupID, subGroupData) {
+    API.addSubGroupToGroup(groupID, subGroupData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
   }
 
   //   function loadSubGroup(users) {

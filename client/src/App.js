@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import socketClient from "socket.io-client";
 import UserStore from "./utils/UserStore";
 import GroupStore from "./utils/GroupStore";
-import {useState} from "react"
+import { useState } from "react";
 function App() {
   // let socket = socketClient();
 
@@ -16,7 +16,7 @@ function App() {
   //   console.log("Connected to backend");
   // });
 
-  const [user, setUser] = useState(false)
+  const [user, setUser] = useState(false);
   return (
     <div>
       <UserStore>
@@ -33,15 +33,14 @@ function App() {
                 </Route>
 
                 {/* Route below will only work once proper group name is retrun from db in Users.js */}
-                
 
                 <Route exact path="/user/:username/:group">
                   <Group />
                 </Route>
 
-                <Route exact path="/group">
+                {/* <Route exact path="/group">
                   <Group />
-                </Route>
+                </Route> */}
                 <Route exact path="/user/:username">
                   <User />
                 </Route>
@@ -55,4 +54,3 @@ function App() {
 }
 
 export default App;
-
