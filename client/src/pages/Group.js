@@ -6,6 +6,7 @@ import { UserContext } from "../utils/UserStore";
 import { GroupContext } from "../utils/GroupStore";
 import { CurrentGroupContext } from "../utils/CurrentGroupStore";
 import { Redirect, Link } from "react-router-dom";
+import socketClient from "socket.io-client";
 
 //import { User } from "../../../models";
 
@@ -13,7 +14,7 @@ import { Redirect, Link } from "react-router-dom";
 // col/row/container/list/textarea/btn/etc
 
 function Group(props) {
-  //setting the initial state
+  //setting the initial states
   const [user, setUser] = useState({});
   const [group, setGroup] = useState({});
   const [formObject, setFormObject] = useState({});
@@ -23,6 +24,8 @@ function Group(props) {
     CurrentGroupContext
   );
 
+  let socket = props.socket;
+
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
   let groupName = pathArray[3];
@@ -31,6 +34,20 @@ function Group(props) {
     name: groupName,
     messages: [{ name: "Admin", text: "Messages are loading", date: "Now" }],
   };
+
+  socket.on("message check", (data) => {
+    console.log("Message Check");
+    let group = data.group;
+    let currentGroup = data.currentGroup;
+    if (group === groupState._id && currentGroup === currentGroupState._id) {
+      API.getGroup(currentGroupState.name)
+        .then((res) => {
+          //console.log(res.data);
+          setCurrentGroupState(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  });
 
   //load all groups and store them with setGroup
   useEffect(() => {
@@ -120,6 +137,10 @@ function Group(props) {
         currentGroupState.name
       )
         .then((res) => {
+          socket.emit("new message", {
+            group: groupState._id,
+            currentGroup: currentGroupState._id,
+          });
           console.log(res.data);
           loadCurrentGroup(currentGroupState.name);
           //event.target.reset();
@@ -142,7 +163,6 @@ function Group(props) {
           messages={group}
           logOutUser={props.logOutUser}
         />
-        
       </div>
     );
   }
