@@ -1,6 +1,7 @@
 import { Avatar } from "@material-ui/core";
 import React, { useState, useEffect, useContext } from "react";
 import { GroupContext } from "../../utils/GroupStore";
+
 import "./SideBarChat.css";
 
 function SideBarChat() {
@@ -11,7 +12,7 @@ function SideBarChat() {
   return (
     <div>
       {/* <Avatar /> */}
-
+      
       {groupState.subgroups.map((subgroup) => (
         <div className="sidebar__chat">
           <h2
