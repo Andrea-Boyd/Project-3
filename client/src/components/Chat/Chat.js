@@ -8,6 +8,8 @@ import Message from "../Message/Message";
 import { UserContext } from "../../utils/UserStore";
 import Picker from "emoji-picker-react";
 import Popup from "reactjs-popup";
+import { Redirect, Link } from "react-router-dom";
+
 //import { GroupContext } from "../utils/GroupStore";
 
 function Chat(props) {
@@ -62,6 +64,10 @@ function Chat(props) {
         <div className="chat__headerRight">
           <IconButton>
             <SearchOutlined />
+            <button onClick={props.logOutUser}>LogOut</button>
+            <Link to={"/user/" + userState.username} style={{ textDecoration: "none" }}>
+              <button className="signup__btn">Back To User Page</button>
+            </Link>
           </IconButton>
           <IconButton>
             <AttachFile />
@@ -102,6 +108,7 @@ function Chat(props) {
           <button type="submit" onClick={props.sendMessage}>
             Send a Message
           </button>
+          
         </form>
       </div>
     </div>

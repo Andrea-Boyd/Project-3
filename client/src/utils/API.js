@@ -41,6 +41,10 @@ export default {
     return axios.put("/api/users/subgroup/" + id, subGroupData);
   },
 
+  addSubGroupToGroup: function (id, subGroupData) {
+    return axios.put("/api/groups/subgroup/" + id, subGroupData);
+  },
+
   addUserToGroup: function (userData) {
     console.log("API.addUserToGroup");
     return axios.put("/api/groups/addUser/", userData);
@@ -63,7 +67,7 @@ export default {
     return axios.get("/api/users/" + username);
   },
 
-  logout: function() {
+  logout: function () {
     return axios.get("/api/users/logout");
-  }
+  },
 };

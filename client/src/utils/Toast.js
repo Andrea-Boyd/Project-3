@@ -18,7 +18,7 @@ export default {
       },
 
       validPassword: function() {
-          toast("incorrect password")
+          toast("incorrect email or password")
       }
     
 }

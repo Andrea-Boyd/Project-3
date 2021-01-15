@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Sidebar.css";
 import DonutLargeIcon from "@material-ui/icons/DonutLarge";
 import { Avatar, IconButton } from "@material-ui/core";
@@ -9,20 +9,24 @@ import SideBarChat from "../SideBarChat/SideBarChat";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import NewGroupModal from "../../NewGroupModal/NewGroupModal";
+import { GroupContext } from "../../utils/GroupStore";
 
-function Sidebar() {
+
+function Sidebar(props) {
+  const { groupState, setGroupState } = useContext(GroupContext);
+
   return (
     <div className="sidebar">
       <div className="sidebar__header">
         <Avatar>K</Avatar>
         <div className="sidebar__headerRight">
           <IconButton>
-            <DonutLargeIcon />
+            <DonutLargeIcon  />
           </IconButton>
           <IconButton>
             <ChatIcon />
           </IconButton>
-          <IconButton>
+          <IconButton >
             <MoreVertIcon />
           </IconButton>
         </div>
@@ -32,13 +36,28 @@ function Sidebar() {
           <SearchOutlinedIcon />
           <input placeholder="Search" type="text"></input>
         </div>
+
+        <Popup
+      className="popup__content"
+      trigger={<button className="button"> Copy Invite </button>}
+      position="bottom center"
+      closeOnDocumentClick
+      nested
+    >
+    {groupState.inviteCode}
+
+     
+    </Popup>
+      
+       
         <NewGroupModal/>
+
       </div>
 
       <div className="sidebar__chats">
         <SideBarChat />
-       
       </div>
+    
     </div>
   );
 }

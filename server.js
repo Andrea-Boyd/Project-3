@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const session = require("express-session");
-const bodyParser = require("body-parser")
-const cors = require("cors")
-const cookieParser = require("cookie-parser")
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const flash = require("connect-flash");
 const PORT = process.env.PORT || 3001;
@@ -38,31 +38,37 @@ app.use(
 );
 
 app.use(cookieParser("secretcode"));
-const passport = require("./config/passport.js")
+const passport = require("./config/passport.js");
 app.use(passport.initialize());
 app.use(passport.session());
 
- app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use( (req, res, next) => {
- // console.log('req.session', req.session);
- console.log("user")
- console.log(req.session.cookie)
+app.use((req, res, next) => {
+  // console.log('req.session', req.session);
+  //console.log("user");
+  //console.log(req.session.cookie);
   return next();
-})
+});
 
 app.use(routes);
 
 //Socket.io functionality
-// http.listen(PORT, () => {
-//   console.log(`Listening on port ${PORT}`);
-// });
-
-// io.on("connection", (socket) => {
-//   console.log("New user connected");
-//   socket.emit("connection", null);
-// });
-
-app.listen(PORT, function () {
-  console.log(`Server is now listening on PORT ${PORT}!`);
+http.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
+
+io.on("connection", (socket) => {
+  console.log("New user connected");
+  socket.on("new message", (data) => {
+    //console.log("This is socket saying...: " + data);
+    io.emit("message check", data);
+  });
+  socket.on("disconnect", () => {
+    console.log("User Disconnected");
+  });
+});
+
+// app.listen(PORT, function () {
+//   console.log(`Server is now listening on PORT ${PORT}!`);
+// });

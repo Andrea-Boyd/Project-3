@@ -69,6 +69,21 @@ module.exports = {
       });
   },
 
+  addSubGroup: function (req, res) {
+    db.Group.findOneAndUpdate(
+      { _id: req.params.subGroupName },
+      { $push: { subgroups: req.body } }
+    )
+      .then((dbModel) => {
+        console.log(dbModel);
+        res.json(dbModel);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(422).json(err);
+      });
+  },
+
   // findOneSubGroup: function (req, res) {
   //   //console.log(req.params);
   //   // console.log("Find one Group function");
