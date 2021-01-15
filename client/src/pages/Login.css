@@ -1,18 +1,49 @@
 .login__content form {
+    
     width: 600px;
     margin: 0 auto;
     height: 600px;
+    background-image: linear-gradient(to right, #5658d6, #7C35f5, #A79Cf8);
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75)
 }
 
-form>h2 {
+/* form>h2 {
     text-align: center;
     margin-top: 40px;
     color: salmon;
+} */
+
+/* .margin {
+    margin-left: 700px;
+} */
+
+/* .login__container {
+    background-image: linear-gradient(to right, #5658d6, #7C35f5, #A79Cf8);
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75)
+} */
+
+.float-container {
+    border: 3px;
+    padding: 20px;
 }
 
-.login__container {
-    background-color: lightgrey;
-    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75)
+.float-child-left {
+    width: 50%;
+    float: left;
+    padding: 15px;
+    border: 2px;
+}
+
+.float-child-right {
+    width: 50%;
+    float: right;
+    padding: 15px;
+    border: 2px;
+}
+
+.logo {
+    height: 160px;
+    width: 50%;
 }
 
 .form-group {
@@ -32,14 +63,19 @@ form>h2 {
 
 .login__content input {
     width: 60%;
-    border: 2px solid blue;
+    border: 2px;
     border-radius: 8px;
-    height: 30px;
+    height: 60px;
+    
 }
 
 .login__content ::placeholder {
     text-align: center;
-    color: red;
+    color:black;
+    opacity: 50%;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: large;
 }
 
 .login__content label {
