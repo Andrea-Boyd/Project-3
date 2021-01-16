@@ -70,7 +70,7 @@ function Login() {
     return <Redirect to={"/user/" + userState.username} />;
   } else {
     return (
-      <div className= "float-container">
+      <div className= "float-container grid-container">
         <div className="login__container" >
           <div className= "float-child-left logo"> 
             <img src= {Logo} />
