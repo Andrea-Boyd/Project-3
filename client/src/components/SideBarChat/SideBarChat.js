@@ -1,17 +1,59 @@
 import { Avatar } from "@material-ui/core";
 import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../utils/UserStore";
 import { GroupContext } from "../../utils/GroupStore";
 import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
 import API from "../../utils/API";
 import "./SideBarChat.css";
 
 function SideBarChat(props) {
+  const { userState, setUserState } = useContext(UserContext);
   const { groupState, setGroupState } = useContext(GroupContext);
   const { currentGroupState, setCurrentGroupState } = useContext(
     CurrentGroupContext
   );
-  //console.log("bbbbb");
-  //console.log(groupState.subgroups._id);
+
+  // This code is attempting to compare subgroups in userState to subgroups in GroupState
+  // and only display subgroups that are in both
+  const [currentSubGroupState, setCurrentSubGroupState] = useState([
+    { name: "", _id: "", subGroupMembers: [{ name: "", _id: "" }] },
+  ]);
+
+  let currentUsersSubGroups = [];
+
+  // const filterSubGroups = async () => {
+  //   for (let i = 0; i < userState.subgroups.length; i++) {
+  //     for (let j = 0; j < groupState.subgroups.length; j++) {
+  //       if (userState.subgroups[i]._id === groupState.subgroups[j]._id) {
+  //         currentUsersSubGroups.push(groupState.subgroups[j]);
+  //       }
+  //     }
+  //   }
+  //   return currentUsersSubGroups;
+  //   console.log(currentUsersSubGroups);
+  //   setTimeout(() => {
+  //     setCurrentSubGroupState(currentUsersSubGroups);
+  //   }, 500);
+  // };
+
+  let filterSubGroups = new Promise((resolve, reject) => {
+    userState.subgroups.forEach((userSubGroup, index, array) => {
+      //console.log(userSubGroup);
+      groupState.subgroups.forEach((groupSubGroup) => {
+        if (userSubGroup._id === groupSubGroup._id) {
+          currentUsersSubGroups.push(groupSubGroup);
+        }
+        if (index === array.length - 1) resolve();
+      });
+    });
+  });
+
+  useEffect(() => {
+    filterSubGroups.then(() => {
+      console.log(currentUsersSubGroups);
+      setCurrentSubGroupState(currentUsersSubGroups);
+    });
+  }, []);
 
   function loadSubGroup(e) {
     let subGroupName = e.target.innerHTML;
@@ -41,8 +83,29 @@ function SideBarChat(props) {
           {groupState.name}
         </h2>
       </div>
+      {currentSubGroupState._id === "" ? (
+        <div></div>
+      ) : (
+        <div>
+          {currentSubGroupState.map((subgroup) => (
+            <div className="sidebar__chat">
+              <h2
+                key={subgroup._id}
+                className="sidebar__chat__h2"
+                value={subgroup._id}
+                onClick={loadSubGroup}
+              >
+                {subgroup.name}
+              </h2>
+              {subgroup.subGroupMembers.map((member) => (
+                <p>{member.name}</p>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
 
-      {groupState.subgroups.map((subgroup) => (
+      {/* {currentSubGroupState.map((subgroup) => (
         <div className="sidebar__chat">
           <h2
             key={subgroup._id}
@@ -55,19 +118,10 @@ function SideBarChat(props) {
           {subgroup.subGroupMembers.map((member) => (
             <p>{member.name}</p>
           ))}
-          {/* {groupState.subgroups.map((subGroupMembers, index) => (
-            <p
-              key={subGroupMembers._id}
-              className="sidebar__chat__p"
-              value={subGroupMembers._id}
-              // onClick={}
-            >
-              {subGroupMembers.subGroupMembers.name}
-            </p>
-          ))} */}
         </div>
-      ))}
+      ))} */}
     </div>
   );
 }
+
 export default SideBarChat;
