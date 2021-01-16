@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 /* *{
     overflow-x: hidden;
   } */
 
 
+=======
+* {
+    margin: auto;
+    padding: auto;
+    /* overflow-x: hidden; */
+}
+>>>>>>> main
 
 .login__content form {
     
@@ -63,12 +71,16 @@ img {
 
 .form-group {
     margin: auto;
+
+    text-align: center;
+
     width: 60%;
     font-family: 'Trebuchet MS', sans-serif;
 }
 
 .form-control {
     padding: 8px;
+
 }
 
 .login__content button {
@@ -121,3 +133,130 @@ img {
     
     
 }
+
+@media screen and (max-width: 1650px) {
+
+    
+    /* .logo {
+        height: 10px;
+        width: 10%;
+        float: none
+    } */
+
+    
+    .login__content .float-child-right {
+        width: 10%;
+        padding: 15px;
+        border: 2px;
+        z-index: 10;
+    }
+    
+   
+    img {
+        width: 920px;
+        padding-right: 10%;
+       
+        
+    }
+
+   
+}
+
+@media screen and (max-width: 1400px) {
+    .login__content{
+        max-width: 350px;
+        padding-right: 205px;
+        padding-top: 150px;
+        border: 2px;
+        z-index: 10;
+    }
+    
+   
+    img {
+        width: 820px;
+        padding-right: 10%;
+       
+        
+    }
+
+   
+}
+
+@media screen and (max-width: 1180px) {
+    .login__content form{
+        max-width: 330px;
+        max-height: 500px;
+        padding-right:60px;
+    }
+    
+   
+    img {
+        width: 700px;
+        padding-right: 10%;
+       
+        
+    }
+
+    .form-group {
+        width: 70%;
+    }
+
+   
+
+   
+}
+
+@media screen and (max-width: 1000px) {
+    .login__content form{
+        max-width: 280px;
+        max-height: 500px;
+    }
+    
+   
+    img {
+        width: 600px;
+        padding-right: 10%;
+        padding-bottom: 30px;
+       
+        
+    }
+
+    .form-group {
+        width: 90%;
+    }
+
+   
+
+   
+}
+
+@media screen and (max-width: 800px) {
+
+    body {
+        display: grid;
+        grid-template-columns: auto;
+    }
+
+    .login__content form{
+        max-width: 280px;
+        max-height: 500px;
+    }
+    
+   
+    img {
+        width: 600px;
+        padding-right: 10%;
+        padding-bottom: 30px;
+       
+        
+    }
+
+    .form-group {
+        width: 90%;
+    }
+
+   
+
+   
+}
+

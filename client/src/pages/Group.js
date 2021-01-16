@@ -6,6 +6,7 @@ import { UserContext } from "../utils/UserStore";
 import { GroupContext } from "../utils/GroupStore";
 import { CurrentGroupContext } from "../utils/CurrentGroupStore";
 import { Redirect, Link } from "react-router-dom";
+import socketClient from "socket.io-client";
 
 //import { User } from "../../../models";
 
@@ -13,7 +14,7 @@ import { Redirect, Link } from "react-router-dom";
 // col/row/container/list/textarea/btn/etc
 
 function Group(props) {
-  //setting the initial state
+  //setting the initial states
   const [user, setUser] = useState({});
   const [group, setGroup] = useState({});
   const [formObject, setFormObject] = useState({});
@@ -23,6 +24,8 @@ function Group(props) {
     CurrentGroupContext
   );
 
+  let socket = props.socket;
+
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
   let groupName = pathArray[3];
@@ -31,6 +34,20 @@ function Group(props) {
     name: groupName,
     messages: [{ name: "Admin", text: "Messages are loading", date: "Now" }],
   };
+
+  socket.on("message check", (data) => {
+    console.log("Message Check");
+    let group = data.group;
+    let currentGroup = data.currentGroup;
+    if (group === groupState._id && currentGroup === currentGroupState._id) {
+      API.getGroup(currentGroupState.name)
+        .then((res) => {
+          //console.log(res.data);
+          setCurrentGroupState(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  });
 
   //load all groups and store them with setGroup
   useEffect(() => {
@@ -43,6 +60,10 @@ function Group(props) {
   useEffect(() => {
     loadGroup(groupName);
   }, [userState]);
+
+  useEffect(() => {
+scrollToBottom();
+  }, [currentGroupState])
 
   //loads the current group and sets it to group
   function loadGroup(groupName) {
@@ -57,6 +78,11 @@ function Group(props) {
       .catch((err) => console.log(err));
   }
 
+  function scrollToBottom() {
+    var div = document.getElementById("chat__body");
+    div.scrollTop = div.scrollHeight - div.clientHeight;
+  }
+
   function loadCurrentGroup(groupName) {
     //console.log(groupName);
     API.getGroup(groupName)
@@ -64,6 +90,7 @@ function Group(props) {
         //console.log("load group response");
         console.log(res.data);
         setCurrentGroupState(res.data);
+
       })
       .catch((err) => console.log(err));
   }
@@ -96,6 +123,27 @@ function Group(props) {
 
   //functionality to delete a group?
 
+  function onEmojiClick(event, emoji) {
+    let input = document.getElementById("messageBar");
+       
+        console.log(input.value);
+        input.value = input.value + emoji.emoji;
+        setFormObject({ ...formObject, message: input.value });
+    // if(input.value === null) {
+    //   input.value = emoji.emoji
+    //   console.log(input.value)
+    //   setFormObject({...formObject , message: input.value})
+    // } else {
+    //   input.value = input.value + emoji.emoji
+    //   setFormObject({ ...formObject, message: input.value });
+    // }
+    console.log(formObject);
+
+
+    // let emojiMessage = formObject.message + emoji.emoji;
+    // setFormObject({ ...formObject, message: emojiMessage });
+  }
+
   //updates component state when the user types a message
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -105,7 +153,7 @@ function Group(props) {
   //when new message is submitted, use API.postMessage metohd to save
   //the message, then reload messages from the database
   function sendMessage(event) {
-    event.preventDefault();
+    // event.preventDefault();
     let fullName = userState.first_name + " " + userState.last_name;
     let timeStamp = Date.now();
     console.log("Send Message Funciton");
@@ -120,6 +168,11 @@ function Group(props) {
         currentGroupState.name
       )
         .then((res) => {
+          setFormObject({});
+          socket.emit("new message", {
+            group: groupState._id,
+            currentGroup: currentGroupState._id,
+          });
           console.log(res.data);
           loadCurrentGroup(currentGroupState.name);
           //event.target.reset();
@@ -141,8 +194,8 @@ function Group(props) {
           sendMessage={sendMessage}
           messages={group}
           logOutUser={props.logOutUser}
+          onEmojiClick={onEmojiClick}
         />
-        
       </div>
     );
   }

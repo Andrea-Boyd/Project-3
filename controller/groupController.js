@@ -104,8 +104,8 @@ module.exports = {
   // },
 
   update: function (req, res) {
-    // console.log("findOneAndUpdate");
-    // console.log(req.body);
+    console.log("findOneAndUpdate");
+    console.log(req.body);
     db.Group.update(
       { name: req.params.groupName },
       { $push: { messages: req.body } }
