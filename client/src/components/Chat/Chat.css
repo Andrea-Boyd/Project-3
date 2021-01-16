@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     flex: 0.65;
+    background-image: linear-gradient(to right, #5658d6, #7C35f5, #A79Cf8);
 }
 .chat__header {
     padding: 20px;
@@ -22,10 +23,11 @@
 }
 .chat__body {
     flex:1;
-    background-color: lightgrey;
+    /* background-color: lightgrey; */
     background-position: center;
     padding: 30px;
     overflow: scroll;
+    background-image: linear-gradient(to right, #5658d6, #7C35f5, #A79Cf8);
 }
 .chat__message{
     position: relative;
