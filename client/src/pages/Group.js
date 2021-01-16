@@ -113,6 +113,27 @@ function Group(props) {
 
   //functionality to delete a group?
 
+  function onEmojiClick(event, emoji) {
+    let input = document.getElementById("messageBar");
+       
+        console.log(input.value);
+        input.value = input.value + emoji.emoji;
+        setFormObject({ ...formObject, message: input.value });
+    // if(input.value === null) {
+    //   input.value = emoji.emoji
+    //   console.log(input.value)
+    //   setFormObject({...formObject , message: input.value})
+    // } else {
+    //   input.value = input.value + emoji.emoji
+    //   setFormObject({ ...formObject, message: input.value });
+    // }
+    console.log(formObject);
+
+
+    // let emojiMessage = formObject.message + emoji.emoji;
+    // setFormObject({ ...formObject, message: emojiMessage });
+  }
+
   //updates component state when the user types a message
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -122,7 +143,7 @@ function Group(props) {
   //when new message is submitted, use API.postMessage metohd to save
   //the message, then reload messages from the database
   function sendMessage(event) {
-    event.preventDefault();
+    // event.preventDefault();
     let fullName = userState.first_name + " " + userState.last_name;
     let timeStamp = Date.now();
     console.log("Send Message Funciton");
@@ -137,6 +158,7 @@ function Group(props) {
         currentGroupState.name
       )
         .then((res) => {
+          setFormObject({});
           socket.emit("new message", {
             group: groupState._id,
             currentGroup: currentGroupState._id,
@@ -162,6 +184,7 @@ function Group(props) {
           sendMessage={sendMessage}
           messages={group}
           logOutUser={props.logOutUser}
+          onEmojiClick={onEmojiClick}
         />
       </div>
     );

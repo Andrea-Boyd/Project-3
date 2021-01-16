@@ -23,7 +23,7 @@ function Chat(props) {
   // string concat
 
   const selectEmoji = (event, emojiObject) => {
-    console.log(emojiObject)
+    console.log(event)
     console.log(inputRef.current)
     inputRef.current.value += " " + emojiObject.emoji
     // ref.focus();
@@ -40,9 +40,14 @@ function Chat(props) {
     // setChosenEmoji(emojiObject);
   };
 
-  const buildMessage = e => {
+  const handleInputChange= e => {
     setMessage(e.target.value);
   };
+function clearField () {
+  let input = document.getElementById("messageBar");
+  input.value = "";
+  console.log(input)
+}
 
   // const handleShowEmojis = () => {
   //   inputRef.current.focus();
@@ -50,7 +55,7 @@ function Chat(props) {
   // };
 
   // useEffect(() => {
-  //   inputRef.current.selectionEnd = cursorPosition;
+  //   inptRef.current.selectionEnd = cursorPosition;
   // }, [cursorPosition]);
 
   return (
@@ -88,24 +93,24 @@ function Chat(props) {
           nested
         >
           <div>
-            {chosenEmoji ? (
-              <span>You chose: {chosenEmoji.emoji}</span>
-            ) : (
-              <span>No emoji Chosen</span>
-            )}
-            <Picker onEmojiClick={selectEmoji} />
+            <Picker onEmojiClick={props.onEmojiClick} />
           </div>
         </Popup>
         <form>
           <input
+            id="messageBar"
             name="message"
-            onChange={buildMessage} //buildMessage
+            onChange={props.handleInputChange} 
             placeholder="Type a message"
             type="text"
             // value={message}
             ref={inputRef}
           />
-          <button type="submit" onClick={props.sendMessage}>
+          <button type="submit" onClick={(event) => {
+          event.preventDefault();
+          props.sendMessage();
+          clearField();
+        }}>
             Send a Message
           </button>
           
