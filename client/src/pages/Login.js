@@ -104,13 +104,13 @@ function Login() {
               <button
                 onClick={handleFormSubmit}
                 type="submit"
-                className="btn btn-primary btn-block"
+                className="login_btn form-control"
               >
                 Login
             </button>
               <p className="register"></p>
               <Link to="/signup" style={{ textDecoration: "none" }}>
-                <button className="signup__btn">Create New Account</button>
+                <button className="signup__btn">Sign Up</button>
               </Link>
             </form>
           </div>
