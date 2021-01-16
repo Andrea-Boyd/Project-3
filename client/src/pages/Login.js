@@ -44,9 +44,9 @@ function Login() {
           console.log("Before");
           if (res.data !== "No User exists") {
             setUserState(res.data);
-          } else {
+          } else 
             Toast.validPassword();
-          }
+          
           console.log(res.data);
           //setUserState(res.data);
           console.log("After");
@@ -63,7 +63,7 @@ function Login() {
           //setUserState(res.data);
           //redirect();
         })
-        .catch((err) => Toast.validPassword());
+        .catch(err => console.log(err));
   }
 
   if (redirect.redirect) {
