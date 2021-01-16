@@ -1,6 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Col, Row } from "reactstrap";
-
 import "./Login.css";
 import Toast from "../utils/Toast";
 import { Link, Redirect } from "react-router-dom";
@@ -8,6 +6,7 @@ import API from "../utils/API";
 import { UserContext } from "../utils/UserStore";
 import { ContactsOutlined } from "@material-ui/icons";
 import Logo from "../images/logo.png"
+import { Container, Col, Row } from "reactstrap";
 // import { response } from "express";
 
 function Login() {
@@ -72,11 +71,15 @@ function Login() {
     return <Redirect to={"/user/" + userState.username} />;
   } else {
     return (
-      <div className= "float-container container">
-        <div className="login__container" >
-          <div className= "float-child-left logo"> 
+      
+        <Container>
+          <Row>
+            <Col className= "col-sm-6">
+          <div className= "logo float-child-left"> 
             <img src= {Logo} />
           </div>
+            </Col>
+            <Col className= "col-sm-6">
           <div className="login__content float-child-right">
             <form>
               {/* <h2>Login</h2> */}
@@ -106,18 +109,20 @@ function Login() {
               <button
                 onClick={handleFormSubmit}
                 type="submit"
-                className="btn btn-primary btn-block"
+                className="login_btn form-control"
               >
                 Login
             </button>
-              <p className="register"></p>
+              {/* <p className="register"></p> */}
               <Link to="/signup" style={{ textDecoration: "none" }}>
-                <button className="signup__btn">Create New Account</button>
+                <button className="signup__btn">Sign Up</button>
               </Link>
             </form>
           </div>
-        </div>
-      </div>
+          </Col>
+          </Row>
+          </Container>
+      
 
    
     
