@@ -133,8 +133,8 @@
 
 @media screen and (max-width: 1400px) {
     .login__content{
-        width: 400px;
-        padding-right: 55px;
+        max-width: 350px;
+        padding-right: 205px;
         padding-top: 150px;
         border: 2px;
         z-index: 10;
@@ -198,3 +198,34 @@
 
    
 }
+
+@media screen and (max-width: 800px) {
+
+    body {
+        display: grid;
+        grid-template-columns: auto;
+    }
+
+    .login__content form{
+        max-width: 280px;
+        max-height: 500px;
+    }
+    
+   
+    img {
+        width: 600px;
+        padding-right: 10%;
+        padding-bottom: 30px;
+       
+        
+    }
+
+    .form-group {
+        width: 90%;
+    }
+
+   
+
+   
+}
+
