@@ -1,3 +1,9 @@
+/* *{
+    overflow-x: hidden;
+  } */
+
+
+
 .login__content form {
     
     width: 600px;
@@ -30,20 +36,20 @@
     padding: 20px;
 } */
 
-.float-child-left {
+/* .float-child-left {
     width: 50%;
     float: left;
     padding-top: 8px;
     border: 2px;
-    padding-right: 100px;
-}
+    /* padding-right: 100px; */
+/* }
 
 .float-child-right {
     width: 50%;
     float: right;
     padding-top: 8px;
     border: 2px;
-}
+} */ 
 
 /* .logo {
     height: 50%;
@@ -92,16 +98,16 @@ img {
     font-size: large;
 }
 
-.login__content label {
+/* .login__content label {
     float: left;
     width: 10em;
     margin-right: 1em;
     font-size: large;
-}
-
+} */
+/* 
 .login__content p {
     text-align: center;
-}
+} */
 
 .login_btn {
     width: 380px;

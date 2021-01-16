@@ -1,9 +1,9 @@
-.app{
+/* .app{
   display: grid;
   place-items: center;
   height: 100vh;
   background-color: #fff;
-}
+} */
 
 .app__body {
   display:flex;

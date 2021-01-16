@@ -28,6 +28,7 @@
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.3",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.5",
@@ -41,8 +42,9 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "react-router-dom": "^5.2.0",
-    "reactjs-popup": "^2.0.4",
     "react-toastify": "^6.2.0",
+    "reactjs-popup": "^2.0.4",
+    "reactstrap": "^8.8.1",
     "socket.io": "^3.0.4",
     "uuid": "^8.3.2"
   },
