@@ -61,6 +61,10 @@ function Group(props) {
     loadGroup(groupName);
   }, [userState]);
 
+  useEffect(() => {
+scrollToBottom();
+  }, [currentGroupState])
+
   //loads the current group and sets it to group
   function loadGroup(groupName) {
     //console.log(groupName);
@@ -74,6 +78,11 @@ function Group(props) {
       .catch((err) => console.log(err));
   }
 
+  function scrollToBottom() {
+    var div = document.getElementById("chat__body");
+    div.scrollTop = div.scrollHeight - div.clientHeight;
+  }
+
   function loadCurrentGroup(groupName) {
     //console.log(groupName);
     API.getGroup(groupName)
@@ -81,6 +90,7 @@ function Group(props) {
         //console.log("load group response");
         console.log(res.data);
         setCurrentGroupState(res.data);
+
       })
       .catch((err) => console.log(err));
   }

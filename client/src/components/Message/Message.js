@@ -15,9 +15,12 @@ function Message(props) {
   //console.log(new Date(messages[0].date).toLocaleString());
 
   //adding something
+  // let objDiv = document.getElementById("chat__body");
+  // objDiv.scrollTop = objDiv.scrollHeight;
+
 
   return (
-    <div className="chat__body">
+    <div  id = "chat__body"className="chat__body">
       {messages.length ? (
         <div>
           {messages.map((message) => (
