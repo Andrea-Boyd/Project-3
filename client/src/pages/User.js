@@ -5,6 +5,8 @@ import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
 import "./User.css";
 import { UserContext } from "../utils/UserStore";
+import Sidebar from "../components/Sidebar/Sidebar";
+import Chat from "../components/Chat/Chat";
 
 function User(props) {
   const [user, setUser] = useState({}); //groups that users are part of
