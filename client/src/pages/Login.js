@@ -5,6 +5,7 @@ import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
 import { UserContext } from "../utils/UserStore";
 import { ContactsOutlined } from "@material-ui/icons";
+import Logo from "../images/logo.png"
 // import { response } from "express";
 
 function Login() {
@@ -43,9 +44,9 @@ function Login() {
           console.log("Before");
           if (res.data !== "No User exists") {
             setUserState(res.data);
-          } else {
+          } else 
             Toast.validPassword();
-          }
+          
           console.log(res.data);
           //setUserState(res.data);
           console.log("After");
@@ -62,54 +63,62 @@ function Login() {
           //setUserState(res.data);
           //redirect();
         })
-        .catch((err) => Toast.validPassword());
+        .catch(err => console.log(err));
   }
 
   if (redirect.redirect) {
     return <Redirect to={"/user/" + userState.username} />;
   } else {
     return (
-      <div className="login__container">
-        <div className="login__content">
-          <form>
-            <h2>Login</h2>
+      <div className= "float-container">
+        <div className="login__container" >
+          <div className= "float-child-left logo"> 
+            <img src= {Logo} />
+          </div>
+          <div className="login__content float-child-right">
+            <form>
+              {/* <h2>Login</h2> */}
 
-            <div className="form-group">
-              <label>Email address</label>
-              <input
-                onChange={handleInputChange}
-                name="email"
-                type="email"
-                className="form-control"
-                placeholder="Enter email"
-              />
-            </div>
+              <div className="form-group">
+                {/* <label>Email address</label> */}
+                <input
+                  onChange={handleInputChange}
+                  name="email"
+                  type="email"
+                  className="form-control"
+                  placeholder="Email"
+                />
+              </div>
 
-            <div className="form-group">
-              <label>Password</label>
-              <input
-                onChange={handleInputChange}
-                name="password"
-                type="password"
-                className="form-control"
-                placeholder="Enter password"
-              />
-            </div>
+              <div className="form-group">
+                {/* <label>Password</label> */}
+                <input
+                  onChange={handleInputChange}
+                  name="password"
+                  type="password"
+                  className="form-control"
+                  placeholder="Password"
+                />
+              </div>
 
-            <button
-              onClick={handleFormSubmit}
-              type="submit"
-              className="btn btn-primary btn-block"
-            >
-              Login
+              <button
+                onClick={handleFormSubmit}
+                type="submit"
+                className="btn btn-primary btn-block"
+              >
+                Login
             </button>
-            <p className="register">Not Registered??</p>
-            <Link to="/signup" style={{ textDecoration: "none" }}>
-              <button className="signup__btn">Sign Up!</button>
-            </Link>
-          </form>
+              <p className="register"></p>
+              <Link to="/signup" style={{ textDecoration: "none" }}>
+                <button className="signup__btn">Create New Account</button>
+              </Link>
+            </form>
+          </div>
         </div>
       </div>
+
+   
+    
     );
   }
 }
