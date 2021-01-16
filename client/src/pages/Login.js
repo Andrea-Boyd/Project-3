@@ -1,4 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Col, Row } from "reactstrap";
+
 import "./Login.css";
 import Toast from "../utils/Toast";
 import { Link, Redirect } from "react-router-dom";
@@ -70,7 +72,7 @@ function Login() {
     return <Redirect to={"/user/" + userState.username} />;
   } else {
     return (
-      <div className= "float-container grid-container">
+      <div className= "float-container container">
         <div className="login__container" >
           <div className= "float-child-left logo"> 
             <img src= {Logo} />

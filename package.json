@@ -41,8 +41,9 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "react-router-dom": "^5.2.0",
-    "reactjs-popup": "^2.0.4",
     "react-toastify": "^6.2.0",
+    "reactjs-popup": "^2.0.4",
+    "reactstrap": "^8.8.1",
     "socket.io": "^3.0.4",
     "uuid": "^8.3.2"
   },
