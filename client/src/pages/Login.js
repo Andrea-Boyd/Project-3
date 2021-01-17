@@ -74,12 +74,12 @@ function Login() {
       
         <Container>
           <Row>
-            <Col className= "col-sm-6">
+            <Col className= "col-md-6">
           <div className= "logo float-child-left"> 
             <img src= {Logo} />
           </div>
             </Col>
-            <Col className= "col-sm-6">
+            <Col className= "col-md-6 col-12">
           <div className="login__content float-child-right">
             <form>
               {/* <h2>Login</h2> */}
@@ -109,7 +109,7 @@ function Login() {
               <button
                 onClick={handleFormSubmit}
                 type="submit"
-                className="login_btn form-control"
+                className="signup__btn"
               >
                 Login
             </button>
