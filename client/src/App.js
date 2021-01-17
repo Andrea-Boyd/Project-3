@@ -36,7 +36,7 @@ function App() {
       <UserStore>
         <GroupStore>
           <CurrentGroupStore>
-            <div className="app">
+            <div>
               <Router>
                 <Switch>
                   {/* {user ? <User /> : <Login />} */}
@@ -48,7 +48,7 @@ function App() {
                   </Route>
 
                   {/* Route below will only work once proper group name is retrun from db in Users.js */}
-
+                  <div className="app">
                   <Route exact path="/user/:username/:group">
                     <Group logOutUser={logOutUser} socket={socket} />
                   </Route>
@@ -59,6 +59,7 @@ function App() {
                   <Route exact path="/user/:username">
                     <User logOutUser={logOutUser} />
                   </Route>
+                  </div>
                 </Switch>
               </Router>
             </div>
