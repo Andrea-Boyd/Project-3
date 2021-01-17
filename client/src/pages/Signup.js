@@ -1,8 +1,11 @@
 import createSpacing from "@material-ui/core/styles/createSpacing";
 import React, { useState, useEffect, useContext } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
 import Toast from "../utils/Toast";
+import { Container, Col, Row } from "reactstrap";
+
+
 import "./SignUp.css";
 import { UserContext } from "../utils/UserStore";
 
@@ -68,7 +71,10 @@ function SignUp() {
     return <Redirect to={"/user/" + userState.username} />;
   } else {
     return (
-      <div className="signup__container">
+      <Container>
+        <Row>
+          <Col size="col-12">
+      <div className="signup__container container-fluid">
         <div className="signup__content">
           <form>
             <h2>Sign Up</h2>
@@ -146,10 +152,16 @@ function SignUp() {
             >
               Submit
             </button>
+            <Link to="/" style={{ textDecoration: "none" }}>
+                <button className="signup__btn">Log In Page</button>
+              </Link>
             
           </form>
         </div>
       </div>
+      </Col>
+      </Row>
+      </Container>
     );
   }
 }
