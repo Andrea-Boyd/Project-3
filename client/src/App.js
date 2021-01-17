@@ -53,12 +53,12 @@ function App() {
                     <Group logOutUser={logOutUser} socket={socket} />
                   </Route>
 
-                  {/* <Route exact path="/group">
+                    {/* <Route exact path="/group">
                   <Group />
                 </Route> */}
-                  <Route exact path="/user/:username">
-                    <User logOutUser={logOutUser} />
-                  </Route>
+                    <Route exact path="/user/:username">
+                      <User logOutUser={logOutUser} />
+                    </Route>
                   </div>
                 </Switch>
               </Router>

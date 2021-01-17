@@ -4,11 +4,18 @@ import "./Chat.css";
 import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons";
 import { Avatar, IconButton } from "@material-ui/core";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
+import NoteIcon from "@material-ui/icons/Note";
+import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople";
 import Message from "../Message/Message";
 import { UserContext } from "../../utils/UserStore";
 import Picker from "emoji-picker-react";
 import Popup from "reactjs-popup";
 import { Redirect, Link } from "react-router-dom";
+import { GroupContext } from "../../utils/GroupStore";
+import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
+import NewGroupModal from "../../NewGroupModal/NewGroupModal";
+
+import API from "../../utils/API";
 
 //import { GroupContext } from "../utils/GroupStore";
 
@@ -17,15 +24,17 @@ function Chat(props) {
   const [chosenEmoji, setChosenEmoji] = useState(null);
   const [message, setMessage] = useState("");
   const [cursorPosition, setCursorPosition] = useState();
+  const { groupState, setGroupState } = useContext(GroupContext);
+  const { currentGroupState, setCurrentGroupState } = useContext(CurrentGroupContext);
   const inputRef = useRef();
 
   //make new handleinput function "buildMessage"
   // string concat
 
   const selectEmoji = (event, emojiObject) => {
-    console.log(event)
-    console.log(inputRef.current)
-    inputRef.current.value += " " + emojiObject.emoji
+    console.log(event);
+    console.log(inputRef.current);
+    inputRef.current.value += " " + emojiObject.emoji;
     // ref.focus();
     // const ref = inputRef.current.value;
     // const start = ref.substring(0, ref.selectionStart);
@@ -40,23 +49,35 @@ function Chat(props) {
     // setChosenEmoji(emojiObject);
   };
 
-  const handleInputChange= e => {
+  const handleInputChange = (e) => {
     setMessage(e.target.value);
   };
-function clearField () {
-  let input = document.getElementById("messageBar");
-  input.value = "";
-  console.log(input)
-}
+  function clearField() {
+    let input = document.getElementById("messageBar");
+    input.value = "";
+    console.log(input);
+  }
+  function loadSubGroup(e) {
+    let subGroupName = e.target.innerHTML;
+    console.log("Load SubGroup");
+    API.getGroup(subGroupName)
+      .then((res) => {
+        console.log("load Sub Group response");
+        console.log(res);
+        setCurrentGroupState(res.data);
+        //console.log(groupState);
+      })
+      .catch((err) => console.log(err));
+  }
 
   // const handleShowEmojis = () => {
   //   inputRef.current.focus();
   //   setChosenEmoji(!chosenEmoji);
   // };
 
-  // useEffect(() => {
-  //   inptRef.current.selectionEnd = cursorPosition;
-  // }, [cursorPosition]);
+  useEffect(() => {
+    console.log(currentGroupState.groupMembers);
+  }, []);
 
   return (
     <div className="chat">
@@ -67,19 +88,56 @@ function clearField () {
           <p>Last seen at...</p>
         </div>
         <div className="chat__headerRight">
-          <IconButton>
-            <SearchOutlined />
-            <button onClick={props.logOutUser}>LogOut</button>
-            <Link to={"/user/" + userState.username} style={{ textDecoration: "none" }}>
-              <button className="signup__btn">Back To User Page</button>
-            </Link>
-          </IconButton>
-          <IconButton>
-            <AttachFile />
-          </IconButton>
-          <IconButton>
-            <MoreVert />
-          </IconButton>
+          <Link
+            to={"/user/" + userState.username}
+            style={{ textDecoration: "none" }}
+          >
+            <button className="signup__btn">Back To User Page</button>
+          </Link>
+          <button onClick={props.logOutUser}>LogOut</button>
+
+          <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
+           
+              {/* {currentGroupState.groupMembers.map((subMembers) => {
+                <p>{subMembers.name}</p>
+              })} */}
+
+            
+          </Popup>
+
+          <Popup trigger={<MoreVert />} position="bottom right" nested>
+            <div>
+              {groupState.subgroups.map((subgroup) => (
+                <div className="subgroup__hamburger">
+                  <button
+                    key={subgroup._id}
+                    className="subgroup__hamburger__h2"
+                    value={subgroup._id}
+                    onClick={loadSubGroup}
+                  >
+                    {subgroup.name}
+                  </button>
+                </div>
+              ))}
+              <Popup
+                trigger={
+                  <button className="button">
+                    {" "}
+                    <NoteIcon />
+                  </button>
+                }
+                position="bottom left"
+                nested
+              >
+                <div>{groupState.inviteCode}</div>
+              </Popup>
+              <Popup
+                trigger={<NewGroupModal />}
+                position="bottom right"
+                nested
+              ></Popup>
+            </div>
+          </Popup>
         </div>
       </div>
       <Message messages={props.messages} />
@@ -100,20 +158,22 @@ function clearField () {
           <input
             id="messageBar"
             name="message"
-            onChange={props.handleInputChange} 
+            onChange={props.handleInputChange}
             placeholder="Type a message"
             type="text"
             // value={message}
             ref={inputRef}
           />
-          <button type="submit" onClick={(event) => {
-          event.preventDefault();
-          props.sendMessage();
-          clearField();
-        }}>
-            Send a Message
+          <button
+            type="submit"
+            onClick={(event) => {
+              event.preventDefault();
+              props.sendMessage();
+              clearField();
+            }}
+          >
+            Send
           </button>
-          
         </form>
       </div>
     </div>

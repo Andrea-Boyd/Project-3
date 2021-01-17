@@ -10,6 +10,7 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import NewGroupModal from "../../NewGroupModal/NewGroupModal";
 import { GroupContext } from "../../utils/GroupStore";
+import NoteIcon from "@material-ui/icons/Note";
 
 
 function Sidebar(props) {
@@ -39,7 +40,7 @@ function Sidebar(props) {
 
         <Popup
       className="popup__content"
-      trigger={<button className="button"> Copy Invite </button>}
+      trigger={<button className="button"> <NoteIcon/> </button>}
       position="bottom center"
       closeOnDocumentClick
       nested
