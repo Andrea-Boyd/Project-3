@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Chat from "../components/Chat/Chat";
 import API from "../utils/API";
@@ -7,7 +7,7 @@ import { GroupContext } from "../utils/GroupStore";
 import { CurrentGroupContext } from "../utils/CurrentGroupStore";
 import { CurrentSubGroupContext } from "../utils/CurrentSubGroupStore";
 import { Redirect, Link } from "react-router-dom";
-import socketClient from "socket.io-client";
+import io from "socket.io-client";
 
 //import { User } from "../../../models";
 
@@ -29,7 +29,7 @@ function Group(props) {
     CurrentSubGroupContext
   );
 
-  // let socket = props.socket;
+  const socketRef = useRef();
 
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
@@ -40,7 +40,7 @@ function Group(props) {
     messages: [{ name: "Admin", text: "Messages are loading", date: "Now" }],
   };
 
-  // socket.on("message check", (data) => {
+  // socket.on("Message Check", (data) => {
   //   console.log("Message Check");
   //   let group = data.group;
   //   let currentGroup = data.currentGroup;
@@ -54,19 +54,28 @@ function Group(props) {
   //   }
   // });
 
+  // function emitNewMessage() {
+  //   socket.emit("New Message Alert", {
+  //     group: groupState._id,
+  //     currentGroup: currentGroupState._id,
+  //   });
+  // }
+
   //load all groups and store them with setGroup
   useEffect(() => {
+    socketRef.current = io.connect("/");
+
+    // socketRef.current.on();
     console.log(groupState);
     loadGroup(groupName);
     //setGroup(messages);
     //loadUser(username);
   }, []);
 
-  useEffect(() => {
-    loadGroup(groupName);
-  }, [userState]);
+  // useEffect(() => {
+  //   loadGroup(groupName);
+  // }, [userState]);
 
-<<<<<<< HEAD
   let currentUsersSubGroups = [];
 
   async function filterSubGroups() {
@@ -93,11 +102,10 @@ function Group(props) {
       setCurrentSubGroupState(currentUsersSubGroups);
     });
   }, [groupState]);
-=======
+
   useEffect(() => {
-scrollToBottom();
-  }, [currentGroupState])
->>>>>>> main
+    scrollToBottom();
+  }, [currentGroupState]);
 
   //loads the current group and sets it to group
   function loadGroup(groupName) {
@@ -106,6 +114,7 @@ scrollToBottom();
       .then((res) => {
         console.log("load group response");
         console.log(res);
+        socketRef.current.emit("Join Group Request", res.data._id);
         setGroupState(res.data);
         setCurrentGroupState(res.data);
       })
@@ -124,7 +133,6 @@ scrollToBottom();
         //console.log("load group response");
         console.log(res.data);
         setCurrentGroupState(res.data);
-
       })
       .catch((err) => console.log(err));
   }
@@ -159,10 +167,10 @@ scrollToBottom();
 
   function onEmojiClick(event, emoji) {
     let input = document.getElementById("messageBar");
-       
-        console.log(input.value);
-        input.value = input.value + emoji.emoji;
-        setFormObject({ ...formObject, message: input.value });
+
+    console.log(input.value);
+    input.value = input.value + emoji.emoji;
+    setFormObject({ ...formObject, message: input.value });
     // if(input.value === null) {
     //   input.value = emoji.emoji
     //   console.log(input.value)
@@ -172,7 +180,6 @@ scrollToBottom();
     //   setFormObject({ ...formObject, message: input.value });
     // }
     console.log(formObject);
-
 
     // let emojiMessage = formObject.message + emoji.emoji;
     // setFormObject({ ...formObject, message: emojiMessage });
@@ -202,20 +209,13 @@ scrollToBottom();
         currentGroupState.name
       )
         .then((res) => {
-<<<<<<< HEAD
-          // socket.emit("new message", {
-          //   group: groupState._id,
-          //   currentGroup: currentGroupState._id,
-          // });
-=======
-          setFormObject({});
-          socket.emit("new message", {
+          socketRef.current.emit("New Message Alert", {
             group: groupState._id,
             currentGroup: currentGroupState._id,
           });
->>>>>>> main
           console.log(res.data);
           loadCurrentGroup(currentGroupState.name);
+          //emitNewMessage();
           //event.target.reset();
         })
         .catch((err) => console.log(err));

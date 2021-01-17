@@ -126,9 +126,5 @@ function SideBarChat(props) {
     </div>
   );
 }
-<<<<<<< HEAD
 
 export default SideBarChat;
-=======
-export default SideBarChat;
->>>>>>> main
