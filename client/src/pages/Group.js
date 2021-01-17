@@ -91,7 +91,7 @@ function Group(props) {
       console.log(currentUsersSubGroups);
       setCurrentSubGroupState(currentUsersSubGroups);
     });
-  }, [currentGroupState]);
+  }, [groupState]);
 
   //loads the current group and sets it to group
   function loadGroup(groupName) {

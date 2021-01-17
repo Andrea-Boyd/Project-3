@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { memo } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Group from "./pages/Group";
 import User from "./pages/User";
@@ -23,8 +23,10 @@ function App() {
   // socket.on("message check", (data) => {
   //   if
   // })
-
   const [user, setUser] = useState(false);
+
+  useEffect(() => {}, []);
+
   function logOutUser() {
     API.logout().then(({ status }) => {
       if (status === 200) {
