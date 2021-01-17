@@ -1,8 +1,4 @@
-* {
-    margin: auto;
-    padding: auto;
-    /* overflow-x: hidden; */
-}
+
 
 .login__content form {
     
@@ -10,7 +6,7 @@
     margin: 0 auto;
     /* height: 400px; */
     background-image: linear-gradient(to right, #5658d6, #7C35f5, #A79Cf8);
-    /* box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75); */
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
     font-family: 'Trebuchet MS', sans-serif;
     font-weight: bold;
     border-radius: 25px;
@@ -120,7 +116,8 @@ img {
 } */
 
 .row {
-    padding-top: 200px
+    padding-top: 200px;
+    flex-wrap: nowrap;
 }
 
 .signup__btn {
@@ -142,6 +139,7 @@ img {
    
    .row {
        padding-top: 20px;
+       flex-wrap: wrap;
    }
 }
 
