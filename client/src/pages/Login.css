@@ -1,10 +1,15 @@
+
+
 .login__content form {
     
-    width: 600px;
+    /* width: 600px; */
     margin: 0 auto;
-    height: 600px;
+    /* height: 400px; */
     background-image: linear-gradient(to right, #5658d6, #7C35f5, #A79Cf8);
-    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75)
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    border-radius: 25px;
 }
 
 /* form>h2 {
@@ -22,50 +27,71 @@
     box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75)
 } */
 
-.float-container {
+/* .float-container {
     border: 3px;
     padding: 20px;
-}
+} */
 
-.float-child-left {
-    width: 50%;
+ /* .float-child-left {
+    width: 130%;
     float: left;
-    padding: 15px;
     border: 2px;
-}
+    /* padding-right: 100px; */
+ /*} 
 
-.float-child-right {
+/* .float-child-right {
     width: 50%;
     float: right;
-    padding: 15px;
+    padding-top: 128px;
     border: 2px;
-}
+}  */
 
-.logo {
-    height: 160px;
+/* .logo {
+    height: 50%;
     width: 50%;
+} */
+
+img {
+    height: 70%;
+    width: 70%;
+    align-content: center;
 }
 
 .form-group {
-    padding: 40px;
     margin: auto;
+
+    text-align: center;
+
+    width: 60%;
+    font-family: 'Trebuchet MS', sans-serif;
 }
+
+.form-control {
+    padding: 8px;
+    width: 280px;
+    background-color:darkslategray;
+
+}
+
+
 
 .login__content button {
     display: block;
-    width: 200px;
     margin: 40px auto;
     border-radius: 8px;
     height: 45px;
-    background-color: yellow;
-    font-size: medium;
+    color: whitesmoke;
+    font-size: large;
+    font-weight: bold;
+    background-color:darkslategray;
+
 }
 
 .login__content input {
-    width: 60%;
+    width: 100%;
     border: 2px;
     border-radius: 8px;
-    height: 60px;
+    height: 40px;
     
 }
 
@@ -78,33 +104,49 @@
     font-size: large;
 }
 
-.login__content label {
+/* .login__content label {
     float: left;
     width: 10em;
     margin-right: 1em;
     font-size: large;
-}
-
+} */
+/* 
 .login__content p {
     text-align: center;
+} */
+
+.row {
+    padding-top: 200px;
+    flex-wrap: nowrap;
 }
 
 .signup__btn {
-    text-decoration: none;
-    color:red;
-    font-size: medium;
+    width: 280px;
+    background-color: darkslategray;
+    
+    
     
 }
 
-@media only screen and (max-width: 1650px) {
-    .logo {
-        height: 10px;
-        width: 10%;
+@media screen and (max-width: 1000) {
+    img {
+        height: 80%;
+        width: 80%;
+        align-content: center;
     }
-
-    .form {
-        height: 20%;
-        width: 20%
-    }
-   
 }
+@media screen and (max-width: 770px) {
+   
+   .row {
+       padding-top: 20px;
+       flex-wrap: wrap;
+   }
+}
+
+
+
+   
+
+   
+
+

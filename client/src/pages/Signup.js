@@ -1,8 +1,11 @@
 import createSpacing from "@material-ui/core/styles/createSpacing";
 import React, { useState, useEffect, useContext } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
 import Toast from "../utils/Toast";
+import { Container, Col, Row } from "reactstrap";
+
+
 import "./SignUp.css";
 import { UserContext } from "../utils/UserStore";
 
@@ -68,73 +71,77 @@ function SignUp() {
     return <Redirect to={"/user/" + userState.username} />;
   } else {
     return (
-      <div className="signup__container">
+      <Container>
+        <Row>
+          <Col size="col-12">
+      <div className="signup__container container-fluid">
         <div className="signup__content">
           <form>
             <h2>Sign Up</h2>
+            
 
             <div className="form-group">
-              <label>First Name</label>
+              {/* <label>First Name</label> */}
               <input
                 onChange={handleInputChange}
                 name="first_name"
                 type="text"
                 className="form-control"
-                placeholder="Enter first name"
+                placeholder="Enter First Name"
               />
             </div>
 
             <div className="form-group">
-              <label>Last Name</label>
+              {/* <label>Last Name</label> */}
               <input
                 onChange={handleInputChange}
                 name="last_name"
                 type="text"
                 className="form-control"
-                placeholder="Enter last name"
+                placeholder="Enter Last Name"
               />
             </div>
 
             <div className="form-group">
-              <label>Username</label>
+              {/* <label>Username</label> */}
               <input
                 onChange={handleInputChange}
                 name="username"
                 type="text"
                 className="form-control"
-                placeholder="Enter last name"
+                placeholder="Enter a Username"
               />
             </div>
 
             <div className="form-group">
-              <label>Email address</label>
+              {/* <label>Email Address</label> */}
               <input
                 onChange={handleInputChange}
                 name="email"
                 type="email"
                 className="form-control"
-                placeholder="Enter email"
+                placeholder="Enter Email"
               />
             </div>
 
             <div className="form-group">
-              <label>Password</label>
+              {/* <label>Password</label> */}
               <input
                 onChange={handleInputChange}
                 name="password"
                 type="password"
                 className="form-control"
-                placeholder="Enter password"
+                placeholder="Enter Password"
               />
             </div>
             <div className="form-group">
-              <label>Password</label>
+              {/* <label>Password</label> */}
               <input
                 onChange={handleInputChange}
                 name="password2"
                 type="password"
                 className="form-control"
-                placeholder="Re-Enter password"
+                placeholder="Re-Enter Password"
               />
             </div>
 
@@ -145,12 +152,16 @@ function SignUp() {
             >
               Submit
             </button>
-            <p className="forgot-password text-right">
-              Forgot <a href="#">password?</a>
-            </p>
+            <Link to="/" style={{ textDecoration: "none" }}>
+                <button className="signup__btn">Log In Page</button>
+              </Link>
+            
           </form>
         </div>
       </div>
+      </Col>
+      </Row>
+      </Container>
     );
   }
 }
