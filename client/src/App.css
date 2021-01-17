@@ -3,6 +3,9 @@
   place-items: center;
   height: 100vh;
   background-color: #fff;
+   -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
 }
 
 .app__body {
@@ -16,5 +19,14 @@ box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75)
 
 .sidebarChat__info {
   margin-left:15 px;
+}
+
+
+
+.app:before,
+.app:after {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
 }
 
