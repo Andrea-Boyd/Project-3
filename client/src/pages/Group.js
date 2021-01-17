@@ -29,7 +29,7 @@ function Group(props) {
     CurrentSubGroupContext
   );
 
-  let socket = props.socket;
+  // let socket = props.socket;
 
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
@@ -40,19 +40,19 @@ function Group(props) {
     messages: [{ name: "Admin", text: "Messages are loading", date: "Now" }],
   };
 
-  socket.on("message check", (data) => {
-    console.log("Message Check");
-    let group = data.group;
-    let currentGroup = data.currentGroup;
-    if (group === groupState._id && currentGroup === currentGroupState._id) {
-      API.getGroup(currentGroupState.name)
-        .then((res) => {
-          //console.log(res.data);
-          setCurrentGroupState(res.data);
-        })
-        .catch((err) => console.log(err));
-    }
-  });
+  // socket.on("message check", (data) => {
+  //   console.log("Message Check");
+  //   let group = data.group;
+  //   let currentGroup = data.currentGroup;
+  //   if (group === groupState._id && currentGroup === currentGroupState._id) {
+  //     API.getGroup(currentGroupState.name)
+  //       .then((res) => {
+  //         //console.log(res.data);
+  //         setCurrentGroupState(res.data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // });
 
   //load all groups and store them with setGroup
   useEffect(() => {
@@ -169,10 +169,10 @@ function Group(props) {
         currentGroupState.name
       )
         .then((res) => {
-          socket.emit("new message", {
-            group: groupState._id,
-            currentGroup: currentGroupState._id,
-          });
+          // socket.emit("new message", {
+          //   group: groupState._id,
+          //   currentGroup: currentGroupState._id,
+          // });
           console.log(res.data);
           loadCurrentGroup(currentGroupState.name);
           //event.target.reset();

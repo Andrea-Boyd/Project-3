@@ -14,7 +14,7 @@ import CurrentSubGroupStore from "./utils/CurrentSubGroupStore";
 import { useState } from "react";
 
 function App() {
-  let socket = socketClient();
+  // let socket = socketClient();
 
   // socket.on("connection", () => {
   //   console.log("Connected to backend");
@@ -52,7 +52,7 @@ function App() {
                     {/* Route below will only work once proper group name is retrun from db in Users.js */}
 
                     <Route exact path="/user/:username/:group">
-                      <Group logOutUser={logOutUser} socket={socket} />
+                      <Group logOutUser={logOutUser} />
                     </Route>
 
                     {/* <Route exact path="/group">
