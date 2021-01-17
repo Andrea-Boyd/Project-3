@@ -10,14 +10,15 @@ import socketClient from "socket.io-client";
 import UserStore from "./utils/UserStore";
 import GroupStore from "./utils/GroupStore";
 import CurrentGroupStore from "./utils/CurrentGroupStore";
+import CurrentSubGroupStore from "./utils/CurrentSubGroupStore";
 import { useState } from "react";
 
 function App() {
   let socket = socketClient();
 
-  socket.on("connection", () => {
-    console.log("Connected to backend");
-  });
+  // socket.on("connection", () => {
+  //   console.log("Connected to backend");
+  // });
 
   // socket.on("message check", (data) => {
   //   if
@@ -36,32 +37,34 @@ function App() {
       <UserStore>
         <GroupStore>
           <CurrentGroupStore>
-            <div className="app">
-              <Router>
-                <Switch>
-                  {/* {user ? <User /> : <Login />} */}
-                  <Route exact path="/">
-                    <Login />
-                  </Route>
-                  <Route exact path="/signup">
-                    <SignUp />
-                  </Route>
+            <CurrentSubGroupStore>
+              <div className="app">
+                <Router>
+                  <Switch>
+                    {/* {user ? <User /> : <Login />} */}
+                    <Route exact path="/">
+                      <Login />
+                    </Route>
+                    <Route exact path="/signup">
+                      <SignUp />
+                    </Route>
 
-                  {/* Route below will only work once proper group name is retrun from db in Users.js */}
+                    {/* Route below will only work once proper group name is retrun from db in Users.js */}
 
-                  <Route exact path="/user/:username/:group">
-                    <Group logOutUser={logOutUser} socket={socket} />
-                  </Route>
+                    <Route exact path="/user/:username/:group">
+                      <Group logOutUser={logOutUser} socket={socket} />
+                    </Route>
 
-                  {/* <Route exact path="/group">
+                    {/* <Route exact path="/group">
                   <Group />
                 </Route> */}
-                  <Route exact path="/user/:username">
-                    <User logOutUser={logOutUser} />
-                  </Route>
-                </Switch>
-              </Router>
-            </div>
+                    <Route exact path="/user/:username">
+                      <User logOutUser={logOutUser} />
+                    </Route>
+                  </Switch>
+                </Router>
+              </div>
+            </CurrentSubGroupStore>
           </CurrentGroupStore>
         </GroupStore>
       </UserStore>

@@ -61,7 +61,7 @@ http.listen(PORT, () => {
 io.on("connection", (socket) => {
   console.log("New user connected");
   socket.on("new message", (data) => {
-    //console.log("This is socket saying...: " + data);
+    console.log("This is socket saying...: " + data);
     io.emit("message check", data);
   });
   socket.on("disconnect", () => {

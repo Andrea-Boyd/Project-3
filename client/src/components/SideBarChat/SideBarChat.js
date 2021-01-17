@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../utils/UserStore";
 import { GroupContext } from "../../utils/GroupStore";
 import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
+import { CurrentSubGroupContext } from "../../utils/CurrentSubGroupStore";
 import API from "../../utils/API";
 import "./SideBarChat.css";
 
@@ -12,14 +13,17 @@ function SideBarChat(props) {
   const { currentGroupState, setCurrentGroupState } = useContext(
     CurrentGroupContext
   );
+  const { currentSubGroupState, setCurrentSubGroupState } = useContext(
+    CurrentSubGroupContext
+  );
 
   // This code is attempting to compare subgroups in userState to subgroups in GroupState
   // and only display subgroups that are in both
-  const [currentSubGroupState, setCurrentSubGroupState] = useState([
-    { name: "", _id: "", subGroupMembers: [{ name: "", _id: "" }] },
-  ]);
+  // const [currentSubGroupState, setCurrentSubGroupState] = useState([
+  //   { name: "", _id: "", subGroupMembers: [{ name: "", _id: "" }] },
+  // ]);
 
-  let currentUsersSubGroups = [];
+  // let currentUsersSubGroups = [];
 
   // const filterSubGroups = async () => {
   //   for (let i = 0; i < userState.subgroups.length; i++) {
@@ -36,24 +40,23 @@ function SideBarChat(props) {
   //   }, 500);
   // };
 
-  let filterSubGroups = new Promise((resolve, reject) => {
-    userState.subgroups.forEach((userSubGroup, index, array) => {
-      //console.log(userSubGroup);
-      groupState.subgroups.forEach((groupSubGroup) => {
-        if (userSubGroup._id === groupSubGroup._id) {
-          currentUsersSubGroups.push(groupSubGroup);
-        }
-        if (index === array.length - 1) resolve();
-      });
-    });
-  });
+  // let filterSubGroups = new Promise((resolve, reject) => {
+  //   userState.subgroups.forEach((userSubGroup, index, array) => {
+  //     groupState.subgroups.forEach((groupSubGroup) => {
+  //       if (userSubGroup._id === groupSubGroup._id) {
+  //         currentUsersSubGroups.push(groupSubGroup);
+  //         if (index === array.length - 1) resolve();
+  //       }
+  //     });
+  //   });
+  // });
 
-  useEffect(() => {
-    filterSubGroups.then(() => {
-      console.log(currentUsersSubGroups);
-      setCurrentSubGroupState(currentUsersSubGroups);
-    });
-  }, []);
+  // useEffect(() => {
+  //   filterSubGroups.then(() => {
+  //     console.log(currentUsersSubGroups);
+  //     setCurrentSubGroupState(currentUsersSubGroups);
+  //   });
+  // }, []);
 
   function loadSubGroup(e) {
     let subGroupName = e.target.innerHTML;

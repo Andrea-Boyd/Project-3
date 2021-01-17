@@ -5,6 +5,7 @@ import API from "../utils/API";
 import { UserContext } from "../utils/UserStore";
 import { GroupContext } from "../utils/GroupStore";
 import { CurrentGroupContext } from "../utils/CurrentGroupStore";
+import { CurrentSubGroupContext } from "../utils/CurrentSubGroupStore";
 import { Redirect, Link } from "react-router-dom";
 import socketClient from "socket.io-client";
 
@@ -22,6 +23,10 @@ function Group(props) {
   const { groupState, setGroupState } = useContext(GroupContext);
   const { currentGroupState, setCurrentGroupState } = useContext(
     CurrentGroupContext
+  );
+
+  const { currentSubGroupState, setCurrentSubGroupState } = useContext(
+    CurrentSubGroupContext
   );
 
   let socket = props.socket;
@@ -60,6 +65,33 @@ function Group(props) {
   useEffect(() => {
     loadGroup(groupName);
   }, [userState]);
+
+  let currentUsersSubGroups = [];
+
+  async function filterSubGroups() {
+    new Promise((resolve, reject) => {
+      userState.subgroups.forEach((userSubGroup, index, array) => {
+        if (index === array.length + 1) {
+          resolve();
+        } else {
+          console.log("filter Loop");
+          groupState.subgroups.forEach((groupSubGroup) => {
+            if (userSubGroup._id === groupSubGroup._id) {
+              currentUsersSubGroups.push(groupSubGroup);
+            }
+          });
+        }
+      });
+    });
+  }
+
+  useEffect(() => {
+    console.log("Filter Start");
+    filterSubGroups().then(() => {
+      console.log(currentUsersSubGroups);
+      setCurrentSubGroupState(currentUsersSubGroups);
+    });
+  }, [currentGroupState]);
 
   //loads the current group and sets it to group
   function loadGroup(groupName) {
