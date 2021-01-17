@@ -50,7 +50,7 @@
     font-size: xx-small;
 }
 
-.chat_name {
+.chat__name {
     position: absolute;
     top: -15px;
     font-weight: 800;

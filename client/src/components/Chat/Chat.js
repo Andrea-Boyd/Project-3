@@ -25,9 +25,7 @@ function Chat(props) {
   const [message, setMessage] = useState("");
   const [cursorPosition, setCursorPosition] = useState();
   const { groupState, setGroupState } = useContext(GroupContext);
-  const { currentGroupState, setCurrentGroupState } = useContext(
-    CurrentGroupContext
-  );
+  const { currentGroupState, setCurrentGroupState } = useContext(CurrentGroupContext);
   const inputRef = useRef();
 
   //make new handleinput function "buildMessage"
@@ -77,9 +75,9 @@ function Chat(props) {
   //   setChosenEmoji(!chosenEmoji);
   // };
 
-  // useEffect(() => {
-  //   inptRef.current.selectionEnd = cursorPosition;
-  // }, [cursorPosition]);
+  useEffect(() => {
+    console.log(currentGroupState.groupMembers);
+  }, []);
 
   return (
     <div className="chat">
@@ -98,24 +96,27 @@ function Chat(props) {
           </Link>
           <button onClick={props.logOutUser}>LogOut</button>
 
+          <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
+           
+              {/* {currentGroupState.groupMembers.map((subMembers) => {
+                <p>{subMembers.name}</p>
+              })} */}
 
-          
-          <EmojiPeopleIcon />
-
-
+            
+          </Popup>
 
           <Popup trigger={<MoreVert />} position="bottom right" nested>
             <div>
               {groupState.subgroups.map((subgroup) => (
-                <div className="sidebar__chat">
-                  <p
+                <div className="subgroup__hamburger">
+                  <button
                     key={subgroup._id}
-                    className="sidebar__chat__h2"
+                    className="subgroup__hamburger__h2"
                     value={subgroup._id}
                     onClick={loadSubGroup}
                   >
                     {subgroup.name}
-                  </p>
+                  </button>
                 </div>
               ))}
               <Popup
@@ -125,7 +126,7 @@ function Chat(props) {
                     <NoteIcon />
                   </button>
                 }
-                position="top left"
+                position="bottom left"
                 nested
               >
                 <div>{groupState.inviteCode}</div>
@@ -171,7 +172,7 @@ function Chat(props) {
               clearField();
             }}
           >
-            Send a Message
+            Send
           </button>
         </form>
       </div>
