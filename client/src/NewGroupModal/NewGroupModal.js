@@ -6,6 +6,7 @@ import { Avatar } from "@material-ui/core";
 import { UserContext } from "../utils/UserStore";
 import { GroupContext } from "../utils/GroupStore";
 import API from "../utils/API";
+import GroupAddIcon from "@material-ui/icons/GroupAdd";
 
 function NewGroupModal() {
   const [newSubGroup, setNewSubGroup] = useState({});
@@ -117,7 +118,7 @@ function NewGroupModal() {
   return (
     <Popup
       className="popup__content"
-      trigger={<button className="button"> Add New Group </button>}
+      trigger={<button className="button"> <GroupAddIcon/> </button>}
       position="bottom center"
       closeOnDocumentClick
       nested
