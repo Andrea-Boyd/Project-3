@@ -7,6 +7,7 @@ import { GroupContext } from "../utils/GroupStore";
 import { CurrentGroupContext } from "../utils/CurrentGroupStore";
 import { Redirect, Link } from "react-router-dom";
 import socketClient from "socket.io-client";
+import "../App.css"
 
 //import { User } from "../../../models";
 
@@ -187,15 +188,17 @@ scrollToBottom();
     return <Redirect to={"/"} />;
   } else {
     return (
-      <div className="app__body">
-        <Sidebar />
-        <Chat
-          handleInputChange={handleInputChange}
-          sendMessage={sendMessage}
-          messages={group}
-          logOutUser={props.logOutUser}
-          onEmojiClick={onEmojiClick}
-        />
+      <div className="app">
+        <div className="app__body">
+          <Sidebar />
+          <Chat
+            handleInputChange={handleInputChange}
+            sendMessage={sendMessage}
+            messages={group}
+            logOutUser={props.logOutUser}
+            onEmojiClick={onEmojiClick}
+          />
+        </div>
       </div>
     );
   }
