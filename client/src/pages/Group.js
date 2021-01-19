@@ -24,6 +24,7 @@ function Group(props) {
   const { currentGroupState, setCurrentGroupState } = useContext(
     CurrentGroupContext
   );
+ 
 
   let socket = props.socket;
 
@@ -49,6 +50,8 @@ function Group(props) {
         .catch((err) => console.log(err));
     }
   });
+
+  
 
   //load all groups and store them with setGroup
   useEffect(() => {
