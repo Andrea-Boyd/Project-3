@@ -19,24 +19,16 @@ function Sidebar(props) {
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        <Avatar>K</Avatar>
         <div className="sidebar__headerRight">
-          <IconButton>
-            <DonutLargeIcon  />
-          </IconButton>
-          <IconButton>
-            <ChatIcon />
-          </IconButton>
-          <IconButton >
-            <MoreVertIcon />
-          </IconButton>
+        
+         
         </div>
       </div>
       <div className="sidebar__search">
-        <div className="sidebar__searchContainer">
+        {/* <div className="sidebar__searchContainer">
           <SearchOutlinedIcon />
           <input placeholder="Search" type="text"></input>
-        </div>
+        </div> */}
 
         <Popup
       className="popup__content"

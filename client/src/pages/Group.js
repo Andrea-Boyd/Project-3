@@ -6,6 +6,7 @@ import { UserContext } from "../utils/UserStore";
 import { GroupContext } from "../utils/GroupStore";
 import { CurrentGroupContext } from "../utils/CurrentGroupStore";
 import { Redirect, Link } from "react-router-dom";
+import "./Group.css"
 import socketClient from "socket.io-client";
 import "../App.css"
 
@@ -193,7 +194,7 @@ scrollToBottom();
     return (
       <div className="app">
         <div className="app__body">
-          <Sidebar />
+            <Sidebar />
           <Chat
             handleInputChange={handleInputChange}
             sendMessage={sendMessage}
