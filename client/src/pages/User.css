@@ -1,8 +1,34 @@
 .user__btn {
-    width:50px;
+    width: 50px;
     height: 30px;
 }
 
 .user-form-control {
-width:300px;
+    width: 300px;
+}
+
+.user__page {
+    /* background-image: url("../images/k-logo.png"); */
+    background-image: linear-gradient(to right, #5658d6, #7C35f5, #A79Cf8);
+}
+
+.user__kits {
+    overflow: scroll;
+    margin: 0 auto;
+}
+
+.user__kits button {
+    display: block;
+    border-radius: 20px;
+    background-color: lightgreen;
+}
+
+.user__btn {
+    border-radius: 20px;
+    background-color: salmon;
+}
+
+.logout__btn {
+    border-radius: 20px;
+    background-color: hotpink;
 }
