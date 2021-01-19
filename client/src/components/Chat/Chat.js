@@ -92,7 +92,7 @@ function Chat(props) {
             to={"/user/" + userState.username}
             style={{ textDecoration: "none" }}
           >
-            <button className="signup__btn">Back To User Page</button>
+            <button className="btn">Back To User Page</button>
           </Link>
           <button onClick={props.logOutUser}>LogOut</button>
 
