@@ -62,6 +62,8 @@ server.listen(PORT, () => {
 
 io.on("connection", (socket) => {
   console.log("New user connected");
+
+  user = socket;
   let room;
 
   // socket.on("Join Group Request", (id) => {
@@ -75,7 +77,7 @@ io.on("connection", (socket) => {
     console.log("New Message alert for room below:");
     console.log(data.group);
     console.log(data);
-    socket.emit("Message Check", data);
+    io.emit("Message Check", data);
   });
 
   socket.on("disconnect", () => {

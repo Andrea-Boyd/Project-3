@@ -25,6 +25,7 @@ function App() {
   // const [user, setUser] = useState(false);
 
   useEffect(() => {
+    console.log("Use Effect Called in App.js");
     socketRef.current = io.connect();
   }, []);
 

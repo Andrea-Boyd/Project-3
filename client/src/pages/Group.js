@@ -69,32 +69,50 @@ function Group(props) {
   useEffect(() => {
     // socketRef.current = io.connect("/");
 
-    // props.socketRef.current.on("Message Check", (data) => {
-    //   console.log("Message Check");
-    //   console.log(data.currentGroup);
-    //   console.log(currentGroupState._id);
-    //   let currentGroup = data.currentGroup;
-    //   if (currentGroup === currentGroupState._id) {
-    //     API.getGroup(currentGroupState.name)
-    //       .then((res) => {
-    //         console.log(res.data);
-    //         setCurrentGroupState(res.data);
-    //       })
-    //       .catch((err) => console.log(err));
-    //   }
-    // });
     //findSocketToJoin();
     console.log(groupState);
     console.log(groupName);
-    loadGroup(groupName);
+    initialLoadGroup(groupName);
     //setGroup(messages);
     //loadUser(username);
   }, []);
+
+  function initialLoadGroup(groupName) {
+    console.log(groupName);
+    API.getGroup(groupName)
+      .then((res) => {
+        console.log("load group response");
+        console.log(res);
+        //props.joinGroupRequest(res.data._id);
+        setGroupState(res.data);
+        setCurrentGroupState(res.data);
+        console.log(currentGroupState);
+        props.socketRef.current.on("Message Check", (data) => {
+          let localCurrentGroup = getCurrentGroupState();
+          console.log("Message Check");
+          console.log(data.currentGroup);
+          console.log(localCurrentGroup);
+          let currentGroup = data.currentGroup;
+          if (currentGroup === localCurrentGroup._id) {
+            API.getGroup(localCurrentGroup.name)
+              .then((res) => {
+                console.log(res.data);
+                setCurrentGroupState(res.data);
+              })
+              .catch((err) => console.log(err));
+          }
+        });
+      })
+      .catch((err) => console.log(err));
+  }
 
   useEffect(() => {
     loadGroup(groupName);
   }, [userState]);
 
+  function getCurrentGroupState() {
+    return currentGroupState;
+  }
   let currentUsersSubGroups = [];
 
   async function filterSubGroups() {
@@ -126,24 +144,25 @@ function Group(props) {
     scrollToBottom();
   }, [currentGroupState]);
 
-  props.socketRef.current.on("Message Check", (data) => {
-    console.log("Message Check");
-    // console.log(data.currentGroup);
-    // console.log(currentGroupState._id);
-    let currentGroup = data.currentGroup;
-    if (currentGroup === currentGroupState._id) {
-      API.getGroup(currentGroupState.name)
-        .then((res) => {
-          console.log(res.data);
-          setCurrentGroupState(res.data);
-        })
-        .catch((err) => console.log(err));
-    }
-  });
+  // props.socketRef.current.on("Message Check", (data) => {
+  //   console.log("Message Check");
+  //   console.log(props.socketRef.id);
+  //   // console.log(data.currentGroup);
+  //   // console.log(currentGroupState._id);
+  //   let currentGroup = data.currentGroup;
+  //   if (currentGroup === currentGroupState._id) {
+  //     API.getGroup(currentGroupState.name)
+  //       .then((res) => {
+  //         console.log(res.data);
+  //         setCurrentGroupState(res.data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // });
 
   //loads the current group and sets it to group
   function loadGroup(groupName) {
-    //console.log(groupName);
+    console.log(groupName);
     API.getGroup(groupName)
       .then((res) => {
         console.log("load group response");

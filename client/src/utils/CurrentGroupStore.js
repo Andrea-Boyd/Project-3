@@ -22,7 +22,7 @@ const initialGroupState = {
   ],
   messages: [
     {
-      name: "Amin",
+      name: "Admin",
       text: "If you are seeing this, something went wrong",
       date: Date.now(),
     },

@@ -18,9 +18,8 @@ function Message(props) {
   // let objDiv = document.getElementById("chat__body");
   // objDiv.scrollTop = objDiv.scrollHeight;
 
-
   return (
-    <div  id = "chat__body"className="chat__body">
+    <div id="chat__body" className="chat__body">
       {messages.length ? (
         <div>
           {messages.map((message) => (
