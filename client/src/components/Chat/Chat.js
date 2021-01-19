@@ -98,9 +98,9 @@ function Chat(props) {
 
           <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
            
-              {currentGroupState.groupMembers.map((subMembers) => (
+              {/* {currentGroupState.groupMembers.map((subMembers) => {
                 <p>{subMembers.name}</p>
-              ))}
+              })} */}
 
             
           </Popup>

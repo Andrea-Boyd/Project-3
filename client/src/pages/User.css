@@ -31,16 +31,15 @@
 .user__page {
     /* background-image: url("../images/k-logo.png"); */
     background-image: linear-gradient(to right, #5658d6, #7C35f5, #A79Cf8);
-    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
-    font-family: 'Trebuchet MS', sans-serif;
-    font-weight: bold;
-    border-radius: 25px;
+    height: 600px;
     width: 400px;
-    text-align: center;
-
 }
 
-/* .user__kits {
+.user__container {
+ 
+}
+
+.user__kits {
     overflow: scroll;
     margin: 0 auto;
     max-height: 80;

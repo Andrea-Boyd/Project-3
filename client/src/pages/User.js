@@ -100,6 +100,12 @@ function User(props) {
     });
   }
 
+  function clearField() {
+    let input = document.getElementById("joinKit");
+    input.value = "";
+    console.log(input);
+  }
+
   if (userState.username === "") {
     return <Redirect to={"/"} />;
   } else {
@@ -111,12 +117,14 @@ function User(props) {
             <h2>Join a Kit</h2>
             <form className= "user-form">
               <input
+                id="joinKit"
                 className="user-form-control"
                 type="text"
                 placeholder="Enter an Invite Code for an Existing Group"
                 name="inviteCode"
                 onChange={handleInputChange}
               />
+
               <button onClick={addUserToGroup} className="user__btn">
                 Submit
               </button>
