@@ -84,11 +84,11 @@ function Group(props) {
   function startSocketListener(id, name) {
     socket.current.on("message check", (data) => {
       console.log("Message Check");
-      //console.log(data);
-      //console.log(getGroupState());
+      console.log(data);
+      //console.log(currentGroupState);
       let group = data.group;
-      let currentGroup = data.currentGroup;
-      API.getGroup(name)
+      let currentGroup = data.currentGroupName;
+      API.getGroup(currentGroup)
         .then((res) => {
           console.log("Message Check Response");
           //console.log(res.data);
@@ -317,6 +317,7 @@ function Group(props) {
           socket.current.emit("new message", {
             group: groupState._id,
             currentGroup: currentGroupState._id,
+            currentGroupName: currentGroupState.name,
           });
           console.log(res.data);
           loadCurrentGroup(currentGroupState.name);

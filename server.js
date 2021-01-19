@@ -78,6 +78,7 @@ io.on("connection", (socket) => {
 
   socket.on("new message", (data) => {
     console.log("Recieved New Message Alert");
+    console.log(data);
     io.to(data.currentGroup).emit("message check", data);
   });
 

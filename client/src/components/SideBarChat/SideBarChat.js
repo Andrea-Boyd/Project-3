@@ -85,7 +85,7 @@ function SideBarChat(props) {
           onClick={() => {
             console.log(localGroupID);
             props.changeGroup(currentGroupState._id, groupState._id);
-            setCurrentGroupState(groupState);
+            loadSubGroup(groupState.name);
           }}
         >
           {groupState.name}
@@ -101,7 +101,10 @@ function SideBarChat(props) {
                 key={subgroup._id}
                 className="sidebar__chat__h2"
                 value={subgroup._id}
-                onClick={loadSubGroup}
+                onClick={() => {
+                  props.changeGroup(currentGroupState._id, subgroup._id);
+                  loadSubGroup(subgroup.name);
+                }}
               >
                 {subgroup.name}
               </h2>
