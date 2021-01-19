@@ -11,6 +11,7 @@ import UserStore from "./utils/UserStore";
 import GroupStore from "./utils/GroupStore";
 import CurrentGroupStore from "./utils/CurrentGroupStore";
 import { useState } from "react";
+import { ImageSearch } from "@material-ui/icons";
 
 function App() {
   let socket = socketClient();
