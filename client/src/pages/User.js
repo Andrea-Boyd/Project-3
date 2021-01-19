@@ -108,12 +108,12 @@ function User(props) {
         <div className="user__page">
           <div className="user__container">
             <button onClick={props.logOutUser} className="logout__btn"> Log Out</button>
-            <h2>Join A Kit</h2>
-            <form>
+            <h2>Join a Kit</h2>
+            <form className= "user-form">
               <input
                 className="user-form-control"
                 type="text"
-                placeholder="Enter An Invite Code for an Existing Group"
+                placeholder="Enter an Invite Code for an Existing Group"
                 name="inviteCode"
                 onChange={handleInputChange}
               />
@@ -121,12 +121,12 @@ function User(props) {
                 Submit
               </button>
             </form>
-            <h2>Create A New Kit</h2>
+            <h2>Create a New Kit</h2>
             <form>
               <input
                 className="user-form-control"
                 type="text"
-                placeholder="Enter A New Group"
+                placeholder="Enter a New Group"
                 name="groupName"
                 onChange={handleInputChange}
               />
@@ -137,7 +137,7 @@ function User(props) {
 
             <div>
               {/* This condition will need to be changed when groupdata is being returned properly */}
-              <h2>Select A Kit</h2>
+              <h2>Select a Kit</h2>
               {userState.groups !== "0" ? (
                 <div className="user__kits">
                   {userState.groups.map((group) => (
