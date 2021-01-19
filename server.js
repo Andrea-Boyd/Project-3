@@ -10,8 +10,10 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const PORT = process.env.PORT || 3001;
 
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
+const http = require("http");
+const server = http.createServer(app);
+const socket = require("socket.io");
+const io = socket(server);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -54,7 +56,7 @@ app.use((req, res, next) => {
 app.use(routes);
 
 //Socket.io functionality
-http.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
 
@@ -62,18 +64,18 @@ io.on("connection", (socket) => {
   console.log("New user connected");
   let room;
 
-  socket.on("Join Group Request", (id) => {
-    let room = id;
-    console.log("Recieved Join Group Request");
-    console.log(room);
-    socket.join(room);
-  });
+  // socket.on("Join Group Request", (id) => {
+  //   let room = id;
+  //   console.log("Recieved Join Group Request");
+  //   console.log(room);
+  //   socket.join(room);
+  // });
 
   socket.on("New Message Alert", (data) => {
     console.log("New Message alert for room below:");
     console.log(data.group);
     console.log(data);
-    socket.to(data.group).emit("Message Check", data);
+    socket.emit("Message Check", data);
   });
 
   socket.on("disconnect", () => {

@@ -29,11 +29,11 @@ function Group(props) {
     CurrentSubGroupContext
   );
 
-  const socketRef = useRef();
+  // const socketRef = useRef();
 
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
-  let groupName = pathArray[3];
+  let groupName = pathArray[3].replace("%20", " ");
 
   let messages = {
     name: groupName,
@@ -53,28 +53,47 @@ function Group(props) {
   //       .catch((err) => console.log(err));
   //   }
   // });
-
-  // function emitNewMessage() {
-  //   socket.emit("New Message Alert", {
-  //     group: groupState._id,
-  //     currentGroup: currentGroupState._id,
-  //   });
-  // }
+  function findSocketToJoin() {
+    console.log("findSocketToJoin");
+    userState.groups.forEach((group) => {
+      console.log("for Each Statement");
+      console.log(group);
+      console.log(groupName);
+      if (group.name === groupName) {
+        props.socketRef.current.emit("Join Group Request", group._id);
+      }
+    });
+  }
 
   //load all groups and store them with setGroup
   useEffect(() => {
-    socketRef.current = io.connect("/");
+    // socketRef.current = io.connect("/");
 
-    // socketRef.current.on();
+    // props.socketRef.current.on("Message Check", (data) => {
+    //   console.log("Message Check");
+    //   console.log(data.currentGroup);
+    //   console.log(currentGroupState._id);
+    //   let currentGroup = data.currentGroup;
+    //   if (currentGroup === currentGroupState._id) {
+    //     API.getGroup(currentGroupState.name)
+    //       .then((res) => {
+    //         console.log(res.data);
+    //         setCurrentGroupState(res.data);
+    //       })
+    //       .catch((err) => console.log(err));
+    //   }
+    // });
+    //findSocketToJoin();
     console.log(groupState);
+    console.log(groupName);
     loadGroup(groupName);
     //setGroup(messages);
     //loadUser(username);
   }, []);
 
-  // useEffect(() => {
-  //   loadGroup(groupName);
-  // }, [userState]);
+  useEffect(() => {
+    loadGroup(groupName);
+  }, [userState]);
 
   let currentUsersSubGroups = [];
 
@@ -107,6 +126,21 @@ function Group(props) {
     scrollToBottom();
   }, [currentGroupState]);
 
+  props.socketRef.current.on("Message Check", (data) => {
+    console.log("Message Check");
+    // console.log(data.currentGroup);
+    // console.log(currentGroupState._id);
+    let currentGroup = data.currentGroup;
+    if (currentGroup === currentGroupState._id) {
+      API.getGroup(currentGroupState.name)
+        .then((res) => {
+          console.log(res.data);
+          setCurrentGroupState(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  });
+
   //loads the current group and sets it to group
   function loadGroup(groupName) {
     //console.log(groupName);
@@ -114,7 +148,7 @@ function Group(props) {
       .then((res) => {
         console.log("load group response");
         console.log(res);
-        socketRef.current.emit("Join Group Request", res.data._id);
+        //props.joinGroupRequest(res.data._id);
         setGroupState(res.data);
         setCurrentGroupState(res.data);
       })
@@ -131,7 +165,7 @@ function Group(props) {
     API.getGroup(groupName)
       .then((res) => {
         //console.log("load group response");
-        console.log(res.data);
+        //console.log(res.data);
         setCurrentGroupState(res.data);
       })
       .catch((err) => console.log(err));
@@ -209,10 +243,11 @@ function Group(props) {
         currentGroupState.name
       )
         .then((res) => {
-          socketRef.current.emit("New Message Alert", {
-            group: groupState._id,
-            currentGroup: currentGroupState._id,
-          });
+          props.newMessageAlert(groupState._id, currentGroupState._id);
+          // socketRef.current.emit("New Message Alert", {
+          //   group: groupState._id,
+          //   currentGroup: currentGroupState._id,
+          // });
           console.log(res.data);
           loadCurrentGroup(currentGroupState.name);
           //emitNewMessage();

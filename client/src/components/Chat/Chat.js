@@ -23,9 +23,9 @@ function Chat(props) {
   // string concat
 
   const selectEmoji = (event, emojiObject) => {
-    console.log(event)
-    console.log(inputRef.current)
-    inputRef.current.value += " " + emojiObject.emoji
+    console.log(event);
+    console.log(inputRef.current);
+    inputRef.current.value += " " + emojiObject.emoji;
     // ref.focus();
     // const ref = inputRef.current.value;
     // const start = ref.substring(0, ref.selectionStart);
@@ -40,14 +40,15 @@ function Chat(props) {
     // setChosenEmoji(emojiObject);
   };
 
-  const handleInputChange= e => {
+  const handleInputChange = (e) => {
     setMessage(e.target.value);
   };
-function clearField () {
-  let input = document.getElementById("messageBar");
-  input.value = "";
-  console.log(input)
-}
+
+  function clearField() {
+    let input = document.getElementById("messageBar");
+    input.value = "";
+    console.log(input);
+  }
 
   // const handleShowEmojis = () => {
   //   inputRef.current.focus();
@@ -70,7 +71,10 @@ function clearField () {
           <IconButton>
             <SearchOutlined />
             <button onClick={props.logOutUser}>LogOut</button>
-            <Link to={"/user/" + userState.username} style={{ textDecoration: "none" }}>
+            <Link
+              to={"/user/" + userState.username}
+              style={{ textDecoration: "none" }}
+            >
               <button className="signup__btn">Back To User Page</button>
             </Link>
           </IconButton>
@@ -100,20 +104,22 @@ function clearField () {
           <input
             id="messageBar"
             name="message"
-            onChange={props.handleInputChange} 
+            onChange={props.handleInputChange}
             placeholder="Type a message"
             type="text"
             // value={message}
             ref={inputRef}
           />
-          <button type="submit" onClick={(event) => {
-          event.preventDefault();
-          props.sendMessage();
-          clearField();
-        }}>
+          <button
+            type="submit"
+            onClick={(event) => {
+              event.preventDefault();
+              props.sendMessage();
+              clearField();
+            }}
+          >
             Send a Message
           </button>
-          
         </form>
       </div>
     </div>
