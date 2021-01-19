@@ -25,7 +25,9 @@ function Chat(props) {
   const [message, setMessage] = useState("");
   const [cursorPosition, setCursorPosition] = useState();
   const { groupState, setGroupState } = useContext(GroupContext);
-  const { currentGroupState, setCurrentGroupState } = useContext(CurrentGroupContext);
+  const { currentGroupState, setCurrentGroupState } = useContext(
+    CurrentGroupContext
+  );
   const inputRef = useRef();
 
   //make new handleinput function "buildMessage"
@@ -75,9 +77,21 @@ function Chat(props) {
   //   setChosenEmoji(!chosenEmoji);
   // };
 
-  useEffect(() => {
-    console.log(currentGroupState.groupMembers);
-  }, []);
+  // useEffect(() => {
+  //   console.log(currentGroupState.groupMembers);
+  // }, []);
+
+  function conditionalRenderPopup() {
+    if (currentGroupState) {
+      return (
+        <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
+          {currentGroupState.groupMembers.map((subMembers) => (
+            <p>{subMembers.name}</p>
+          ))}
+        </Popup>
+      );
+    }
+  }
 
   return (
     <div className="chat">
@@ -96,14 +110,11 @@ function Chat(props) {
           </Link>
           <button onClick={props.logOutUser}>LogOut</button>
 
-          <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
-           
-              {currentGroupState.groupMembers.map((subMembers) => (
-                <p>{subMembers.name}</p>
-              ))}
-
-            
-          </Popup>
+          {/* <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
+            {currentGroupState.groupMembers.map((subMembers) => (
+              <p>{subMembers.name}</p>
+            ))}
+          </Popup> */}
 
           <Popup trigger={<MoreVert />} position="bottom right" nested>
             <div>
@@ -179,4 +190,5 @@ function Chat(props) {
     </div>
   );
 }
+
 export default Chat;

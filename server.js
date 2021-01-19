@@ -60,10 +60,25 @@ http.listen(PORT, () => {
 
 io.on("connection", (socket) => {
   console.log("New user connected");
-  socket.on("new message", (data) => {
-    //console.log("This is socket saying...: " + data);
-    io.emit("message check", data);
+  console.log(socket.id);
+
+  socket.on("Join Group Request", (id) => {
+    console.log("User has joined room: " + id);
+    socket.join(id);
   });
+
+  socket.on("Change Group Request", (data) => {
+    console.log("Change Group Request");
+    console.log(data);
+    socket.leave(data.currentID);
+    socket.join(data.newID);
+  });
+
+  socket.on("new message", (data) => {
+    console.log("Recieved New Message Alert");
+    io.to(data.currentGroup).emit("message check", data);
+  });
+
   socket.on("disconnect", () => {
     console.log("User Disconnected");
   });

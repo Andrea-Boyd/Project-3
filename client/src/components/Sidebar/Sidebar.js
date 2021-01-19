@@ -12,17 +12,13 @@ import NewGroupModal from "../../NewGroupModal/NewGroupModal";
 import { GroupContext } from "../../utils/GroupStore";
 import NoteIcon from "@material-ui/icons/Note";
 
-
 function Sidebar(props) {
   const { groupState, setGroupState } = useContext(GroupContext);
 
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        <div className="sidebar__headerRight">
-        
-         
-        </div>
+        <div className="sidebar__headerRight"></div>
       </div>
       <div className="sidebar__search">
         {/* <div className="sidebar__searchContainer">
@@ -31,26 +27,26 @@ function Sidebar(props) {
         </div> */}
 
         <Popup
-      className="popup__content"
-      trigger={<button className="button"> <NoteIcon/> </button>}
-      position="bottom center"
-      closeOnDocumentClick
-      nested
-    >
-    {groupState.inviteCode}
+          className="popup__content"
+          trigger={
+            <button className="button">
+              {" "}
+              <NoteIcon />{" "}
+            </button>
+          }
+          position="bottom center"
+          closeOnDocumentClick
+          nested
+        >
+          {groupState.inviteCode}
+        </Popup>
 
-     
-    </Popup>
-      
-       
-        <NewGroupModal/>
-
+        <NewGroupModal />
       </div>
 
       <div className="sidebar__chats">
-        <SideBarChat />
+        <SideBarChat changeGroup={props.changeGroup} />
       </div>
-    
     </div>
   );
 }

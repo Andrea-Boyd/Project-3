@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { memo } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Group from "./pages/Group";
 import User from "./pages/User";
@@ -10,15 +10,21 @@ import socketClient from "socket.io-client";
 import UserStore from "./utils/UserStore";
 import GroupStore from "./utils/GroupStore";
 import CurrentGroupStore from "./utils/CurrentGroupStore";
-import { useState } from "react";
-import { ImageSearch } from "@material-ui/icons";
+import Container from "./components/Container/Container";
 
 function App() {
-  let socket = socketClient();
+  // const socket = socketClient("/");
 
-  socket.on("connection", () => {
-    console.log("Connected to backend");
-  });
+  // Line 19 - 23 is the most recent code
+  // const socket = useRef();
+
+  // useEffect(() => {
+  //   socket.current = socketClient.connect();
+  // }, []);
+
+  // socket.on("connection", () => {
+  //   console.log("Connected to backend");
+  // });
 
   // socket.on("message check", (data) => {
   //   if
@@ -32,47 +38,7 @@ function App() {
       }
     });
   }
-  return (
-    <div>
-      <UserStore>
-        <GroupStore>
-          <CurrentGroupStore>
-            <div>
-              <Router>
-                <Switch>
-                  {/* {user ? <User /> : <Login />} */}
-                  <Route exact path="/">
-                    <Login />
-                  </Route>
-                  <Route exact path="/signup">
-                    <SignUp />
-                  </Route>
-
-                  {/* Route below will only work once proper group name is retrun from db in Users.js */}
-                  <div className="app">
-                    <Route exact path="/user/:username/:group">
-                      <Group logOutUser={logOutUser} socket={socket} />
-                    </Route>
-
-                    {/* <Route exact path="/group">
-                  <Group />
-                </Route> */}
-                    <div>
-                      <Route exact path="/user/:username">
-                        <User
-                          logOutUser={logOutUser}
-                        />
-                      </Route>
-                    </div>
-                  </div>
-                </Switch>
-              </Router>
-            </div>
-          </CurrentGroupStore>
-        </GroupStore>
-      </UserStore>
-    </div>
-  );
+  return <Container logOutUser={logOutUser} />;
 }
 
 export default App;

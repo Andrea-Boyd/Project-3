@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Chat from "../components/Chat/Chat";
 import API from "../utils/API";
@@ -6,9 +6,9 @@ import { UserContext } from "../utils/UserStore";
 import { GroupContext } from "../utils/GroupStore";
 import { CurrentGroupContext } from "../utils/CurrentGroupStore";
 import { Redirect, Link } from "react-router-dom";
-import "./Group.css"
+import "./Group.css";
 import socketClient from "socket.io-client";
-import "../App.css"
+import "../App.css";
 
 //import { User } from "../../../models";
 
@@ -25,9 +25,10 @@ function Group(props) {
   const { currentGroupState, setCurrentGroupState } = useContext(
     CurrentGroupContext
   );
- 
 
-  let socket = props.socket;
+  const socket = useRef();
+
+  //let socket = props.socket;
 
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
@@ -37,38 +38,64 @@ function Group(props) {
     name: groupName,
     messages: [{ name: "Admin", text: "Messages are loading", date: "Now" }],
   };
+  function sendGroupID(id) {
+    socket.current.emit("Join Group Request", id);
+  }
 
-  socket.on("message check", (data) => {
-    console.log("Message Check");
-    let group = data.group;
-    let currentGroup = data.currentGroup;
-    if (group === groupState._id && currentGroup === currentGroupState._id) {
-      API.getGroup(currentGroupState.name)
+  function changeGroup(currentID, newID) {
+    socket.current.emit("Change Group Request", {
+      currentID: currentID,
+      newID: newID,
+    });
+  }
+
+  function startSocketListener(id, name) {
+    socket.current.on("message check", (data) => {
+      console.log("Message Check");
+      //console.log(data);
+      //console.log(getGroupState());
+      let group = data.group;
+      let currentGroup = data.currentGroup;
+      API.getGroup(name)
         .then((res) => {
+          console.log("Message Check Response");
           //console.log(res.data);
           setCurrentGroupState(res.data);
         })
         .catch((err) => console.log(err));
-    }
-  });
-
-  
+    });
+  }
 
   //load all groups and store them with setGroup
   useEffect(() => {
     console.log(groupState);
-    loadGroup(groupName);
+    initialLoadGroup(groupName);
     //setGroup(messages);
     //loadUser(username);
+    socket.current = socketClient.connect();
   }, []);
 
   useEffect(() => {
     loadGroup(groupName);
   }, [userState]);
 
-  useEffect(() => {
-scrollToBottom();
-  }, [currentGroupState])
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [currentGroupState]);
+
+  function initialLoadGroup(groupName) {
+    //console.log(groupName);
+    API.getGroup(groupName)
+      .then((res) => {
+        console.log("initial load group response");
+        console.log(res);
+        setGroupState(res.data);
+        setCurrentGroupState(res.data);
+        sendGroupID(res.data._id);
+        startSocketListener(res.data._id, res.data.name);
+      })
+      .catch((err) => console.log(err));
+  }
 
   //loads the current group and sets it to group
   function loadGroup(groupName) {
@@ -95,7 +122,6 @@ scrollToBottom();
         //console.log("load group response");
         console.log(res.data);
         setCurrentGroupState(res.data);
-
       })
       .catch((err) => console.log(err));
   }
@@ -130,10 +156,10 @@ scrollToBottom();
 
   function onEmojiClick(event, emoji) {
     let input = document.getElementById("messageBar");
-       
-        console.log(input.value);
-        input.value = input.value + emoji.emoji;
-        setFormObject({ ...formObject, message: input.value });
+
+    console.log(input.value);
+    input.value = input.value + emoji.emoji;
+    setFormObject({ ...formObject, message: input.value });
     // if(input.value === null) {
     //   input.value = emoji.emoji
     //   console.log(input.value)
@@ -143,7 +169,6 @@ scrollToBottom();
     //   setFormObject({ ...formObject, message: input.value });
     // }
     console.log(formObject);
-
 
     // let emojiMessage = formObject.message + emoji.emoji;
     // setFormObject({ ...formObject, message: emojiMessage });
@@ -174,12 +199,13 @@ scrollToBottom();
       )
         .then((res) => {
           setFormObject({});
-          socket.emit("new message", {
+          socket.current.emit("new message", {
             group: groupState._id,
             currentGroup: currentGroupState._id,
           });
           console.log(res.data);
           loadCurrentGroup(currentGroupState.name);
+          scrollToBottom();
           //event.target.reset();
         })
         .catch((err) => console.log(err));
@@ -194,7 +220,7 @@ scrollToBottom();
     return (
       <div className="app">
         <div className="app__body">
-            <Sidebar />
+          <Sidebar changeGroup={changeGroup} />
           <Chat
             handleInputChange={handleInputChange}
             sendMessage={sendMessage}
