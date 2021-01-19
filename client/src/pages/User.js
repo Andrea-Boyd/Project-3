@@ -105,55 +105,60 @@ function User(props) {
   } else {
     return (
       <>
-        <div className="user__container">
-          <button onClick={props.logOutUser}> Log Out</button>
-          <form>
-            <input
-              className="user-form-control"
-              type="text"
-              placeholder="Enter A New Group"
-              name="groupName"
-              onChange={handleInputChange}
-            />
-            <button onClick={handleFormSubmit} className="user__btn">
-              Submit
-            </button>
-          </form>
-          <form>
-            <input
-              className="user-form-control"
-              type="text"
-              placeholder="Enter An Invite Code for an Existing Group"
-              name="inviteCode"
-              onChange={handleInputChange}
-            />
-            <button onClick={addUserToGroup} className="user__btn">
-              Submit
-            </button>
-          </form>
-          <div>
-            {/* This condition will need to be changed when groupdata is being returned properly */}
+        <div className="user__page">
+          <div className="user__container">
+            <button onClick={props.logOutUser} className="logout__btn"> Log Out</button>
+            <h2>Join A Kit</h2>
+            <form>
+              <input
+                className="user-form-control"
+                type="text"
+                placeholder="Enter An Invite Code for an Existing Group"
+                name="inviteCode"
+                onChange={handleInputChange}
+              />
+              <button onClick={addUserToGroup} className="user__btn">
+                Submit
+              </button>
+            </form>
+            <h2>Create A New Kit</h2>
+            <form>
+              <input
+                className="user-form-control"
+                type="text"
+                placeholder="Enter A New Group"
+                name="groupName"
+                onChange={handleInputChange}
+              />
+              <button onClick={handleFormSubmit} className="user__btn">
+                Submit
+              </button>
+            </form>
 
-            {userState.groups !== "0" ? (
-              <div>
-                {userState.groups.map((group) => (
-                  <Link
-                    to={"/user/" + username + "/" + group.name}
-                    key={group._id}
-                  >
-                    <button
+            <div>
+              {/* This condition will need to be changed when groupdata is being returned properly */}
+              <h2>Select A Kit</h2>
+              {userState.groups !== "0" ? (
+                <div className="user__kits">
+                  {userState.groups.map((group) => (
+                    <Link
+                      to={"/user/" + username + "/" + group.name}
                       key={group._id}
-                      className="group__btn"
-                      value={group._id}
                     >
-                      {group.name}
-                    </button>
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <h3>Start your first group above!</h3>
-            )}
+                      <button
+                        key={group._id}
+                        className="group__btn"
+                        value={group._id}
+                      >
+                        {group.name}
+                      </button>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <h3>Start your first group above!</h3>
+              )}
+            </div>
           </div>
         </div>
       </>
