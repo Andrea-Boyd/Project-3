@@ -62,22 +62,23 @@ server.listen(PORT, () => {
 
 io.on("connection", (socket) => {
   console.log("New user connected");
+  console.log(socket.id);
 
-  user = socket;
-  let room;
+  socket.on("Join Group Request", (id) => {
+    console.log("User has joined room: " + id);
+    socket.join(id);
+  });
 
-  // socket.on("Join Group Request", (id) => {
-  //   let room = id;
-  //   console.log("Recieved Join Group Request");
-  //   console.log(room);
-  //   socket.join(room);
-  // });
-
-  socket.on("New Message Alert", (data) => {
-    console.log("New Message alert for room below:");
-    console.log(data.group);
+  socket.on("Change Group Request", (data) => {
+    console.log("Change Group Request");
     console.log(data);
-    io.emit("Message Check", data);
+    socket.leave(data.currentID);
+    socket.join(data.newID);
+  });
+
+  socket.on("new message", (data) => {
+    console.log("Recieved New Message Alert");
+    io.to(data.currentGroup).emit("message check", data);
   });
 
   socket.on("disconnect", () => {

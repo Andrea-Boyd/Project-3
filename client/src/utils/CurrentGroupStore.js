@@ -41,7 +41,7 @@ const initialGroupState = {
 export const CurrentGroupContext = React.createContext();
 
 const CurrentGroupStore = ({ children }) => {
-  const [currentGroupState, setCurrentGroupState] = useState(initialGroupState);
+  const [currentGroupState, setCurrentGroupState] = useState();
 
   return (
     <CurrentGroupContext.Provider

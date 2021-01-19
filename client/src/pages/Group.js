@@ -8,6 +8,9 @@ import { CurrentGroupContext } from "../utils/CurrentGroupStore";
 import { CurrentSubGroupContext } from "../utils/CurrentSubGroupStore";
 import { Redirect, Link } from "react-router-dom";
 import io from "socket.io-client";
+import "./Group.css";
+import socketClient from "socket.io-client";
+import "../App.css";
 
 //import { User } from "../../../models";
 
@@ -30,6 +33,9 @@ function Group(props) {
   );
 
   // const socketRef = useRef();
+  const socket = useRef();
+
+  //let socket = props.socket;
 
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
@@ -39,6 +45,16 @@ function Group(props) {
     name: groupName,
     messages: [{ name: "Admin", text: "Messages are loading", date: "Now" }],
   };
+  function sendGroupID(id) {
+    socket.current.emit("Join Group Request", id);
+  }
+
+  function changeGroup(currentID, newID) {
+    socket.current.emit("Change Group Request", {
+      currentID: currentID,
+      newID: newID,
+    });
+  }
 
   // socket.on("Message Check", (data) => {
   //   console.log("Message Check");
@@ -65,6 +81,23 @@ function Group(props) {
     });
   }
 
+  function startSocketListener(id, name) {
+    socket.current.on("message check", (data) => {
+      console.log("Message Check");
+      //console.log(data);
+      //console.log(getGroupState());
+      let group = data.group;
+      let currentGroup = data.currentGroup;
+      API.getGroup(name)
+        .then((res) => {
+          console.log("Message Check Response");
+          //console.log(res.data);
+          setCurrentGroupState(res.data);
+        })
+        .catch((err) => console.log(err));
+    });
+  }
+
   //load all groups and store them with setGroup
   useEffect(() => {
     // socketRef.current = io.connect("/");
@@ -75,36 +108,37 @@ function Group(props) {
     initialLoadGroup(groupName);
     //setGroup(messages);
     //loadUser(username);
+    socket.current = socketClient.connect();
   }, []);
 
-  function initialLoadGroup(groupName) {
-    console.log(groupName);
-    API.getGroup(groupName)
-      .then((res) => {
-        console.log("load group response");
-        console.log(res);
-        //props.joinGroupRequest(res.data._id);
-        setGroupState(res.data);
-        setCurrentGroupState(res.data);
-        console.log(currentGroupState);
-        props.socketRef.current.on("Message Check", (data) => {
-          let localCurrentGroup = getCurrentGroupState();
-          console.log("Message Check");
-          console.log(data.currentGroup);
-          console.log(localCurrentGroup);
-          let currentGroup = data.currentGroup;
-          if (currentGroup === localCurrentGroup._id) {
-            API.getGroup(localCurrentGroup.name)
-              .then((res) => {
-                console.log(res.data);
-                setCurrentGroupState(res.data);
-              })
-              .catch((err) => console.log(err));
-          }
-        });
-      })
-      .catch((err) => console.log(err));
-  }
+  // function initialLoadGroup(groupName) {
+  //   console.log(groupName);
+  //   API.getGroup(groupName)
+  //     .then((res) => {
+  //       console.log("load group response");
+  //       console.log(res);
+  //       //props.joinGroupRequest(res.data._id);
+  //       setGroupState(res.data);
+  //       setCurrentGroupState(res.data);
+  //       console.log(currentGroupState);
+  //       props.socketRef.current.on("Message Check", (data) => {
+  //         let localCurrentGroup = getCurrentGroupState();
+  //         console.log("Message Check");
+  //         console.log(data.currentGroup);
+  //         console.log(localCurrentGroup);
+  //         let currentGroup = data.currentGroup;
+  //         if (currentGroup === localCurrentGroup._id) {
+  //           API.getGroup(localCurrentGroup.name)
+  //             .then((res) => {
+  //               console.log(res.data);
+  //               setCurrentGroupState(res.data);
+  //             })
+  //             .catch((err) => console.log(err));
+  //         }
+  //       });
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
 
   useEffect(() => {
     loadGroup(groupName);
@@ -140,9 +174,9 @@ function Group(props) {
     });
   }, [groupState]);
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [currentGroupState]);
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [currentGroupState]);
 
   // props.socketRef.current.on("Message Check", (data) => {
   //   console.log("Message Check");
@@ -159,6 +193,23 @@ function Group(props) {
   //       .catch((err) => console.log(err));
   //   }
   // });
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [currentGroupState]);
+
+  function initialLoadGroup(groupName) {
+    //console.log(groupName);
+    API.getGroup(groupName)
+      .then((res) => {
+        console.log("initial load group response");
+        console.log(res);
+        setGroupState(res.data);
+        setCurrentGroupState(res.data);
+        sendGroupID(res.data._id);
+        startSocketListener(res.data._id, res.data.name);
+      })
+      .catch((err) => console.log(err));
+  }
 
   //loads the current group and sets it to group
   function loadGroup(groupName) {
@@ -262,14 +313,14 @@ function Group(props) {
         currentGroupState.name
       )
         .then((res) => {
-          props.newMessageAlert(groupState._id, currentGroupState._id);
-          // socketRef.current.emit("New Message Alert", {
-          //   group: groupState._id,
-          //   currentGroup: currentGroupState._id,
-          // });
+          setFormObject({});
+          socket.current.emit("new message", {
+            group: groupState._id,
+            currentGroup: currentGroupState._id,
+          });
           console.log(res.data);
           loadCurrentGroup(currentGroupState.name);
-          //emitNewMessage();
+          scrollToBottom();
           //event.target.reset();
         })
         .catch((err) => console.log(err));
@@ -282,15 +333,17 @@ function Group(props) {
     return <Redirect to={"/"} />;
   } else {
     return (
-      <div className="app__body">
-        <Sidebar />
-        <Chat
-          handleInputChange={handleInputChange}
-          sendMessage={sendMessage}
-          messages={group}
-          logOutUser={props.logOutUser}
-          onEmojiClick={onEmojiClick}
-        />
+      <div className="app">
+        <div className="app__body">
+          <Sidebar changeGroup={changeGroup} />
+          <Chat
+            handleInputChange={handleInputChange}
+            sendMessage={sendMessage}
+            messages={group}
+            logOutUser={props.logOutUser}
+            onEmojiClick={onEmojiClick}
+          />
+        </div>
       </div>
     );
   }

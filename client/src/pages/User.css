@@ -1,8 +1,90 @@
 .user__btn {
-    width:50px;
+    width: 50px;
     height: 30px;
 }
 
+/* .user-form {
+    display: flex;
+    flex-direction: row;
+} */
+
 .user-form-control {
-width:300px;
+    width: 325px;    
+    border: 2px;
+    border-radius: 8px;
+    height: 40px;
+    text-align: center;
+    /* display: flex;
+    flex-direction: row; */
+    /* flex-grow:2; */
+}
+
+.user-form-control ::placeholder {
+    /* text-align: center; */
+    color:black;
+    opacity: 50%;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: large;
+}
+
+.user__page {
+    /* background-image: url("../images/k-logo.png"); */
+    background-image: linear-gradient(to right, #5658d6, #7C35f5, #A79Cf8);
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    border-radius: 25px;
+    width: 400px;
+    text-align: center;
+
+}
+
+/* .user__kits {
+    overflow: scroll;
+    margin: 0 auto;
+    max-height: 80;
+} */
+
+.user__kits button {
+    display: block;
+    margin: 6px auto;
+    border-radius: 8px;
+    height: 45px;
+    width: 300px;
+    color: whitesmoke;
+    font-size: large;
+    font-weight: bold;
+    background-color:darkslategray;
+   
+}
+
+.user__btn {
+    /* border-radius: 20px;
+    background-color: salmon; */
+    display: inline-block;
+    /* margin: 6px auto; */
+    border-radius: 8px;
+    height: 25px;
+    color: whitesmoke;
+    font-size: small;
+    font-weight: bold;
+    background-color:darkslategray;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.logout__btn {
+    /* border-radius: 20px;
+    background-color: hotpink; */
+    display: block;
+    /* margin: 6px auto; */
+    border-radius: 8px;
+    height: 25px;
+    color: whitesmoke;
+    font-size: small;
+    font-weight: bold;
+    background-color:darkslategray;
+    place-items: center;
 }

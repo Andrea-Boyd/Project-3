@@ -58,13 +58,16 @@ function SideBarChat(props) {
   //   });
   // }, []);
 
-  function loadSubGroup(e) {
-    let subGroupName = e.target.innerHTML;
+  let localGroupID = "";
+
+  function loadSubGroup(name) {
+    let subGroupName = name;
     console.log("Load SubGroup");
     API.getGroup(subGroupName)
       .then((res) => {
         console.log("load Sub Group response");
         console.log(res);
+        console.log(localGroupID);
         setCurrentGroupState(res.data);
         //console.log(groupState);
       })
@@ -80,6 +83,8 @@ function SideBarChat(props) {
           className="sidebar__chat__h2"
           value={groupState._id}
           onClick={() => {
+            console.log(localGroupID);
+            props.changeGroup(currentGroupState._id, groupState._id);
             setCurrentGroupState(groupState);
           }}
         >
@@ -114,7 +119,11 @@ function SideBarChat(props) {
             key={subgroup._id}
             className="sidebar__chat__h2"
             value={subgroup._id}
-            onClick={loadSubGroup}
+            // we will call Change Room function here, has access to subgroup._id
+            onClick={() => {
+              props.changeGroup(currentGroupState._id, subgroup._id);
+              loadSubGroup(subgroup.name);
+            }}
           >
             {subgroup.name}
           </h2>
@@ -126,5 +135,4 @@ function SideBarChat(props) {
     </div>
   );
 }
-
 export default SideBarChat;

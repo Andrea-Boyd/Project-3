@@ -1,0 +1,32 @@
+@media screen and (max-width: 750px) {
+ .sidebar {
+     display: none;
+ }
+
+ .btn {
+     display: flex;
+ }
+
+ .app__body {
+     display: inline-block;
+     max-height: max-content;
+    max-width: max-content;
+ }
+
+ .chat__body {
+     position: relative;
+    padding: 160px;
+    padding-bottom: 0px;
+    bottom: 120px;
+    overflow: scroll;
+
+ }
+
+ .chat__message {
+     position: relative;
+     right: 160px;
+
+ }
+
+
+}

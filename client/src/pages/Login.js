@@ -74,7 +74,7 @@ function Login() {
     return <Redirect to={"/user/" + userState.username} />;
   } else {
     return (
-      
+      <div className="login">
         <Container>
           <Row>
             <Col className= "col-md-6">
@@ -125,6 +125,7 @@ function Login() {
           </Col>
           </Row>
           </Container>
+          </div>
       
 
    

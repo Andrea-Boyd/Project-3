@@ -10,7 +10,7 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import NewGroupModal from "../../NewGroupModal/NewGroupModal";
 import { GroupContext } from "../../utils/GroupStore";
-
+import NoteIcon from "@material-ui/icons/Note";
 
 function Sidebar(props) {
   const { groupState, setGroupState } = useContext(GroupContext);
@@ -18,46 +18,35 @@ function Sidebar(props) {
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        <Avatar>K</Avatar>
-        <div className="sidebar__headerRight">
-          <IconButton>
-            <DonutLargeIcon  />
-          </IconButton>
-          <IconButton>
-            <ChatIcon />
-          </IconButton>
-          <IconButton >
-            <MoreVertIcon />
-          </IconButton>
-        </div>
+        <div className="sidebar__headerRight"></div>
       </div>
       <div className="sidebar__search">
-        <div className="sidebar__searchContainer">
+        {/* <div className="sidebar__searchContainer">
           <SearchOutlinedIcon />
           <input placeholder="Search" type="text"></input>
-        </div>
+        </div> */}
 
         <Popup
-      className="popup__content"
-      trigger={<button className="button"> Copy Invite </button>}
-      position="bottom center"
-      closeOnDocumentClick
-      nested
-    >
-    {groupState.inviteCode}
+          className="popup__content"
+          trigger={
+            <button className="button">
+              {" "}
+              <NoteIcon />{" "}
+            </button>
+          }
+          position="bottom center"
+          closeOnDocumentClick
+          nested
+        >
+          {groupState.inviteCode}
+        </Popup>
 
-     
-    </Popup>
-      
-       
-        <NewGroupModal/>
-
+        <NewGroupModal />
       </div>
 
       <div className="sidebar__chats">
-        <SideBarChat />
+        <SideBarChat changeGroup={props.changeGroup} />
       </div>
-    
     </div>
   );
 }
