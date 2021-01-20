@@ -100,6 +100,12 @@ function User(props) {
     });
   }
 
+  function clearField() {
+    let input = document.getElementById("joinKit");
+    input.value = "";
+    console.log(input);
+  }
+
   if (userState.username === "") {
     return <Redirect to={"/"} />;
   } else {
@@ -108,21 +114,23 @@ function User(props) {
         <div className="user__page">
           <div className="user__container">
             <button onClick={props.logOutUser} className="logout__btn"> Log Out</button>
-            <h2>Join a Kit</h2>
+            <h2 className="user__h2">Join a Kit</h2>
             <form className= "user-form">
               <input
+                id="joinKit"
                 className="user-form-control"
                 type="text"
-                placeholder="Enter an Invite Code for an Existing Group"
+                placeholder="Enter an Invite Code"
                 name="inviteCode"
                 onChange={handleInputChange}
               />
+
               <button onClick={addUserToGroup} className="user__btn">
                 Submit
               </button>
             </form>
-            <h2>Create a New Kit</h2>
-            <form>
+            <h2 className="user__h2">Create a New Kit</h2>
+            <form className="user__form">
               <input
                 className="user-form-control"
                 type="text"
@@ -137,7 +145,7 @@ function User(props) {
 
             <div>
               {/* This condition will need to be changed when groupdata is being returned properly */}
-              <h2>Select a Kit</h2>
+              <h2 className="user__h2">Select a Kit</h2>
               {userState.groups !== "0" ? (
                 <div className="user__kits">
                   {userState.groups.map((group) => (
