@@ -6,9 +6,9 @@ import { UserContext } from "../utils/UserStore";
 import { GroupContext } from "../utils/GroupStore";
 import { CurrentGroupContext } from "../utils/CurrentGroupStore";
 import { Redirect, Link } from "react-router-dom";
-import "./Group.css"
+import "./Group.css";
 import socketClient from "socket.io-client";
-import "../App.css"
+import "../App.css";
 
 //import { User } from "../../../models";
 
@@ -25,7 +25,6 @@ function Group(props) {
   const { currentGroupState, setCurrentGroupState } = useContext(
     CurrentGroupContext
   );
- 
 
   let socket = props.socket;
 
@@ -52,8 +51,6 @@ function Group(props) {
     }
   });
 
-  
-
   //load all groups and store them with setGroup
   useEffect(() => {
     console.log(groupState);
@@ -67,8 +64,8 @@ function Group(props) {
   }, [userState]);
 
   useEffect(() => {
-scrollToBottom();
-  }, [currentGroupState])
+    scrollToBottom();
+  }, [currentGroupState]);
 
   //loads the current group and sets it to group
   function loadGroup(groupName) {
@@ -95,7 +92,6 @@ scrollToBottom();
         //console.log("load group response");
         console.log(res.data);
         setCurrentGroupState(res.data);
-
       })
       .catch((err) => console.log(err));
   }
@@ -130,10 +126,10 @@ scrollToBottom();
 
   function onEmojiClick(event, emoji) {
     let input = document.getElementById("messageBar");
-       
-        console.log(input.value);
-        input.value = input.value + emoji.emoji;
-        setFormObject({ ...formObject, message: input.value });
+
+    console.log(input.value);
+    input.value = input.value + emoji.emoji;
+    setFormObject({ ...formObject, message: input.value });
     // if(input.value === null) {
     //   input.value = emoji.emoji
     //   console.log(input.value)
@@ -143,7 +139,6 @@ scrollToBottom();
     //   setFormObject({ ...formObject, message: input.value });
     // }
     console.log(formObject);
-
 
     // let emojiMessage = formObject.message + emoji.emoji;
     // setFormObject({ ...formObject, message: emojiMessage });
@@ -194,7 +189,7 @@ scrollToBottom();
     return (
       <div className="app">
         <div className="app__body">
-            <Sidebar />
+          <Sidebar />
           <Chat
             handleInputChange={handleInputChange}
             sendMessage={sendMessage}

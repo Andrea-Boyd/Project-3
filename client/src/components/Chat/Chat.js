@@ -85,24 +85,25 @@ function Chat(props) {
         <div className="chat__headerInfo">
           <Avatar />
           <h3>{userState.username}</h3>
-          <p>Last seen at...</p>
+          <p>last seen at..</p>
         </div>
         <div className="chat__headerRight">
           <Link
             to={"/user/" + userState.username}
             style={{ textDecoration: "none" }}
           >
-            <button className="btn">Back To User Page</button>
+            <button className="chat__back__btn">Back To User Page</button>
           </Link>
-          <button onClick={props.logOutUser}>LogOut</button>
+          <button className="chat__back__btn" onClick={props.logOutUser}>
+            LogOut
+          </button>
+        </div>
 
+        <div>
           <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
-           
-              {/* {currentGroupState.groupMembers.map((subMembers) => {
+            {/* {currentGroupState.groupMembers.map((subMembers) => {
                 <p>{subMembers.name}</p>
               })} */}
-
-            
           </Popup>
 
           <Popup trigger={<MoreVert />} position="bottom right" nested>
@@ -122,7 +123,6 @@ function Chat(props) {
               <Popup
                 trigger={
                   <button className="button">
-                    {" "}
                     <NoteIcon />
                   </button>
                 }

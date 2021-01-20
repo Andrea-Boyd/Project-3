@@ -20,16 +20,22 @@ function Message(props) {
 
 
   return (
-    <div  id = "chat__body"className="chat__body">
+    <div id="chat__body" className="chat__body">
       {messages.length ? (
         <div>
           {messages.map((message) => (
+
+            //if msg.name
             <p className="chat__message">
-              <span className="chat__name">{message.name}</span>
-              {`  ${message.text}`}
-              <span className="chat__timestamp">
-                {new Date(message.date).toLocaleString()}
+              <span className="chat__name">
+                {message.name}
+                <span className="chat__timestamp">{new Date(message.date).toLocaleString()}</span>
+                
               </span>
+              {`  ${message.text}`}
+              {/* <span className="chat__timestamp chat__name">
+                {new Date(message.date).toLocaleString()}
+              </span> */}
             </p>
           ))}
         </div>
