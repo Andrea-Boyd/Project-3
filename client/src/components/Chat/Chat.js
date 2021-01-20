@@ -14,6 +14,8 @@ import { Redirect, Link } from "react-router-dom";
 import { GroupContext } from "../../utils/GroupStore";
 import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
 import NewGroupModal from "../../NewGroupModal/NewGroupModal";
+import Logo from "../../images/k-logo.png";
+
 
 import API from "../../utils/API";
 
@@ -25,7 +27,9 @@ function Chat(props) {
   const [message, setMessage] = useState("");
   const [cursorPosition, setCursorPosition] = useState();
   const { groupState, setGroupState } = useContext(GroupContext);
-  const { currentGroupState, setCurrentGroupState } = useContext(CurrentGroupContext);
+  const { currentGroupState, setCurrentGroupState } = useContext(
+    CurrentGroupContext
+  );
   const inputRef = useRef();
 
   //make new handleinput function "buildMessage"
@@ -83,9 +87,10 @@ function Chat(props) {
     <div className="chat">
       <div className="chat__header">
         <div className="chat__headerInfo">
-          <Avatar />
+          {/* <img src={Logo} alt="logo" /> */}
+          <Avatar src={Logo}/>
           <h3>{userState.username}</h3>
-          <p>last seen at..</p>
+          <p>Kluster: {currentGroupState.name}</p>
         </div>
         <div className="chat__headerRight">
           <Link
@@ -97,47 +102,47 @@ function Chat(props) {
           <button className="chat__back__btn" onClick={props.logOutUser}>
             LogOut
           </button>
-        </div>
 
-        <div>
-          <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
-            {/* {currentGroupState.groupMembers.map((subMembers) => {
+          <div className="chat__header__right">
+            <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
+              {/* {currentGroupState.groupMembers.map((subMembers) => {
                 <p>{subMembers.name}</p>
               })} */}
-          </Popup>
+            </Popup>
 
-          <Popup trigger={<MoreVert />} position="bottom right" nested>
-            <div>
-              {groupState.subgroups.map((subgroup) => (
-                <div className="subgroup__hamburger">
-                  <button
-                    key={subgroup._id}
-                    className="subgroup__hamburger__h2"
-                    value={subgroup._id}
-                    onClick={loadSubGroup}
-                  >
-                    {subgroup.name}
-                  </button>
-                </div>
-              ))}
-              <Popup
-                trigger={
-                  <button className="button">
-                    <NoteIcon />
-                  </button>
-                }
-                position="bottom left"
-                nested
-              >
-                <div>{groupState.inviteCode}</div>
-              </Popup>
-              <Popup
-                trigger={<NewGroupModal />}
-                position="bottom right"
-                nested
-              ></Popup>
-            </div>
-          </Popup>
+            <Popup trigger={<MoreVert />} position="bottom right" nested>
+              <div>
+                {groupState.subgroups.map((subgroup) => (
+                  <div className="subgroup__hamburger">
+                    <button
+                      key={subgroup._id}
+                      className="subgroup__hamburger__h2"
+                      value={subgroup._id}
+                      onClick={loadSubGroup}
+                    >
+                      {subgroup.name}
+                    </button>
+                  </div>
+                ))}
+                <Popup
+                  trigger={
+                    <button className="button">
+                      <NoteIcon />
+                    </button>
+                  }
+                  position="bottom left"
+                  nested
+                >
+                  <div>{groupState.inviteCode}</div>
+                </Popup>
+                <Popup
+                  trigger={<NewGroupModal />}
+                  position="bottom right"
+                  nested
+                ></Popup>
+              </div>
+            </Popup>
+          </div>
         </div>
       </div>
       <Message messages={props.messages} />

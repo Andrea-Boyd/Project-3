@@ -17,7 +17,14 @@ function Message(props) {
   //adding something
   // let objDiv = document.getElementById("chat__body");
   // objDiv.scrollTop = objDiv.scrollHeight;
+  
+  // function differentMessage {
+  //       if (message.name === currentGroupState.groupMembers.name) {
 
+  //           }
+  // }
+
+  
 
   return (
     <div id="chat__body" className="chat__body">
@@ -25,7 +32,7 @@ function Message(props) {
         <div>
           {messages.map((message) => (
 
-            //if msg.name
+          
             <p className="chat__message">
               <span className="chat__name">
                 {message.name}

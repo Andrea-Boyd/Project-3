@@ -23,7 +23,7 @@
 }
 
 .chat__headerInfo>p {
-    color: gray;
+    color: whitesmoke;
 }
 
 .chat__body {
@@ -42,23 +42,26 @@
     padding: 8px;
     width: fit-content;
     border-radius: 20px;
-    background-color: #FFFFFF;
+    background-color: whitesmoke;
     margin-bottom: 30px;
     white-space: nowrap;
-    
 }
 
 .chat__timestamp {
     margin-left: 10px;
     font-size: xx-small;
     white-space: nowrap;
-    color: lightblue;
+    color: whitesmoke;
     margin-bottom: 3px;
 }
 
-.chat__back__btn {
+.chat__back__btn  {
     border-radius: 8px;
     margin: 5px;
+    background-color: darkslategray;
+    color: whitesmoke;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    /* display: inline-flex; */
 }
 
 .chat__name {
@@ -100,4 +103,14 @@
 
 .chat__footer>.MuiSvgIcon-root {
     padding: 10px;
+}
+
+.chat__header__right {
+    padding-left: 175px;
+    margin-top: 60px;
+}
+
+.chat__header__right>.MuiSvgIcon-root {
+    color: whitesmoke;
+    font-size: 30px;
 }
