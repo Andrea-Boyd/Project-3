@@ -17,19 +17,32 @@ function Message(props) {
   //adding something
   // let objDiv = document.getElementById("chat__body");
   // objDiv.scrollTop = objDiv.scrollHeight;
+  
+  // function differentMessage {
+  //       if (message.name === currentGroupState.groupMembers.name) {
 
+  //           }
+  // }
+
+  
 
   return (
-    <div  id = "chat__body"className="chat__body">
+    <div id="chat__body" className="chat__body">
       {messages.length ? (
         <div>
           {messages.map((message) => (
+
+          
             <p className="chat__message">
-              <span className="chat__name">{message.name}</span>
-              {`  ${message.text}`}
-              <span className="chat__timestamp">
-                {new Date(message.date).toLocaleString()}
+              <span className="chat__name">
+                {message.name}
+                <span className="chat__timestamp">{new Date(message.date).toLocaleString()}</span>
+                
               </span>
+              {`  ${message.text}`}
+              {/* <span className="chat__timestamp chat__name">
+                {new Date(message.date).toLocaleString()}
+              </span> */}
             </p>
           ))}
         </div>

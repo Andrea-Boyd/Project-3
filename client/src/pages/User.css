@@ -9,7 +9,7 @@
 } */
 
 .user-form-control {
-    width: 325px;    
+    width: 325px;
     border: 2px;
     border-radius: 8px;
     height: 40px;
@@ -21,7 +21,7 @@
 
 .user-form-control ::placeholder {
     /* text-align: center; */
-    color:black;
+    color: black;
     opacity: 50%;
     font-family: 'Trebuchet MS', sans-serif;
     font-weight: bold;
@@ -37,9 +37,11 @@
     border-radius: 25px;
     width: 400px;
     text-align: center;
-
 }
 
+.user__h2 {
+    padding-top: 8px;
+}
 /* .user__kits {
     overflow: scroll;
     margin: 0 auto;
@@ -55,8 +57,7 @@
     color: whitesmoke;
     font-size: large;
     font-weight: bold;
-    background-color:darkslategray;
-   
+    background-color: darkslategray;
 }
 
 .user__btn {
@@ -69,10 +70,9 @@
     color: whitesmoke;
     font-size: small;
     font-weight: bold;
-    background-color:darkslategray;
+    background-color: darkslategray;
     align-items: center;
     justify-content: center;
-    
 }
 
 .logout__btn {
@@ -85,6 +85,6 @@
     color: whitesmoke;
     font-size: small;
     font-weight: bold;
-    background-color:darkslategray;
+    background-color: darkslategray;
     place-items: center;
 }
