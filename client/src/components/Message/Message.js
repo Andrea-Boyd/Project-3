@@ -29,7 +29,7 @@ function Message(props) {
   return (
     <div id="chat__body" className="chat__body">
       {messages.length ? (
-        <div>
+        <div className="main">
           {messages.map((message) => (
 
           
