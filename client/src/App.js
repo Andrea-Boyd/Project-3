@@ -15,41 +15,6 @@ import CurrentSubGroupStore from "./utils/CurrentSubGroupStore";
 import Container from "./components/Container/Container";
 
 function App() {
-  // const socket = socketClient("/");
-
-  // Line 19 - 23 is the most recent code
-  // const socket = useRef();
-
-  // useEffect(() => {
-  //   socket.current = socketClient.connect();
-  // }, []);
-
-  // socket.on("connection", () => {
-  //   console.log("Connected to backend");
-  // });
-
-  // socket.on("message check", (data) => {
-  //   if
-  // })
-  // const [user, setUser] = useState(false);
-
-  // useEffect(() => {
-  //   console.log("Use Effect Called in App.js");
-  //   socketRef.current = io.connect();
-  // }, []);
-
-  // function joinGroupRequest(id) {
-  //   console.log("Sending Join Group Request");
-  //   socketRef.current.emit("Join Group Request", id);
-  // }
-
-  // function newMessageAlert(groupID, currentGroupID) {
-  //   socketRef.current.emit("New Message Alert", {
-  //     group: groupID,
-  //     currentGroup: currentGroupID,
-  //   });
-  // }
-
   function logOutUser() {
     API.logout().then(({ status }) => {
       if (status === 200) {

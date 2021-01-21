@@ -12,13 +12,8 @@ import "./Group.css";
 import socketClient from "socket.io-client";
 import "../App.css";
 
-//import { User } from "../../../models";
-
-// will need to import any of the individual component features like
-// col/row/container/list/textarea/btn/etc
-
 function Group(props) {
-  //setting the initial states
+  // Pulling in Global and local states for component access
   const [user, setUser] = useState({});
   const [group, setGroup] = useState({});
   const [formObject, setFormObject] = useState({});
@@ -27,15 +22,11 @@ function Group(props) {
   const { currentGroupState, setCurrentGroupState } = useContext(
     CurrentGroupContext
   );
-
   const { currentSubGroupState, setCurrentSubGroupState } = useContext(
     CurrentSubGroupContext
   );
 
-  // const socketRef = useRef();
   const socket = useRef();
-
-  //let socket = props.socket;
 
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
@@ -45,10 +36,13 @@ function Group(props) {
     name: groupName,
     messages: [{ name: "Admin", text: "Messages are loading", date: "Now" }],
   };
+
+  // Sends ID of current group to server so that user can be placed in the correct room
   function sendGroupID(id) {
     socket.current.emit("Join Group Request", id);
   }
 
+  // When user changes group, this sends data to the server to be placed in a new room
   function changeGroup(currentID, newID) {
     socket.current.emit("Change Group Request", {
       currentID: currentID,
@@ -56,30 +50,17 @@ function Group(props) {
     });
   }
 
-  // socket.on("Message Check", (data) => {
-  //   console.log("Message Check");
-  //   let group = data.group;
-  //   let currentGroup = data.currentGroup;
-  //   if (group === groupState._id && currentGroup === currentGroupState._id) {
-  //     API.getGroup(currentGroupState.name)
-  //       .then((res) => {
-  //         //console.log(res.data);
-  //         setCurrentGroupState(res.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // });
-  function findSocketToJoin() {
-    console.log("findSocketToJoin");
-    userState.groups.forEach((group) => {
-      console.log("for Each Statement");
-      console.log(group);
-      console.log(groupName);
-      if (group.name === groupName) {
-        props.socketRef.current.emit("Join Group Request", group._id);
-      }
-    });
-  }
+  // function findSocketToJoin() {
+  //   console.log("findSocketToJoin");
+  //   userState.groups.forEach((group) => {
+  //     console.log("for Each Statement");
+  //     console.log(group);
+  //     console.log(groupName);
+  //     if (group.name === groupName) {
+  //       props.socketRef.current.emit("Join Group Request", group._id);
+  //     }
+  //   });
+  // };
 
   function startSocketListener(id, name) {
     socket.current.on("message check", (data) => {
