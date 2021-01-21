@@ -117,48 +117,49 @@ function Chat(props) {
 
             <div className="chat__header__right">
               <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
-                {/* {currentGroupState.groupMembers.map((subMembers) => {
+                {currentGroupState.groupMembers.map((subMembers) => (
                 <p>{subMembers.name}</p>
-              })} */}
+                ))}
               </Popup>
 
-            <Popup
-              trigger={<MoreVert />}
-              position="bottom right"
-              nested
-              closeOnDocumentClick
-              repositionOnResize
-            >
-              <div>
-                <h4 className="subgroup__h5">Klusters</h4>
-                {groupState.subgroups.map((subgroup) => (
-                  <div className="subgroup__hamburger">
-                    <button
-                      key={subgroup._id}
-                      className="subgroup__hamburger__btn"
-                      value={subgroup._id}
-                      onClick={loadSubGroup}
-                    >
-                      {subgroup.name}
-                    </button>
-                  </div>
-                ))}
-                <Popup
-                  trigger={
-                    <button className="note__button" >Invite Code</button>
-                  }
-                  position="left center"
-                  nested
-                >
-                  <div>{groupState.inviteCode}</div>
-                </Popup>
-                <Popup
-                  trigger={<NewGroupModal />}
-                  position="bottom right"
-                  nested
-                ></Popup>
-              </div>
-            </Popup>
+              <Popup
+                trigger={<MoreVert />}
+                position="bottom right"
+                nested
+                closeOnDocumentClick
+                repositionOnResize
+              >
+                <div>
+                  <h4 className="subgroup__h5">Klusters</h4>
+                  {groupState.subgroups.map((subgroup) => (
+                    <div className="subgroup__hamburger">
+                      <button
+                        key={subgroup._id}
+                        className="subgroup__hamburger__btn"
+                        value={subgroup._id}
+                        onClick={loadSubGroup}
+                      >
+                        {subgroup.name}
+                      </button>
+                    </div>
+                  ))}
+                  <Popup
+                    trigger={
+                      <button className="note__button">Invite Code</button>
+                    }
+                    position="left center"
+                    nested
+                  >
+                    <div>{groupState.inviteCode}</div>
+                  </Popup>
+                  <Popup
+                    trigger={<NewGroupModal />}
+                    position="bottom right"
+                    nested
+                  ></Popup>
+                </div>
+              </Popup>
+            </div>
           </div>
         </div>
         <Message messages={props.messages} />
