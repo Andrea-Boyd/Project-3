@@ -109,9 +109,9 @@ function SideBarChat(props) {
               >
                 {subgroup.name}
               </h2>
-              {subgroup.subGroupMembers.map((member) => (
+              {/* {subgroup.subGroupMembers.map((member) => (
                 <p>{member.name}</p>
-              ))}
+              ))} */}
             </div>
           ))}
         </div>
