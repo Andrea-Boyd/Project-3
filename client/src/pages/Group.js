@@ -74,6 +74,7 @@ function Group(props) {
           console.log("Message Check Response");
           //console.log(res.data);
           setCurrentGroupState(res.data);
+          scrollToBottom();
         })
         .catch((err) => console.log(err));
     });
