@@ -29,7 +29,7 @@ module.exports = {
   },
   updateGroup: function (req, res) {
     console.log("Update Group Function");
-    console.log(req.body);
+    //console.log(req.body);
     db.User.update(
       { username: req.params.username },
       { $push: { groups: req.body } }
@@ -65,10 +65,10 @@ module.exports = {
   register: async function (req, res) {
     console.log(req.body);
     try {
-      // creates the hashedpasswords
+      // Creates the hashedpasswords
       const hashedPassword = await bcrypt.hashSync(req.body.password, 10);
 
-      console.log(hashedPassword);
+      //console.log(hashedPassword);
       db.User.create({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -76,7 +76,7 @@ module.exports = {
         email: req.body.email,
         password: hashedPassword,
       }).then((userData) => {
-        console.log("Then");
+        //console.log("Then");
         res.send(userData);
       });
     } catch (err) {
@@ -86,39 +86,11 @@ module.exports = {
 
   session: function (req, res, next) {
     console.log("===== user!! =====");
-    console.log(req.session);
+    //console.log(req.session);
     if (req.session) {
       res.json({ user: req.session });
     } else {
       res.redirect("/login");
     }
   },
-  // login: (req, res) => {
-  //   console.log("test");
-  //   db.User.findOne({
-  //     where: {
-  //       email: req.body.email,
-  //     },
-  //   })
-  //     .then(async function (userData) {
-  //       if (!userData) {
-  //         res.send({ user: false, message: "No user with that email" });
-  //         return;
-  //       }
-
-  //       if (await bcrypt.compare(req.body.password, userData.password)) {
-  //         passport.authenticate("local", {
-  //           successRedirect: "/group",
-  //           failureRedirect: "/",
-  //         });
-  //         res.send({ user: userData.id, message: "Welcome Back" });
-  //       } else {
-  //         res.send({ user: false, message: "Password Incorrect" });
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       res.send(err);
-  //       console.log("We caught an error");
-  //     });
-  // },
 };
