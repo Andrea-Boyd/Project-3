@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Chat from "../components/Chat/Chat";
 import API from "../utils/API";
 import { UserContext } from "../utils/UserStore";
 import { GroupContext } from "../utils/GroupStore";
 import { CurrentGroupContext } from "../utils/CurrentGroupStore";
+import { CurrentSubGroupContext } from "../utils/CurrentSubGroupStore";
 import { Redirect, Link } from "react-router-dom";
+import io from "socket.io-client";
 import "./Group.css";
 import socketClient from "socket.io-client";
 import "../App.css";
@@ -26,54 +28,197 @@ function Group(props) {
     CurrentGroupContext
   );
 
-  let socket = props.socket;
+  const { currentSubGroupState, setCurrentSubGroupState } = useContext(
+    CurrentSubGroupContext
+  );
+
+  // const socketRef = useRef();
+  const socket = useRef();
+
+  //let socket = props.socket;
 
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
-  let groupName = pathArray[3];
+  let groupName = pathArray[3].replace("%20", " ");
 
   let messages = {
     name: groupName,
     messages: [{ name: "Admin", text: "Messages are loading", date: "Now" }],
   };
+  function sendGroupID(id) {
+    socket.current.emit("Join Group Request", id);
+  }
 
-  socket.on("message check", (data) => {
-    console.log("Message Check");
-    let group = data.group;
-    let currentGroup = data.currentGroup;
-    if (group === groupState._id && currentGroup === currentGroupState._id) {
-      API.getGroup(currentGroupState.name)
+  function changeGroup(currentID, newID) {
+    socket.current.emit("Change Group Request", {
+      currentID: currentID,
+      newID: newID,
+    });
+  }
+
+  // socket.on("Message Check", (data) => {
+  //   console.log("Message Check");
+  //   let group = data.group;
+  //   let currentGroup = data.currentGroup;
+  //   if (group === groupState._id && currentGroup === currentGroupState._id) {
+  //     API.getGroup(currentGroupState.name)
+  //       .then((res) => {
+  //         //console.log(res.data);
+  //         setCurrentGroupState(res.data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // });
+  function findSocketToJoin() {
+    console.log("findSocketToJoin");
+    userState.groups.forEach((group) => {
+      console.log("for Each Statement");
+      console.log(group);
+      console.log(groupName);
+      if (group.name === groupName) {
+        props.socketRef.current.emit("Join Group Request", group._id);
+      }
+    });
+  }
+
+  function startSocketListener(id, name) {
+    socket.current.on("message check", (data) => {
+      console.log("Message Check");
+      console.log(data);
+      //console.log(currentGroupState);
+      let group = data.group;
+      let currentGroup = data.currentGroupName;
+      API.getGroup(currentGroup)
         .then((res) => {
+          console.log("Message Check Response");
           //console.log(res.data);
           setCurrentGroupState(res.data);
         })
         .catch((err) => console.log(err));
-    }
-  });
+    });
+  }
 
   //load all groups and store them with setGroup
   useEffect(() => {
+    // socketRef.current = io.connect("/");
+
+    //findSocketToJoin();
     console.log(groupState);
-    loadGroup(groupName);
+    console.log(groupName);
+    initialLoadGroup(groupName);
     //setGroup(messages);
     //loadUser(username);
+    socket.current = socketClient.connect();
   }, []);
+
+  // function initialLoadGroup(groupName) {
+  //   console.log(groupName);
+  //   API.getGroup(groupName)
+  //     .then((res) => {
+  //       console.log("load group response");
+  //       console.log(res);
+  //       //props.joinGroupRequest(res.data._id);
+  //       setGroupState(res.data);
+  //       setCurrentGroupState(res.data);
+  //       console.log(currentGroupState);
+  //       props.socketRef.current.on("Message Check", (data) => {
+  //         let localCurrentGroup = getCurrentGroupState();
+  //         console.log("Message Check");
+  //         console.log(data.currentGroup);
+  //         console.log(localCurrentGroup);
+  //         let currentGroup = data.currentGroup;
+  //         if (currentGroup === localCurrentGroup._id) {
+  //           API.getGroup(localCurrentGroup.name)
+  //             .then((res) => {
+  //               console.log(res.data);
+  //               setCurrentGroupState(res.data);
+  //             })
+  //             .catch((err) => console.log(err));
+  //         }
+  //       });
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
 
   useEffect(() => {
     loadGroup(groupName);
   }, [userState]);
 
+  function getCurrentGroupState() {
+    return currentGroupState;
+  }
+  let currentUsersSubGroups = [];
+
+  async function filterSubGroups() {
+    new Promise((resolve, reject) => {
+      userState.subgroups.forEach((userSubGroup, index, array) => {
+        if (index === array.length + 1) {
+          resolve();
+        } else {
+          console.log("filter Loop");
+          groupState.subgroups.forEach((groupSubGroup) => {
+            if (userSubGroup._id === groupSubGroup._id) {
+              currentUsersSubGroups.push(groupSubGroup);
+            }
+          });
+        }
+      });
+    });
+  }
+
   useEffect(() => {
-    scrollToBottom();
-  }, [currentGroupState]);
+    console.log("Filter Start");
+    filterSubGroups().then(() => {
+      console.log(currentUsersSubGroups);
+      setCurrentSubGroupState(currentUsersSubGroups);
+    });
+  }, [groupState]);
+
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [currentGroupState]);
+
+  // props.socketRef.current.on("Message Check", (data) => {
+  //   console.log("Message Check");
+  //   console.log(props.socketRef.id);
+  //   // console.log(data.currentGroup);
+  //   // console.log(currentGroupState._id);
+  //   let currentGroup = data.currentGroup;
+  //   if (currentGroup === currentGroupState._id) {
+  //     API.getGroup(currentGroupState.name)
+  //       .then((res) => {
+  //         console.log(res.data);
+  //         setCurrentGroupState(res.data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // });
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [currentGroupState]);
+
+  function initialLoadGroup(groupName) {
+    //console.log(groupName);
+    API.getGroup(groupName)
+      .then((res) => {
+        console.log("initial load group response");
+        console.log(res);
+        setGroupState(res.data);
+        setCurrentGroupState(res.data);
+        sendGroupID(res.data._id);
+        startSocketListener(res.data._id, res.data.name);
+      })
+      .catch((err) => console.log(err));
+  }
 
   //loads the current group and sets it to group
   function loadGroup(groupName) {
-    //console.log(groupName);
+    console.log(groupName);
     API.getGroup(groupName)
       .then((res) => {
         console.log("load group response");
         console.log(res);
+        //props.joinGroupRequest(res.data._id);
         setGroupState(res.data);
         setCurrentGroupState(res.data);
       })
@@ -90,7 +235,7 @@ function Group(props) {
     API.getGroup(groupName)
       .then((res) => {
         //console.log("load group response");
-        console.log(res.data);
+        //console.log(res.data);
         setCurrentGroupState(res.data);
       })
       .catch((err) => console.log(err));
@@ -169,12 +314,14 @@ function Group(props) {
       )
         .then((res) => {
           setFormObject({});
-          socket.emit("new message", {
+          socket.current.emit("new message", {
             group: groupState._id,
             currentGroup: currentGroupState._id,
+            currentGroupName: currentGroupState.name,
           });
           console.log(res.data);
           loadCurrentGroup(currentGroupState.name);
+          scrollToBottom();
           //event.target.reset();
         })
         .catch((err) => console.log(err));
@@ -189,7 +336,7 @@ function Group(props) {
     return (
       <div className="app">
         <div className="app__body">
-          <Sidebar />
+          <Sidebar changeGroup={changeGroup} />
           <Chat
             handleInputChange={handleInputChange}
             sendMessage={sendMessage}

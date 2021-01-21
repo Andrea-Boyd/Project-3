@@ -10,8 +10,10 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const PORT = process.env.PORT || 3001;
 
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
+const http = require("http");
+const server = http.createServer(app);
+const socket = require("socket.io");
+const io = socket(server);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -54,16 +56,32 @@ app.use((req, res, next) => {
 app.use(routes);
 
 //Socket.io functionality
-http.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
 
 io.on("connection", (socket) => {
   console.log("New user connected");
-  socket.on("new message", (data) => {
-    //console.log("This is socket saying...: " + data);
-    io.emit("message check", data);
+  console.log(socket.id);
+
+  socket.on("Join Group Request", (id) => {
+    console.log("User has joined room: " + id);
+    socket.join(id);
   });
+
+  socket.on("Change Group Request", (data) => {
+    console.log("Change Group Request");
+    console.log(data);
+    socket.leave(data.currentID);
+    socket.join(data.newID);
+  });
+
+  socket.on("new message", (data) => {
+    console.log("Recieved New Message Alert");
+    console.log(data);
+    io.to(data.currentGroup).emit("message check", data);
+  });
+
   socket.on("disconnect", () => {
     console.log("User Disconnected");
   });

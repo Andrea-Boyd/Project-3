@@ -41,9 +41,9 @@ module.exports = {
   },
 
   createSubGroup: function (req, res) {
-    console.log("createSubGroup Function");
-    console.log(req.params.subGroupName);
-    console.log(req.body);
+    // console.log("createSubGroup Function");
+    // console.log(req.params.subGroupName);
+    // console.log(req.body);
     let inviteCode = uuidv4();
     db.Group.create({
       name: req.params.subGroupName,
@@ -59,8 +59,8 @@ module.exports = {
       inviteCode: inviteCode,
     })
       .then((dbModel) => {
-        console.log("Then");
-        console.log(dbModel);
+        //console.log("Then");
+        //console.log(dbModel);
         res.json(dbModel);
       })
       .catch((err) => {
