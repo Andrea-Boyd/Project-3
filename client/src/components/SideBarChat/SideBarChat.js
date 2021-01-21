@@ -6,6 +6,7 @@ import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
 import { CurrentSubGroupContext } from "../../utils/CurrentSubGroupStore";
 import API from "../../utils/API";
 import "./SideBarChat.css";
+import { ContactSupportOutlined } from "@material-ui/icons";
 
 function SideBarChat(props) {
   const { userState, setUserState } = useContext(UserContext);

@@ -11,6 +11,7 @@ import "reactjs-popup/dist/index.css";
 import NewGroupModal from "../../NewGroupModal/NewGroupModal";
 import { GroupContext } from "../../utils/GroupStore";
 import NoteIcon from "@material-ui/icons/Note";
+import Logo from "../../images/logo_transparent.png"
 
 function Sidebar(props) {
   const { groupState, setGroupState } = useContext(GroupContext);
@@ -28,13 +29,8 @@ function Sidebar(props) {
 
         <Popup
           className="popup__content"
-          trigger={
-            <button className="button">
-              {" "}
-              <NoteIcon />{" "}
-            </button>
-          }
-          position="bottom center"
+          trigger={<button className="note__button">Kit Kode</button>}
+          position="bottom right"
           closeOnDocumentClick
           nested
         >
