@@ -26,10 +26,10 @@ function User(props) {
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
 
-  useEffect(() => {
-    //loadUser(username);
-    console.log(userState);
-  }, []);
+  // useEffect(() => {
+  //   //loadUser(username);
+  //   console.log(userState);
+  // }, []);
 
   function loadUser(username) {
     // console.log("before");
@@ -106,9 +106,9 @@ function User(props) {
     console.log(input);
   }
 
-  if (userState.username === "") {
-    return <Redirect to={"/"} />;
-  } else {
+  // if (userState.username === "") {
+  //   return <Redirect to={"/"} />;
+  // } else {
     return (
       <>
         <div className="user__page">
@@ -146,7 +146,7 @@ function User(props) {
             <div>
               {/* This condition will need to be changed when groupdata is being returned properly */}
               <h2 className="user__h2">Select a Kit</h2>
-              {userState.groups !== "0" ? (
+              {userState.groups ? (
                 <div className="user__kits">
                   {userState.groups.map((group) => (
                     <Link
@@ -171,6 +171,6 @@ function User(props) {
         </div>
       </>
     );
-  }
-}
+  };
+
 export default User;

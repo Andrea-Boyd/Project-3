@@ -15,7 +15,7 @@ let initialUserState = {
 export const UserContext = React.createContext();
 
 const UserStore = ({ children }) => {
-  const [userState, setUserState] = useState(initialUserState);
+  const [userState, setUserState] = useState();
 
   return (
     <UserContext.Provider value={{ userState, setUserState }}>
