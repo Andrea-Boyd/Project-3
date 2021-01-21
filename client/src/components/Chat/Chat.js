@@ -16,7 +16,6 @@ import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
 import NewGroupModal from "../../NewGroupModal/NewGroupModal";
 import Logo from "../../images/k-logo.png";
 
-
 import API from "../../utils/API";
 
 //import { GroupContext } from "../utils/GroupStore";
@@ -95,148 +94,110 @@ function Chat(props) {
     }
   }
 
-  return (
-    <div className="chat">
-      <div className="chat__header">
-        <div className="chat__headerInfo">
-          {/* <img src={Logo} alt="logo" /> */}
-          <Avatar src={Logo}/>
-          <h3>{userState.username}</h3>
-          <p>Kluster: {currentGroupState.name}</p>
-        </div>
-        <div className="chat__headerRight">
-          <Link
-            to={"/user/" + userState.username}
-            style={{ textDecoration: "none" }}
-          >
-            <button className="chat__back__btn">Back To User Page</button>
-          </Link>
-          <button className="chat__back__btn" onClick={props.logOutUser}>
-            LogOut
-          </button>
+  if (currentGroupState) {
+    return (
+      <div className="chat">
+        <div className="chat__header">
+          <div className="chat__headerInfo">
+            {/* <img src={Logo} alt="logo" /> */}
+            <Avatar src={Logo} />
+            <h3>{userState.username}</h3>
+            <p>Kluster: {currentGroupState.name}</p>
+          </div>
+          <div className="chat__headerRight">
+            <Link
+              to={"/user/" + userState.username}
+              style={{ textDecoration: "none" }}
+            >
+              <button className="chat__back__btn">Back To User Page</button>
+            </Link>
+            <button className="chat__back__btn" onClick={props.logOutUser}>
+              LogOut
+            </button>
 
-<<<<<<< HEAD
-          {/* <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
-            {currentGroupState.groupMembers.map((subMembers) => (
-              <p>{subMembers.name}</p>
-            ))}
-          </Popup> */}
-
-          <Popup trigger={<MoreVert />} position="bottom right" nested>
-            <div>
-              {groupState.subgroups.map((subgroup) => (
-                <div className="subgroup__hamburger">
-                  <button
-                    key={subgroup._id}
-                    className="subgroup__hamburger__h2"
-                    value={subgroup._id}
-                    onClick={loadSubGroup}
-                  >
-                    {subgroup.name}
-                  </button>
-                </div>
-              ))}
-              <Popup
-                trigger={
-                  <button className="button">
-                    {" "}
-                    <NoteIcon />
-                  </button>
-                }
-                position="bottom left"
-                nested
-              >
-                <div>{groupState.inviteCode}</div>
-              </Popup>
-              <Popup
-                trigger={<NewGroupModal />}
-                position="bottom right"
-                nested
-              ></Popup>
-            </div>
-          </Popup>
-=======
-          <div className="chat__header__right">
-            <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
-              {/* {currentGroupState.groupMembers.map((subMembers) => {
+            <div className="chat__header__right">
+              <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
+                {/* {currentGroupState.groupMembers.map((subMembers) => {
                 <p>{subMembers.name}</p>
               })} */}
-            </Popup>
+              </Popup>
 
-            <Popup trigger={<MoreVert />} position="bottom right" nested>
-              <div>
-                {groupState.subgroups.map((subgroup) => (
-                  <div className="subgroup__hamburger">
-                    <button
-                      key={subgroup._id}
-                      className="subgroup__hamburger__h2"
-                      value={subgroup._id}
-                      onClick={loadSubGroup}
-                    >
-                      {subgroup.name}
-                    </button>
-                  </div>
-                ))}
-                <Popup
-                  trigger={
-                    <button className="button">
-                      <NoteIcon />
-                    </button>
-                  }
-                  position="bottom left"
-                  nested
-                >
-                  <div>{groupState.inviteCode}</div>
-                </Popup>
-                <Popup
-                  trigger={<NewGroupModal />}
-                  position="bottom right"
-                  nested
-                ></Popup>
-              </div>
-            </Popup>
+              <Popup trigger={<MoreVert />} position="bottom right" nested>
+                <div>
+                  {groupState.subgroups.map((subgroup) => (
+                    <div className="subgroup__hamburger">
+                      <button
+                        key={subgroup._id}
+                        className="subgroup__hamburger__h2"
+                        value={subgroup._id}
+                        onClick={loadSubGroup}
+                      >
+                        {subgroup.name}
+                      </button>
+                    </div>
+                  ))}
+                  <Popup
+                    trigger={
+                      <button className="button">
+                        <NoteIcon />
+                      </button>
+                    }
+                    position="bottom left"
+                    nested
+                  >
+                    <div>{groupState.inviteCode}</div>
+                  </Popup>
+                  <Popup
+                    trigger={<NewGroupModal />}
+                    position="bottom right"
+                    nested
+                  ></Popup>
+                </div>
+              </Popup>
+            </div>
           </div>
->>>>>>> 5bf7a6893540eae5314ad67365a11252aeab3579
+        </div>
+        <Message messages={props.messages} />
+
+        <div className="chat__footer">
+          <Popup
+            className="popup__content"
+            trigger={<InsertEmoticonIcon />}
+            position="top center"
+            closeOnDocumentClick
+            nested
+          >
+            <div>
+              <Picker onEmojiClick={props.onEmojiClick} />
+            </div>
+          </Popup>
+          <form>
+            <input
+              id="messageBar"
+              name="message"
+              onChange={props.handleInputChange}
+              placeholder="Type a message"
+              type="text"
+              // value={message}
+              ref={inputRef}
+            />
+            <button
+              type="submit"
+              onClick={(event) => {
+                event.preventDefault();
+                props.sendMessage();
+                clearField();
+              }}
+            >
+              Send
+            </button>
+          </form>
         </div>
       </div>
-      <Message messages={props.messages} />
-
-      <div className="chat__footer">
-        <Popup
-          className="popup__content"
-          trigger={<InsertEmoticonIcon />}
-          position="top center"
-          closeOnDocumentClick
-          nested
-        >
-          <div>
-            <Picker onEmojiClick={props.onEmojiClick} />
-          </div>
-        </Popup>
-        <form>
-          <input
-            id="messageBar"
-            name="message"
-            onChange={props.handleInputChange}
-            placeholder="Type a message"
-            type="text"
-            // value={message}
-            ref={inputRef}
-          />
-          <button
-            type="submit"
-            onClick={(event) => {
-              event.preventDefault();
-              props.sendMessage();
-              clearField();
-            }}
-          >
-            Send
-          </button>
-        </form>
-      </div>
-    </div>
-  );
+    );
+  } else {
+    return <p>Loading...</p>;
+  }
 }
 
 export default Chat;

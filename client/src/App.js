@@ -57,52 +57,7 @@ function App() {
       }
     });
   }
-<<<<<<< HEAD
   return <Container logOutUser={logOutUser} />;
-=======
-  return (
-    <div>
-      <UserStore>
-        <GroupStore>
-          <CurrentGroupStore>
-            <div>
-              <Router>
-                <Switch>
-                  {/* {user ? <User /> : <Login />} */}
-                  <Route exact path="/">
-                    <Login />
-                  </Route>
-                  <Route exact path="/signup">
-                    <SignUp />
-                  </Route>
-
-                  {/* Route below will only work once proper group name is retrun from db in Users.js */}
-                  <div className="app">
-                    <Route exact path="/user/:username/:group">
-                      <Group logOutUser={logOutUser} socket={socket} />
-                    </Route>
-
-                    {/* <Route exact path="/group">
-                  <Group />
-                </Route> */}
-                
-                    <div>
-                      <Route exact path="/user/:username">
-                        <User
-                          logOutUser={logOutUser}
-                        />
-                      </Route>
-                    </div>
-                  </div>
-                </Switch>
-              </Router>
-            </div>
-          </CurrentGroupStore>
-        </GroupStore>
-      </UserStore>
-    </div>
-  );
->>>>>>> 5bf7a6893540eae5314ad67365a11252aeab3579
 }
 
 export default App;
