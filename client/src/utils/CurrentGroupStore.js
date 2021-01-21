@@ -22,7 +22,7 @@ const initialGroupState = {
   ],
   messages: [
     {
-      name: "Amin",
+      name: "Admin",
       text: "If you are seeing this, something went wrong",
       date: Date.now(),
     },
@@ -41,7 +41,7 @@ const initialGroupState = {
 export const CurrentGroupContext = React.createContext();
 
 const CurrentGroupStore = ({ children }) => {
-  const [currentGroupState, setCurrentGroupState] = useState(initialGroupState);
+  const [currentGroupState, setCurrentGroupState] = useState();
 
   return (
     <CurrentGroupContext.Provider
