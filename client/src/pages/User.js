@@ -146,7 +146,7 @@ function User(props) {
 
           <div>
             <h2 className="user__h2">Select a Kit</h2>
-            {userState.groups ? (
+            {userState.groups.length !== 0 ? (
               <div className="user__kits">
                 {userState.groups.map((group) => (
                   <Link
