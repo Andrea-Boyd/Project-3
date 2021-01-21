@@ -8,25 +8,33 @@
  }
 
  .app__body {
-     display: inline-block;
+     /* display: inline-block; */
      max-height: max-content;
     max-width: max-content;
  }
 
  .chat__body {
-     position: relative;
-    padding: 160px;
-    padding-bottom: 0px;
-    bottom: 120px;
+    padding-bottom: 10px;
+    width: 90vw;
+    height: 100%;
     overflow: scroll;
+    overflow-x: hidden;
 
  }
 
+ .app {
+     display: flex;
+     height: 100vh;
+     margin-bottom: auto;
+ }
+
+ 
  .chat__message {
      position: relative;
-     right: 160px;
+     /* right: 60px; */
 
  }
+
 
 
 }
