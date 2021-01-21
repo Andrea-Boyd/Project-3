@@ -23,7 +23,7 @@ function Login() {
     //console.log(userState);
     // console.log(userState.password);
     //console.log(redirect);
-    if (userState.password !== "") {
+    if (userState) {
       setRedirect({ redirect: true });
     }
   }, [userState]);
