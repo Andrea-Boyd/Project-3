@@ -7,11 +7,13 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+
   findById: function (req, res) {
     db.Group.findById(req.params.id)
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+
   findOne: function (req, res) {
     //console.log(req.params);
     // console.log("Find one Group function");
@@ -19,9 +21,10 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+
   create: function (req, res) {
     console.log("Group create funciton");
-    console.log(req.body);
+    //console.log(req.body);
     let inviteCode = uuidv4();
 
     db.Group.create({
@@ -75,37 +78,18 @@ module.exports = {
       { $push: { subgroups: req.body } }
     )
       .then((dbModel) => {
-        console.log(dbModel);
+        //console.log(dbModel);
         res.json(dbModel);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         res.status(422).json(err);
       });
   },
 
-  // findOneSubGroup: function (req, res) {
-  //   //console.log(req.params);
-  //   // console.log("Find one Group function");
-  //   db.Group.findOne({ name: req.params.subGroupName })
-  //     .then((dbModel) => res.json(dbModel))
-  //     .catch((err) => res.status(422).json(err));
-  // },
-
-  // updateSubGroup: function (req, res) {
-  //   // console.log("findOneAndUpdate");
-  //   // console.log(req.body);
-  //   db.Group.update(
-  //     { name: req.params.subGroupName },
-  //     { $push: { messages: req.body } }
-  //   )
-  //     .then((dbModel) => res.json(dbModel))
-  //     .catch((err) => res.status(422).json(err));
-  // },
-
   update: function (req, res) {
     console.log("findOneAndUpdate");
-    console.log(req.body);
+    //console.log(req.body);
     db.Group.update(
       { name: req.params.groupName },
       { $push: { messages: req.body } }
@@ -113,12 +97,14 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+
   remove: function (req, res) {
     db.Group.findById({ _id: req.params.id })
       .then((dbModel) => dbModel.remove())
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+
   invite: function (req, res) {
     console.log(req.body);
     db.Group.findOneAndUpdate(

@@ -7,15 +7,13 @@ import "./User.css";
 import { UserContext } from "../utils/UserStore";
 import Sidebar from "../components/Sidebar/Sidebar";
 
-
 function User(props) {
+  // Pulling in Global and local states for component access
   const [user, setUser] = useState({}); //groups that users are part of
   const [newGroup, setNewGroup] = useState({});
   const [inviteCode, setInviteCode] = useState({});
   const { userState, setUserState } = useContext(UserContext);
   const { logout } = useState("");
-
-  //console.log(userState);
 
   let groupData = {};
   let groupsTest = [
@@ -62,7 +60,7 @@ function User(props) {
       inviteCode: inviteCode.inviteCode,
     })
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         addGroupToUser(username, res.data);
       })
       .catch((err) => console.log(err));
@@ -109,68 +107,70 @@ function User(props) {
   // if (userState.username === "") {
   //   return <Redirect to={"/"} />;
   // } else {
-    return (
-      <>
-        <div className="user__page">
-          <div className="user__container">
-            <button onClick={props.logOutUser} className="logout__btn"> Log Out</button>
-            <h2 className="user__h2">Join a Kit</h2>
-            <form className= "user-form">
-              <input
-                id="joinKit"
-                className="user-form-control"
-                type="text"
-                placeholder="Enter an Invite Code"
-                name="inviteCode"
-                onChange={handleInputChange}
-              />
+  return (
+    <>
+      <div className="user__page">
+        <div className="user__container">
+          <button onClick={props.logOutUser} className="logout__btn">
+            {" "}
+            Log Out
+          </button>
+          <h2 className="user__h2">Join a Kit</h2>
+          <form className="user-form">
+            <input
+              id="joinKit"
+              className="user-form-control"
+              type="text"
+              placeholder="Enter an Invite Code"
+              name="inviteCode"
+              onChange={handleInputChange}
+            />
 
-              <button onClick={addUserToGroup} className="user__btn">
-                Submit
-              </button>
-            </form>
-            <h2 className="user__h2">Create a New Kit</h2>
-            <form className="user__form">
-              <input
-                className="user-form-control"
-                type="text"
-                placeholder="Enter a New Group"
-                name="groupName"
-                onChange={handleInputChange}
-              />
-              <button onClick={handleFormSubmit} className="user__btn">
-                Submit
-              </button>
-            </form>
+            <button onClick={addUserToGroup} className="user__btn">
+              Submit
+            </button>
+          </form>
+          <h2 className="user__h2">Create a New Kit</h2>
+          <form className="user__form">
+            <input
+              className="user-form-control"
+              type="text"
+              placeholder="Enter a New Group"
+              name="groupName"
+              onChange={handleInputChange}
+            />
+            <button onClick={handleFormSubmit} className="user__btn">
+              Submit
+            </button>
+          </form>
 
-            <div>
-              {/* This condition will need to be changed when groupdata is being returned properly */}
-              <h2 className="user__h2">Select a Kit</h2>
-              {userState.groups ? (
-                <div className="user__kits">
-                  {userState.groups.map((group) => (
-                    <Link
-                      to={"/user/" + username + "/" + group.name}
+          <div>
+            <h2 className="user__h2">Select a Kit</h2>
+            {userState.groups ? (
+              <div className="user__kits">
+                {userState.groups.map((group) => (
+                  <Link
+                    to={"/user/" + username + "/" + group.name}
+                    key={group._id}
+                  >
+                    <button
                       key={group._id}
+                      className="group__btn"
+                      value={group._id}
                     >
-                      <button
-                        key={group._id}
-                        className="group__btn"
-                        value={group._id}
-                      >
-                        {group.name}
-                      </button>
-                    </Link>
-                  ))}
-                </div>
-              ) : (
-                <h3>Start your first group above!</h3>
-              )}
-            </div>
+                      {group.name}
+                    </button>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <h3>Start your first group above!</h3>
+            )}
           </div>
         </div>
-      </>
-    );
-  };
+      </div>
+    </>
+  );
+}
 
 export default User;
