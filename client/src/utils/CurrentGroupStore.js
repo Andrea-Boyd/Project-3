@@ -1,3 +1,4 @@
+// Global Context for Current Group/Subgroup that is being displayed in Chat
 import React, { useState } from "react";
 
 const initialGroupState = {
