@@ -48,6 +48,12 @@ function NewGroupModal() {
     setNewSubGroup({ ...newSubGroup, [name]: value });
   }
 
+  function clearField() {
+    let input = document.getElementById("modalName");
+    input.value = "";
+    console.log(input);
+  }
+
   function handleFormSubmit(e) {
     e.preventDefault();
     console.log(newSubGroup);
@@ -66,6 +72,7 @@ function NewGroupModal() {
         console.log(subGroupUserData);
         addSubGroupToUsers(res.data.groupMembers, subGroupData);
         addSubGroupToGroup(groupState._id, subGroupUserData);
+        setUserFormState([]);
       })
       .catch((err) => console.log(err));
   }
@@ -128,6 +135,7 @@ function NewGroupModal() {
           {/* Enter Group Name */}
           <form>
             <input
+              id="modalName"
               name="subGroupName"
               onSubmit={handleFormSubmit}
               className="modal__group__name"
@@ -160,7 +168,11 @@ function NewGroupModal() {
 
         <button
           className="modal__submit__button"
-          onClick={handleFormSubmit}
+          onClick={(event) => {
+            event.preventDefault();
+            handleFormSubmit(event);
+            clearField();
+          }}
           type="submit"
         >
           Submit
