@@ -118,7 +118,7 @@ function NewGroupModal() {
   return (
     <Popup
       className="popup__content"
-      trigger={<button className="button"> <GroupAddIcon/> </button>}
+      trigger={<button className="note__button"> Add Kluster </button>}
       position="bottom center"
       closeOnDocumentClick
       nested

@@ -16,7 +16,6 @@ import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
 import NewGroupModal from "../../NewGroupModal/NewGroupModal";
 import Logo from "../../images/k-logo.png";
 
-
 import API from "../../utils/API";
 
 //import { GroupContext } from "../utils/GroupStore";
@@ -88,9 +87,9 @@ function Chat(props) {
       <div className="chat__header">
         <div className="chat__headerInfo">
           {/* <img src={Logo} alt="logo" /> */}
-          <Avatar src={Logo}/>
+          <Avatar src={Logo} />
           <h3>{userState.username}</h3>
-          <p>Kluster: {currentGroupState.name}</p>
+          <p> Kurrent Kluster: {currentGroupState.name}</p>
         </div>
         <div className="chat__headerRight">
           <Link
@@ -104,19 +103,30 @@ function Chat(props) {
           </button>
 
           <div className="chat__header__right">
-            <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
+            <Popup
+              trigger={<EmojiPeopleIcon />}
+              position="bottom right"
+              closeOnDocumentClick
+            >
               {/* {currentGroupState.groupMembers.map((subMembers) => {
                 <p>{subMembers.name}</p>
               })} */}
             </Popup>
 
-            <Popup trigger={<MoreVert />} position="bottom right" nested>
+            <Popup
+              trigger={<MoreVert />}
+              position="bottom right"
+              nested
+              closeOnDocumentClick
+              repositionOnResize
+            >
               <div>
+                <h4 className="subgroup__h5">Klusters</h4>
                 {groupState.subgroups.map((subgroup) => (
                   <div className="subgroup__hamburger">
                     <button
                       key={subgroup._id}
-                      className="subgroup__hamburger__h2"
+                      className="subgroup__hamburger__btn"
                       value={subgroup._id}
                       onClick={loadSubGroup}
                     >
@@ -126,11 +136,9 @@ function Chat(props) {
                 ))}
                 <Popup
                   trigger={
-                    <button className="button">
-                      <NoteIcon />
-                    </button>
+                    <button className="note__button" >Invite Code</button>
                   }
-                  position="bottom left"
+                  position="left center"
                   nested
                 >
                   <div>{groupState.inviteCode}</div>

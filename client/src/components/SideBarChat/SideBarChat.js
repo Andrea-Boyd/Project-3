@@ -4,6 +4,7 @@ import { GroupContext } from "../../utils/GroupStore";
 import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
 import API from "../../utils/API";
 import "./SideBarChat.css";
+import { ContactSupportOutlined } from "@material-ui/icons";
 
 function SideBarChat(props) {
   const { groupState, setGroupState } = useContext(GroupContext);
@@ -20,6 +21,7 @@ function SideBarChat(props) {
       .then((res) => {
         console.log("load Sub Group response");
         console.log(res);
+        console.log(res.data.groupMembers)
         setCurrentGroupState(res.data);
         //console.log(groupState);
       })
