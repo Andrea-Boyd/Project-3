@@ -19,7 +19,6 @@ function Sidebar(props) {
   return (
     <div className="sidebar">
       <div className="sidebar__header">
-        {/* <img src={Logo} alt="" />  */}
         <div className="sidebar__headerRight"></div>
       </div>
       <div className="sidebar__search">
@@ -42,7 +41,7 @@ function Sidebar(props) {
       </div>
 
       <div className="sidebar__chats">
-        <SideBarChat />
+        <SideBarChat changeGroup={props.changeGroup} />
       </div>
     </div>
   );

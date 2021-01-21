@@ -78,40 +78,49 @@ function Chat(props) {
   //   setChosenEmoji(!chosenEmoji);
   // };
 
-  useEffect(() => {
-    console.log(currentGroupState.groupMembers);
-  }, []);
+  // useEffect(() => {
+  //   console.log(currentGroupState.groupMembers);
+  // }, []);
 
-  return (
-    <div className="chat">
-      <div className="chat__header">
-        <div className="chat__headerInfo">
-          {/* <img src={Logo} alt="logo" /> */}
-          <Avatar src={Logo} />
-          <h3>{userState.username}</h3>
-          <p> Kurrent Kluster: {currentGroupState.name}</p>
-        </div>
-        <div className="chat__headerRight">
-          <Link
-            to={"/user/" + userState.username}
-            style={{ textDecoration: "none" }}
-          >
-            <button className="chat__back__btn">Back To User Page</button>
-          </Link>
-          <button className="chat__back__btn" onClick={props.logOutUser}>
-            LogOut
-          </button>
+  function conditionalRenderPopup() {
+    if (currentGroupState) {
+      return (
+        <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
+          {currentGroupState.groupMembers.map((subMembers) => (
+            <p>{subMembers.name}</p>
+          ))}
+        </Popup>
+      );
+    }
+  }
 
-          <div className="chat__header__right">
-            <Popup
-              trigger={<EmojiPeopleIcon />}
-              position="bottom right"
-              closeOnDocumentClick
+  if (currentGroupState) {
+    return (
+      <div className="chat">
+        <div className="chat__header">
+          <div className="chat__headerInfo">
+            {/* <img src={Logo} alt="logo" /> */}
+            <Avatar src={Logo} />
+            <h3>{userState.username}</h3>
+            <p>Kluster: {currentGroupState.name}</p>
+          </div>
+          <div className="chat__headerRight">
+            <Link
+              to={"/user/" + userState.username}
+              style={{ textDecoration: "none" }}
             >
-              {/* {currentGroupState.groupMembers.map((subMembers) => {
+              <button className="chat__back__btn">Back To User Page</button>
+            </Link>
+            <button className="chat__back__btn" onClick={props.logOutUser}>
+              LogOut
+            </button>
+
+            <div className="chat__header__right">
+              <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
+                {/* {currentGroupState.groupMembers.map((subMembers) => {
                 <p>{subMembers.name}</p>
               })} */}
-            </Popup>
+              </Popup>
 
             <Popup
               trigger={<MoreVert />}
@@ -152,44 +161,47 @@ function Chat(props) {
             </Popup>
           </div>
         </div>
-      </div>
-      <Message messages={props.messages} />
+        <Message messages={props.messages} />
 
-      <div className="chat__footer">
-        <Popup
-          className="popup__content"
-          trigger={<InsertEmoticonIcon />}
-          position="top center"
-          closeOnDocumentClick
-          nested
-        >
-          <div>
-            <Picker onEmojiClick={props.onEmojiClick} />
-          </div>
-        </Popup>
-        <form>
-          <input
-            id="messageBar"
-            name="message"
-            onChange={props.handleInputChange}
-            placeholder="Type a message"
-            type="text"
-            // value={message}
-            ref={inputRef}
-          />
-          <button
-            type="submit"
-            onClick={(event) => {
-              event.preventDefault();
-              props.sendMessage();
-              clearField();
-            }}
+        <div className="chat__footer">
+          <Popup
+            className="popup__content"
+            trigger={<InsertEmoticonIcon />}
+            position="top center"
+            closeOnDocumentClick
+            nested
           >
-            Send
-          </button>
-        </form>
+            <div>
+              <Picker onEmojiClick={props.onEmojiClick} />
+            </div>
+          </Popup>
+          <form>
+            <input
+              id="messageBar"
+              name="message"
+              onChange={props.handleInputChange}
+              placeholder="Type a message"
+              type="text"
+              // value={message}
+              ref={inputRef}
+            />
+            <button
+              type="submit"
+              onClick={(event) => {
+                event.preventDefault();
+                props.sendMessage();
+                clearField();
+              }}
+            >
+              Send
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return <p>Loading...</p>;
+  }
 }
+
 export default Chat;
