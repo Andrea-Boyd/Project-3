@@ -4,7 +4,6 @@ import Toast from "../utils/Toast";
 import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
 import { UserContext } from "../utils/UserStore";
-import { ContactsOutlined } from "@material-ui/icons";
 import Logo from "../images/logo.png";
 import { Container, Col, Row } from "reactstrap";
 import GitHubIcon from "@material-ui/icons/GitHub";
@@ -72,7 +71,7 @@ function Login() {
           <Row>
             <Col className="col-md-6">
               <div className="logo float-child-left">
-                <img src={Logo} />
+                <img src={Logo} alt="KIT Logo" />
               </div>
             </Col>
             <Col className="col-md-6 col-12">

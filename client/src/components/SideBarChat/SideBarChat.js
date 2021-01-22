@@ -1,24 +1,16 @@
-import { Avatar } from "@material-ui/core";
-import React, { useState, useEffect, useContext } from "react";
-import { UserContext } from "../../utils/UserStore";
+import React, { useContext } from "react";
 import { GroupContext } from "../../utils/GroupStore";
 import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
 import { CurrentSubGroupContext } from "../../utils/CurrentSubGroupStore";
 import API from "../../utils/API";
 import "./SideBarChat.css";
-import { ContactSupportOutlined } from "@material-ui/icons";
 
 function SideBarChat(props) {
-  const { userState, setUserState } = useContext(UserContext);
-  const { groupState, setGroupState } = useContext(GroupContext);
+  const { groupState } = useContext(GroupContext);
   const { currentGroupState, setCurrentGroupState } = useContext(
     CurrentGroupContext
   );
-  const { currentSubGroupState, setCurrentSubGroupState } = useContext(
-    CurrentSubGroupContext
-  );
-
-  let localGroupID = "";
+  const { currentSubGroupState } = useContext(CurrentSubGroupContext);
 
   function loadSubGroup(name) {
     let subGroupName = name;
@@ -70,10 +62,8 @@ function SideBarChat(props) {
               </h2>
             </div>
           ))}
-          ;
         </div>
       )}
-      ;
     </div>
   );
 }

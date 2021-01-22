@@ -89,7 +89,9 @@ function User(props) {
     input.value = "";
     console.log(input);
   }
-
+  // if (userState.username === "") {
+  //   <Redirect to={"/"} />;
+  // } else {
   return (
     <>
       <div className="user__page">
@@ -154,6 +156,7 @@ function User(props) {
       </div>
     </>
   );
+  // }
 }
 
 export default User;

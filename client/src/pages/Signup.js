@@ -1,4 +1,3 @@
-import createSpacing from "@material-ui/core/styles/createSpacing";
 import React, { useState, useEffect, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
@@ -8,7 +7,6 @@ import "./SignUp.css";
 import { UserContext } from "../utils/UserStore";
 
 function SignUp() {
-  const [newUser, setNewUser] = useState({ input: "" });
   const [userArr, setUserArr] = useState({});
   const [redirect, setRedirect] = useState({ redirect: null });
   const { userState, setUserState } = useContext(UserContext);

@@ -1,15 +1,14 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import "./Chat.css";
-import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons";
-import { Avatar, IconButton } from "@material-ui/core";
+import { MoreVert } from "@material-ui/icons";
+import { Avatar } from "@material-ui/core";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
-import NoteIcon from "@material-ui/icons/Note";
 import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople";
 import Message from "../Message/Message";
 import { UserContext } from "../../utils/UserStore";
 import Picker from "emoji-picker-react";
 import Popup from "reactjs-popup";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { GroupContext } from "../../utils/GroupStore";
 import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
 import NewGroupModal from "../NewGroupModal/NewGroupModal";
@@ -17,11 +16,8 @@ import Logo from "../../images/k-logo.png";
 import API from "../../utils/API";
 
 function Chat(props) {
-  const { userState, setUserState } = useContext(UserContext);
-  const [chosenEmoji, setChosenEmoji] = useState(null);
-  const [message, setMessage] = useState("");
-  const [cursorPosition, setCursorPosition] = useState();
-  const { groupState, setGroupState } = useContext(GroupContext);
+  const { userState } = useContext(UserContext);
+  const { groupState } = useContext(GroupContext);
   const { currentGroupState, setCurrentGroupState } = useContext(
     CurrentGroupContext
   );

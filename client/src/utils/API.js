@@ -2,8 +2,8 @@ import axios from "axios";
 
 export default {
   // Gets all groups a user is in
-  getUser: function () {
-    return axios.get("/api/users/");
+  getUser: function (userName) {
+    return axios.get("/api/users/" + userName);
   },
   // Gets a group by id to view messages in that group
   getGroups: function (id) {
@@ -16,9 +16,9 @@ export default {
   },
 
   // Gets all groups a user is in
-  getUser: function () {
-    return axios.get("/api/users/");
-  },
+  // getUser: function () {
+  //   return axios.get("/api/users/");
+  // },
   // Gets a group by id to view messages in that group
   getGroups: function (id) {
     return axios.get("/api/group/" + id);
