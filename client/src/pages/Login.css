@@ -24,7 +24,7 @@ img {
     font-family: 'Trebuchet MS', sans-serif;
 }
 
-input {
+::placeholder {
     color: black !important;
 }
 
