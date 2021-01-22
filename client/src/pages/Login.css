@@ -1,53 +1,15 @@
 .login__content form {
     /* width: 600px; */
     margin: 0 auto;
-    /* height: 400px; */
+    /* height: 470px; */
     background-image: linear-gradient(to right, #5658d6, #7C35f5, #A79Cf8);
     box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
     font-family: 'Trebuchet MS', sans-serif;
     font-weight: bold;
     border-radius: 25px;
+    padding-bottom: 0.1px;
 }
 
-/* form>h2 {
-    text-align: center;
-    margin-top: 40px;
-    color: salmon;
-} */
-
-/* .margin {
-    margin-left: 700px;
-} */
-
-/* .login__container {
-    background-image: linear-gradient(to right, #5658d6, #7C35f5, #A79Cf8);
-    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75)
-} */
-
-/* .float-container {
-    border: 3px;
-    padding: 20px;
-} */
-
-/* .float-child-left {
-    width: 130%;
-    float: left;
-    border: 2px;
-    /* padding-right: 100px; */
-
-/*} 
-
-/* .float-child-right {
-    width: 50%;
-    float: right;
-    padding-top: 128px;
-    border: 2px;
-}  */
-
-/* .logo {
-    height: 50%;
-    width: 50%;
-} */
 
 img {
     height: 70%;
@@ -124,20 +86,9 @@ img {
     display: flex;
 }
 
-/* .login__content label {
-    float: left;
-    width: 10em;
-    margin-right: 1em;
-    font-size: large;
-} */
 
-/* 
-.login__content p {
-    text-align: center;
-} */
 
 .row {
-    /* padding-top: 200px; */
     flex-wrap: nowrap;
 }
 
@@ -150,7 +101,7 @@ img {
     padding-top: 200px;
 }
 
-@media screen and (max-width: 1000) {
+@media screen and (max-width: 1000px) {
     img {
         height: 80%;
         width: 80%;
@@ -160,11 +111,58 @@ img {
 
 @media screen and (max-width: 770px) {
     .row {
-        padding-top: 20px;
+        padding-top: 10px;
         flex-wrap: wrap;
     }
     .login {
-        padding-top: 80px;
+        padding-top: 10px !important;
         overflow-x: hidden;
     }
+     .float-child-left {
+        align-content: center;
+        margin-left: 120px;
+    }
+
+
+    .form-group {
+        padding: 20px !important;
+    }
+
+    
+}
+
+@media screen and (max-width: 600px) {
+    form {
+        width: 400px !important;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    form {
+        margin-right: 65px !important;
+    }
+    .col {
+        margin-right: 100px;
+    }
+    img {
+        height: 300px
+    }
+
+   
+}
+
+
+@media screen and (max-width: 400px) {
+    form {
+        width: 350px !important;
+    }
+    .col {
+        margin-right: 100px;
+    }
+    img {
+        height: 300px;
+        width: 150px;
+    }
+
+   
 }
