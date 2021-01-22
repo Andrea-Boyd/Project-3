@@ -6,18 +6,16 @@ import { UserContext } from "../utils/UserStore";
 import { GroupContext } from "../utils/GroupStore";
 import { CurrentGroupContext } from "../utils/CurrentGroupStore";
 import { CurrentSubGroupContext } from "../utils/CurrentSubGroupStore";
-import { Redirect, Link } from "react-router-dom";
-import io from "socket.io-client";
+import { Redirect } from "react-router-dom";
 import "./Group.css";
 import socketClient from "socket.io-client";
 import "../App.css";
 
 function Group(props) {
   // Pulling in Global and local states for component access
-  const [user, setUser] = useState({});
-  const [group, setGroup] = useState({});
+  const [group] = useState({});
   const [formObject, setFormObject] = useState({});
-  const { userState, setUserState } = useContext(UserContext);
+  const { userState } = useContext(UserContext);
   const { groupState, setGroupState } = useContext(GroupContext);
   const { currentGroupState, setCurrentGroupState } = useContext(
     CurrentGroupContext
@@ -29,13 +27,7 @@ function Group(props) {
   const socket = useRef();
 
   let pathArray = window.location.pathname.split("/");
-  let username = pathArray[2];
   let groupName = pathArray[3].replace("%20", " ");
-
-  let messages = {
-    name: groupName,
-    messages: [{ name: "Admin", text: "Messages are loading", date: "Now" }],
-  };
 
   // Sends ID of current group to server so that user can be placed in the correct room
   function sendGroupID(id) {
@@ -55,7 +47,6 @@ function Group(props) {
       console.log("Message Check");
       console.log(data);
       //console.log(currentGroupState);
-      let group = data.group;
       let currentGroup = data.currentGroupName;
       API.getGroup(currentGroup)
         .then((res) => {
@@ -78,9 +69,6 @@ function Group(props) {
     loadGroup(groupName);
   }, [userState]);
 
-  function getCurrentGroupState() {
-    return currentGroupState;
-  }
   let currentUsersSubGroups = [];
 
   async function filterSubGroups() {
@@ -149,20 +137,6 @@ function Group(props) {
         //console.log("load group response");
         //console.log(res.data);
         setCurrentGroupState(res.data);
-      })
-      .catch((err) => console.log(err));
-  }
-
-  function loadUser(username) {
-    //console.log("before");
-    //console.log(username);
-    API.getUser(username)
-      .then((res) => {
-        console.log(res.data);
-        setUser(res.data);
-        //console.log(groupName);
-        loadGroup(groupName);
-        //setGroup(messages);
       })
       .catch((err) => console.log(err));
   }
