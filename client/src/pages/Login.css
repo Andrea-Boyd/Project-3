@@ -23,9 +23,14 @@ img {
   font-family: "Trebuchet MS", sans-serif;
 }
 
+::placeholder {
+    color: black !important;
+}
+
 .form-control {
-  padding: 8px;
-  width: 280px;
+    padding: 8px;
+    width: 280px;
+    color: black;
 }
 
 .login__content button {
