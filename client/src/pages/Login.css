@@ -1,168 +1,157 @@
 .login__content form {
-    /* width: 600px; */
-    margin: 0 auto;
-    /* height: 470px; */
-    background-image: linear-gradient(to right, #5658d6, #7C35f5, #A79Cf8);
-    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
-    font-family: 'Trebuchet MS', sans-serif;
-    font-weight: bold;
-    border-radius: 25px;
-    padding-bottom: 0.1px;
+  /* width: 600px; */
+  margin: 0 auto;
+  /* height: 470px; */
+  background-image: linear-gradient(to right, #5658d6, #7c35f5, #a79cf8);
+  box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+  font-family: "Trebuchet MS", sans-serif;
+  font-weight: bold;
+  border-radius: 25px;
+  padding-bottom: 0.1px;
 }
 
-
 img {
-    height: 70%;
-    width: 70%;
-    align-content: center;
+  height: 70%;
+  width: 70%;
+  align-content: center;
 }
 
 .form-group {
-    margin: auto;
-    text-align: center;
-    width: 60%;
-    font-family: 'Trebuchet MS', sans-serif;
+  margin: auto;
+  text-align: center;
+  width: 60%;
+  font-family: "Trebuchet MS", sans-serif;
 }
 
 .form-control {
-    padding: 8px;
-    width: 280px;
+  padding: 8px;
+  width: 280px;
 }
 
 .login__content button {
-    display: block;
-    margin: 40px auto;
-    border-radius: 8px;
-    height: 45px;
-    color: whitesmoke;
-    font-size: large;
-    font-weight: bold;
-    background-color: darkslategray;
+  display: block;
+  margin: 40px auto;
+  border-radius: 8px;
+  height: 45px;
+  color: whitesmoke;
+  font-size: large;
+  font-weight: bold;
+  background-color: darkslategray;
 }
 
 .login__content input {
-    width: 100%;
-    border: 2px;
-    border-radius: 8px;
-    height: 40px;
+  width: 100%;
+  border: 2px;
+  border-radius: 8px;
+  height: 40px;
 }
 
-.login__content ::placeholder {
-    text-align: center;
-    color: black;
-    opacity: 50%;
-    font-family: 'Trebuchet MS', sans-serif;
-    font-weight: bold;
-    font-size: large;
+.login__content input::placeholder {
+  text-align: center;
+  color: black;
+  opacity: 50%;
+  font-family: "Trebuchet MS", sans-serif;
+  font-weight: bold;
+  font-size: large;
 }
 
 .login__footer a {
-    margin: 10px;
-    color: #7C35f5;
-    text-align: center;
+  margin: 10px;
+  color: #7c35f5;
+  text-align: center;
 }
 
 .login__footer {
-    text-align: center;
-    display: flex;
-    justify-content: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .MuiSvgIcon-root {
-    font-size: xx-large;
-    color: #A79Cf8;
+  font-size: xx-large;
+  color: #a79cf8;
 }
 
 .footer__copyright {
-    color: darkslategray;
-    font-weight: 700;
-    font-size: x-small;
-    justify-content: center;
-    display: flex;
+  color: darkslategray;
+  font-weight: 700;
+  font-size: x-small;
+  justify-content: center;
+  display: flex;
 }
 
 .footer__bottom p {
-    justify-content: center;
-    display: flex;
+  justify-content: center;
+  display: flex;
 }
 
-
-
 .row {
-    flex-wrap: nowrap;
+  flex-wrap: nowrap;
 }
 
 .signup__btn {
-    width: 280px;
-    background-color: darkslategray;
+  width: 280px;
+  background-color: darkslategray;
 }
 
 .login {
-    padding-top: 200px;
+  padding-top: 200px;
 }
 
 @media screen and (max-width: 1000px) {
-    img {
-        height: 80%;
-        width: 80%;
-        align-content: center;
-    }
+  img {
+    height: 80%;
+    width: 80%;
+    align-content: center;
+  }
 }
 
 @media screen and (max-width: 770px) {
-    .row {
-        padding-top: 10px;
-        flex-wrap: wrap;
-    }
-    .login {
-        padding-top: 10px !important;
-        overflow-x: hidden;
-    }
-     .float-child-left {
-        align-content: center;
-        margin-left: 120px;
-    }
+  .row {
+    padding-top: 10px;
+    flex-wrap: wrap;
+  }
+  .login {
+    padding-top: 10px !important;
+    overflow-x: hidden;
+  }
+  .float-child-left {
+    align-content: center;
+    margin-left: 120px;
+  }
 
-
-    .form-group {
-        padding: 20px !important;
-    }
-
-    
+  .form-group {
+    padding: 20px !important;
+  }
 }
 
 @media screen and (max-width: 600px) {
-    form {
-        width: 400px !important;
-    }
+  form {
+    width: 400px !important;
+  }
 }
 
 @media screen and (max-width: 450px) {
-    form {
-        margin-right: 65px !important;
-    }
-    .col {
-        margin-right: 100px;
-    }
-    img {
-        height: 300px
-    }
-
-   
+  form {
+    margin-right: 65px !important;
+  }
+  .col {
+    margin-right: 100px;
+  }
+  img {
+    height: 300px;
+  }
 }
 
-
 @media screen and (max-width: 400px) {
-    form {
-        width: 350px !important;
-    }
-    .col {
-        margin-right: 100px;
-    }
-    img {
-        height: 300px;
-        width: 150px;
-    }
-
-   
+  form {
+    width: 350px !important;
+  }
+  .col {
+    margin-right: 100px;
+  }
+  img {
+    height: 300px;
+    width: 150px;
+  }
 }
