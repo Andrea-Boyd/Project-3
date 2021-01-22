@@ -1,14 +1,8 @@
 import React, { useContext } from "react";
-import { UserContext } from "../../utils/UserStore";
-import { GroupContext } from "../../utils/GroupStore";
 import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
 
-function Message(props) {
-  const { userState, setUserState } = useContext(UserContext);
-  const { groupState, setGroupState } = useContext(GroupContext);
-  const { currentGroupState, setCurrentGroupState } = useContext(
-    CurrentGroupContext
-  );
+function Message() {
+  const { currentGroupState } = useContext(CurrentGroupContext);
 
   if (currentGroupState) {
     return (

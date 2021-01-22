@@ -16,8 +16,8 @@ import Logo from "../../images/k-logo.png";
 import API from "../../utils/API";
 
 function Chat(props) {
-  const { userState, setUserState } = useContext(UserContext);
-  const { groupState, setGroupState } = useContext(GroupContext);
+  const { userState } = useContext(UserContext);
+  const { groupState } = useContext(GroupContext);
   const { currentGroupState, setCurrentGroupState } = useContext(
     CurrentGroupContext
   );
