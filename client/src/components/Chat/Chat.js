@@ -145,7 +145,7 @@ function Chat(props) {
                   ))}
                   <Popup
                     trigger={
-                      <button className="note__button">Invite Code</button>
+                      <button className="note__button">Kit Code</button>
                     }
                     position="left center"
                     nested
@@ -154,7 +154,7 @@ function Chat(props) {
                   </Popup>
                   <Popup
                     trigger={<NewGroupModal />}
-                    position="bottom right"
+                    position="bottom left"
                     nested
                   ></Popup>
                 </div>
