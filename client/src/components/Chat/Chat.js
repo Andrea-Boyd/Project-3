@@ -122,13 +122,20 @@ function Chat(props) {
                 ))}
               </Popup>
 
-              <Popup trigger={<MoreVert />} position="bottom right" nested>
+              <Popup
+                trigger={<MoreVert />}
+                position="bottom right"
+                nested
+                closeOnDocumentClick
+                repositionOnResize
+              >
                 <div>
+                  <h4 className="subgroup__h5">Klusters</h4>
                   {groupState.subgroups.map((subgroup) => (
                     <div className="subgroup__hamburger">
                       <button
                         key={subgroup._id}
-                        className="subgroup__hamburger__h2"
+                        className="subgroup__hamburger__btn"
                         value={subgroup._id}
                         onClick={loadSubGroup}
                       >
@@ -138,11 +145,9 @@ function Chat(props) {
                   ))}
                   <Popup
                     trigger={
-                      <button className="button">
-                        <NoteIcon />
-                      </button>
+                      <button className="note__button">Invite Code</button>
                     }
-                    position="bottom left"
+                    position="left center"
                     nested
                   >
                     <div>{groupState.inviteCode}</div>
