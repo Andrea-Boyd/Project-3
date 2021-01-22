@@ -5,21 +5,7 @@ const User = require("../../models/users");
 const { forwardAuthenticated } = require("../../config/auth");
 var isAuth = require("../../config/auth").isAuth;
 
-// Matches with "/api/users"
-//router.route("/").get(userController.findAll);
-//router.route("/").post(userController.create);
-// router.route("/session")
-//   .get(userController.session)
-router
-  .route("/")
-  //.get(userController.login)
-  .post(userController.register);
-
-// router.route("/login").post(passport.authenticate("local"), (req, res) => {
-//   console.log(req.user)
-//   res.json(req.user)
-
-// })
+router.route("/").post(userController.register);
 
 router.route("/login").post((req, res, next) => {
   passport.authenticate("local", (err, user, info) => {

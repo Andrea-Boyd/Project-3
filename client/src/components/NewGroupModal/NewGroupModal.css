@@ -1,0 +1,31 @@
+.modal__container button {
+    font-size: medium;
+}
+
+.sub__btn {
+    display: block;
+    margin: 6px auto;
+    border-radius: 8px;
+    height: 35px;
+    width: 180px;
+    color: darkslategray;
+    font-size: large;
+    font-weight: bold;
+    background-color: white;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.modal__submit__button {
+    display: block;
+    margin: 6px auto;
+    border-radius: 8px;
+    height: 35px;
+    width: 180px;
+    color: white;
+    font-size: large;
+    font-weight: bold;
+    background-color: darkslategray;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+

@@ -11,6 +11,8 @@ import GroupStore from "../../utils/GroupStore";
 import CurrentGroupStore from "../../utils/CurrentGroupStore";
 import CurrentSubGroupStore from "../../utils/CurrentSubGroupStore";
 
+// Container Component is used to house Router functionality and give child components/pages access to Global Stores
+
 function Container(props) {
   return (
     <div>
@@ -21,15 +23,12 @@ function Container(props) {
               <div>
                 <Router>
                   <Switch>
-                    {/* {user ? <User /> : <Login />} */}
                     <Route exact path="/">
                       <Login />
                     </Route>
                     <Route exact path="/signup">
                       <SignUp />
                     </Route>
-
-                    {/* Route below will only work once proper group name is retrun from db in Users.js */}
                     <div className="app">
                       <Route exact path="/user/:username/:group">
                         <Group
@@ -37,10 +36,6 @@ function Container(props) {
                           socket={props.socket}
                         />
                       </Route>
-
-                      {/* <Route exact path="/group">
-                    <Group />
-                  </Route> */}
                       <Route exact path="/user/:username">
                         <User logOutUser={props.logOutUser} />
                       </Route>

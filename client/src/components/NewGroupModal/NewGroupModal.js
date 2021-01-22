@@ -3,9 +3,9 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import "./NewGroupModal.css";
 import { Avatar } from "@material-ui/core";
-import { UserContext } from "../utils/UserStore";
-import { GroupContext } from "../utils/GroupStore";
-import API from "../utils/API";
+import { UserContext } from "../../utils/UserStore";
+import { GroupContext } from "../../utils/GroupStore";
+import API from "../../utils/API";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 
 function NewGroupModal() {
@@ -14,14 +14,7 @@ function NewGroupModal() {
   const { userState, setUserState } = useContext(UserContext);
   const { groupState, setGroupState } = useContext(GroupContext);
 
-  // console.log(groupState.groupMembers)
-  //console.log("after rata");
-  // access array, .map
   let subGroupData = {};
-
-  //   useEffect(() => {
-  //       loadSubGroup(users)
-  //   }, [])
 
   function refreshUser(username) {
     // console.log("before");
@@ -34,6 +27,7 @@ function NewGroupModal() {
       .catch((err) => console.log(err));
   }
 
+  // Builds array of objects with all info for Users in new Subgroup
   function buildUserForm(event) {
     console.log(event.target);
     const id = event.target.value;
@@ -48,6 +42,13 @@ function NewGroupModal() {
     setNewSubGroup({ ...newSubGroup, [name]: value });
   }
 
+  function clearField() {
+    let input = document.getElementById("modalName");
+    input.value = "";
+    console.log(input);
+  }
+
+  // Creates new subgroup then calls functions to add appropriate data to other group and user documents
   function handleFormSubmit(e) {
     e.preventDefault();
     console.log(newSubGroup);
@@ -66,10 +67,12 @@ function NewGroupModal() {
         console.log(subGroupUserData);
         addSubGroupToUsers(res.data.groupMembers, subGroupData);
         addSubGroupToGroup(groupState._id, subGroupUserData);
+        setUserFormState([]);
       })
       .catch((err) => console.log(err));
   }
 
+  // Adds new subgroup info to User documents
   function addSubGroupToUsers(users, subGroupData) {
     let totalCount = users.length;
     let completedCount = 0;
@@ -85,17 +88,8 @@ function NewGroupModal() {
         .catch((err) => console.log(err));
     }
   }
-  //   users.forEach((user) => {
-  //     API.addSubGroupToUser(user._id, subGroupData)
-  //       .then((res) => {
-  //         console.log(res);
-  //         //   loadSubGroup(users);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   });
-  // }
 
-  // loadUser(userState.username)
+  // Adds new subgroup info to outer Group document
   function addSubGroupToGroup(groupID, subGroupData) {
     API.addSubGroupToGroup(groupID, subGroupData)
       .then((res) => {
@@ -103,17 +97,6 @@ function NewGroupModal() {
       })
       .catch((err) => console.log(err));
   }
-
-  //   function loadSubGroup(users) {
-  //     // console.log("before");
-  //     // console.log(username);
-  //     API.getUser(users)
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         setGroupState(res.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
 
   return (
     <Popup
@@ -128,6 +111,7 @@ function NewGroupModal() {
           {/* Enter Group Name */}
           <form>
             <input
+              id="modalName"
               name="subGroupName"
               onSubmit={handleFormSubmit}
               className="modal__group__name"
@@ -139,7 +123,7 @@ function NewGroupModal() {
 
         <div>
           {userFormState.map((user) => (
-            <p>{user.name}</p>
+            <button className="modal__submit__button">{user.name}</button>
           ))}
         </div>
         <br></br>
@@ -160,7 +144,11 @@ function NewGroupModal() {
 
         <button
           className="modal__submit__button"
-          onClick={handleFormSubmit}
+          onClick={(event) => {
+            event.preventDefault();
+            handleFormSubmit(event);
+            clearField();
+          }}
           type="submit"
         >
           Submit

@@ -1,4 +1,4 @@
-// Global Context for current Goup info
+// Global Context for Group info
 import React, { useState } from "react";
 
 const initialGroupState = {

@@ -9,17 +9,6 @@ function Message(props) {
   const { currentGroupState, setCurrentGroupState } = useContext(
     CurrentGroupContext
   );
-  //console.log(groupState);
-
-  //let messages = currentGroupState.messages;
-  //console.log(new Date(messages[0].date).toLocaleString());
-
-  //adding something
-  // let objDiv = document.getElementById("chat__body");
-  // objDiv.scrollTop = objDiv.scrollHeight;
-
-  // function differentMessage {
-  //       if (message.name === currentGroupState.groupMembers.name) {
 
   if (currentGroupState) {
     return (
@@ -55,4 +44,5 @@ function Message(props) {
     );
   }
 }
+
 export default Message;

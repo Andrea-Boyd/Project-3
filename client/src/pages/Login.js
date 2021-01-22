@@ -5,25 +5,18 @@ import { Link, Redirect } from "react-router-dom";
 import API from "../utils/API";
 import { UserContext } from "../utils/UserStore";
 import { ContactsOutlined } from "@material-ui/icons";
-import Logo from "../images/logo.png"
+import Logo from "../images/logo.png";
 import { Container, Col, Row } from "reactstrap";
-
-
-
-// import { response } from "express";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 function Login() {
   const [newLogin, setLogin] = useState({});
   const [redirect, setRedirect] = useState({ redirect: null });
   const { userState, setUserState } = useContext(UserContext);
-  //console.log("seeing user: ", userState);
 
+  // This will trigger redirect when the user logs in and the Global userState is set
   useEffect(() => {
-    //console.log("State Change");
-    //console.log(userState);
-    // console.log(userState.password);
-    //console.log(redirect);
-    if (userState.password !== "") {
+    if (userState) {
       setRedirect({ redirect: true });
     }
   }, [userState]);
@@ -35,7 +28,7 @@ function Login() {
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    console.log(newLogin);
+    //console.log(newLogin);
     if (!newLogin.email || !newLogin.password) {
       Toast.allFields();
     } else
@@ -48,9 +41,8 @@ function Login() {
           console.log("Before");
           if (res.data !== "No User exists") {
             setUserState(res.data);
-          } else 
-            Toast.validPassword();
-          
+          } else Toast.validPassword();
+
           console.log(res.data);
           //setUserState(res.data);
           console.log("After");
@@ -67,9 +59,10 @@ function Login() {
           //setUserState(res.data);
           //redirect();
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
   }
 
+  // Conditional render that will redirect to User page if userState has been set
   if (redirect.redirect) {
     return <Redirect to={"/user/" + userState.username} />;
   } else {
@@ -77,59 +70,99 @@ function Login() {
       <div className="login">
         <Container>
           <Row>
-            <Col className= "col-md-6">
-          <div className= "logo float-child-left"> 
-            <img src= {Logo} />
-          </div>
+            <Col className="col-md-6">
+              <div className="logo float-child-left">
+                <img src={Logo} />
+              </div>
             </Col>
-            <Col className= "col-md-6 col-12">
-          <div className="login__content float-child-right">
-            <form>
-              {/* <h2>Login</h2> */}
+            <Col className="col-md-6 col-12">
+              <div className="login__content float-child-right">
+                <form>
+                  {/* <h2>Login</h2> */}
 
-              <div className="form-group">
-                {/* <label>Email address</label> */}
-                <input
-                  onChange={handleInputChange}
-                  name="email"
-                  type="email"
-                  className="form-control"
-                  placeholder="Email"
-                />
+                  <div className="form-group">
+                    {/* <label>Email address</label> */}
+                    <input
+                      onChange={handleInputChange}
+                      name="email"
+                      type="email"
+                      className="form-control"
+                      placeholder="Email"
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    {/* <label>Password</label> */}
+                    <input
+                      onChange={handleInputChange}
+                      name="password"
+                      type="password"
+                      className="form-control"
+                      placeholder="Password"
+                    />
+                  </div>
+
+                  <button
+                    onClick={handleFormSubmit}
+                    type="submit"
+                    className="signup__btn"
+                  >
+                    Login
+                  </button>
+                  {/* <p className="register"></p> */}
+                  <Link to="/signup" style={{ textDecoration: "none" }}>
+                    <button className="signup__btn">Sign Up</button>
+                  </Link>
+                </form>
               </div>
-
-              <div className="form-group">
-                {/* <label>Password</label> */}
-                <input
-                  onChange={handleInputChange}
-                  name="password"
-                  type="password"
-                  className="form-control"
-                  placeholder="Password"
-                />
-              </div>
-
-              <button
-                onClick={handleFormSubmit}
-                type="submit"
-                className="signup__btn"
-              >
-                Login
-            </button>
-              {/* <p className="register"></p> */}
-              <Link to="/signup" style={{ textDecoration: "none" }}>
-                <button className="signup__btn">Sign Up</button>
-              </Link>
-            </form>
-          </div>
-          </Col>
+            </Col>
           </Row>
-          </Container>
-          </div>
-      
+          <Row className="login__footer">
+            <div className="login__links">
+              <p class="github-text" id="footer-links">
+                <a href="https://github.com/outoftune266">
+                  <GitHubIcon />
+                  Zak
+                </a>
+              </p>
+            </div>
 
-   
-    
+            <div className="login__links">
+              <p class="github-text" id="footer-links">
+                <a href="https://github.com/chadtarpey615">
+                  <GitHubIcon />
+                  Chad
+                </a>
+              </p>
+            </div>
+            <div className="login__links">
+              <p class="github-text" id="footer-links">
+                <a href="https://github.com/Andrea-Boyd">
+                  <GitHubIcon />
+                  Andrea
+                </a>
+              </p>
+            </div>
+            <div className="login__links">
+              <p class="github-text" id="footer-links">
+                <a href="https://github.com/Kevin-Pulley">
+                  <GitHubIcon />
+                  Kevin
+                </a>
+              </p>
+            </div>
+          </Row>
+          <Row className="footer__copyright">
+            <div className="footer__bottom">
+              <p className="footer__copyright">
+                Designed and built by: Zak Monnet, Chad Tarpey, Andrea Boyd,
+                Kevin Pulley
+              </p>
+              <p className="footer__copyright">&copy;, 2021</p>
+            </div>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }

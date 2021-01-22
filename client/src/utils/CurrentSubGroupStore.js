@@ -1,3 +1,4 @@
+// Global Context for Current SubGoup info
 import React, { useState } from "react";
 
 const initialSubGroupState = [

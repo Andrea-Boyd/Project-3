@@ -88,3 +88,42 @@
     background-color: darkslategray;
     place-items: center;
 }
+
+@media screen and (max-width: 750px) {
+    .user__container {
+        align-content: center;
+    }
+    .user__page {
+        display: grid !important;
+        width: 500px;
+        margin-left: 70px;
+    }
+}
+
+@media screen and (max-width: 590px) {
+    .user__page {
+        display: grid !important;
+        width: 500px;
+        margin-right: 70px;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .user__page {
+        display: grid !important;
+        position: relative;
+        right: 10%
+        
+    }
+}
+
+@media screen and (max-height: 675px) {
+    .user__page {
+        display: grid !important;
+        height: 600px;
+        
+    }
+    .user__kits button {
+        height: 25px;
+    }
+}

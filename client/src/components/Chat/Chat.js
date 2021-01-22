@@ -1,4 +1,3 @@
-// import { Avatar, ListItemAvatar } from '@material-ui/core'
 import React, { useContext, useState, useEffect, useRef } from "react";
 import "./Chat.css";
 import { AttachFile, MoreVert, SearchOutlined } from "@material-ui/icons";
@@ -13,12 +12,9 @@ import Popup from "reactjs-popup";
 import { Redirect, Link } from "react-router-dom";
 import { GroupContext } from "../../utils/GroupStore";
 import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
-import NewGroupModal from "../../NewGroupModal/NewGroupModal";
+import NewGroupModal from "../NewGroupModal/NewGroupModal";
 import Logo from "../../images/k-logo.png";
-
 import API from "../../utils/API";
-
-//import { GroupContext } from "../utils/GroupStore";
 
 function Chat(props) {
   const { userState, setUserState } = useContext(UserContext);
@@ -31,35 +27,12 @@ function Chat(props) {
   );
   const inputRef = useRef();
 
-  //make new handleinput function "buildMessage"
-  // string concat
-
-  const selectEmoji = (event, emojiObject) => {
-    console.log(event);
-    console.log(inputRef.current);
-    inputRef.current.value += " " + emojiObject.emoji;
-    // ref.focus();
-    // const ref = inputRef.current.value;
-    // const start = ref.substring(0, ref.selectionStart);
-    // const end = ref.substring(ref.selectionStart);
-    // const msg = start + emojiObject.emoji + end;
-    // inputRef.current.value = msg
-    // setMessage(msg);
-    // inputRef.current.selectionEnd = start.length+emojiObject.emoji.length
-    // setCursorPosition(start.length+emojiObject.length)
-    // inputRef.current.focus();
-    // setChosenEmoji(!chosenEmoji);
-    // setChosenEmoji(emojiObject);
-  };
-
-  const handleInputChange = (e) => {
-    setMessage(e.target.value);
-  };
   function clearField() {
     let input = document.getElementById("messageBar");
     input.value = "";
     console.log(input);
   }
+
   function loadSubGroup(e) {
     let subGroupName = e.target.innerHTML;
     console.log("Load SubGroup");
@@ -71,27 +44,6 @@ function Chat(props) {
         //console.log(groupState);
       })
       .catch((err) => console.log(err));
-  }
-
-  // const handleShowEmojis = () => {
-  //   inputRef.current.focus();
-  //   setChosenEmoji(!chosenEmoji);
-  // };
-
-  // useEffect(() => {
-  //   console.log(currentGroupState.groupMembers);
-  // }, []);
-
-  function conditionalRenderPopup() {
-    if (currentGroupState) {
-      return (
-        <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
-          {currentGroupState.groupMembers.map((subMembers) => (
-            <p>{subMembers.name}</p>
-          ))}
-        </Popup>
-      );
-    }
   }
 
   if (currentGroupState) {
@@ -118,7 +70,7 @@ function Chat(props) {
             <div className="chat__header__right">
               <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
                 {currentGroupState.groupMembers.map((subMembers) => (
-                <p>{subMembers.name}</p>
+                  <p>{subMembers.name}</p>
                 ))}
               </Popup>
 
@@ -144,9 +96,7 @@ function Chat(props) {
                     </div>
                   ))}
                   <Popup
-                    trigger={
-                      <button className="note__button">Invite Code</button>
-                    }
+                    trigger={<button className="note__button">Kit Code</button>}
                     position="left center"
                     nested
                   >
@@ -154,7 +104,7 @@ function Chat(props) {
                   </Popup>
                   <Popup
                     trigger={<NewGroupModal />}
-                    position="bottom right"
+                    position="bottom left"
                     nested
                   ></Popup>
                 </div>

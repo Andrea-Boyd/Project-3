@@ -1,3 +1,4 @@
+// Imports
 const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes");
@@ -15,6 +16,7 @@ const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
 
+// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -55,7 +57,7 @@ app.use((req, res, next) => {
 
 app.use(routes);
 
-//Socket.io functionality
+//Server listener and Socket.io functionality
 server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
