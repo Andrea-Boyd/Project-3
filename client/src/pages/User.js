@@ -16,18 +16,9 @@ function User(props) {
   const { logout } = useState("");
 
   let groupData = {};
-  let groupsTest = [
-    { name: "Javascript", _id: "1" },
-    { name: "React", _id: "2" },
-  ];
 
   let pathArray = window.location.pathname.split("/");
   let username = pathArray[2];
-
-  // useEffect(() => {
-  //   //loadUser(username);
-  //   console.log(userState);
-  // }, []);
 
   function loadUser(username) {
     // console.log("before");
@@ -51,6 +42,7 @@ function User(props) {
     }
   }
 
+  // When a user joins a group via invite code, info for that user is added to group document
   function addUserToGroup(e) {
     e.preventDefault();
     let fullName = userState.first_name + " " + userState.last_name;
@@ -66,14 +58,7 @@ function User(props) {
       .catch((err) => console.log(err));
   }
 
-  // function logoutUser() {
-  //   API.logout().then(({ status }) => {
-  //     if (status === 200) {
-  //       window.location.href = "/";
-  //     }
-  //   });
-  // }
-
+  // Creates new group document
   function handleFormSubmit(e) {
     e.preventDefault();
     console.log(newGroup);
@@ -91,6 +76,7 @@ function User(props) {
       .catch((err) => console.log(err));
   }
 
+  // When a user joins a group via invite code, info for that group is added to the user document
   function addGroupToUser(username, groupData) {
     API.addGroupToUser(username, groupData).then((res) => {
       // console.log(res);
@@ -104,9 +90,6 @@ function User(props) {
     console.log(input);
   }
 
-  // if (userState.username === "") {
-  //   return <Redirect to={"/"} />;
-  // } else {
   return (
     <>
       <div className="user__page">
