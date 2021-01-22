@@ -50,18 +50,6 @@ function Group(props) {
     });
   }
 
-  // function findSocketToJoin() {
-  //   console.log("findSocketToJoin");
-  //   userState.groups.forEach((group) => {
-  //     console.log("for Each Statement");
-  //     console.log(group);
-  //     console.log(groupName);
-  //     if (group.name === groupName) {
-  //       props.socketRef.current.emit("Join Group Request", group._id);
-  //     }
-  //   });
-  // };
-
   function startSocketListener(id, name) {
     socket.current.on("message check", (data) => {
       console.log("Message Check");
@@ -80,47 +68,11 @@ function Group(props) {
     });
   }
 
-  //load all groups and store them with setGroup
+  // Fires when Group page loads and retrieves current group and initiates a socket listener for new messages alerts
   useEffect(() => {
-    // socketRef.current = io.connect("/");
-
-    //findSocketToJoin();
-    console.log(groupState);
-    console.log(groupName);
     initialLoadGroup(groupName);
-    //setGroup(messages);
-    //loadUser(username);
     socket.current = socketClient.connect();
   }, []);
-
-  // function initialLoadGroup(groupName) {
-  //   console.log(groupName);
-  //   API.getGroup(groupName)
-  //     .then((res) => {
-  //       console.log("load group response");
-  //       console.log(res);
-  //       //props.joinGroupRequest(res.data._id);
-  //       setGroupState(res.data);
-  //       setCurrentGroupState(res.data);
-  //       console.log(currentGroupState);
-  //       props.socketRef.current.on("Message Check", (data) => {
-  //         let localCurrentGroup = getCurrentGroupState();
-  //         console.log("Message Check");
-  //         console.log(data.currentGroup);
-  //         console.log(localCurrentGroup);
-  //         let currentGroup = data.currentGroup;
-  //         if (currentGroup === localCurrentGroup._id) {
-  //           API.getGroup(localCurrentGroup.name)
-  //             .then((res) => {
-  //               console.log(res.data);
-  //               setCurrentGroupState(res.data);
-  //             })
-  //             .catch((err) => console.log(err));
-  //         }
-  //       });
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
 
   useEffect(() => {
     loadGroup(groupName);
@@ -156,29 +108,7 @@ function Group(props) {
     });
   }, [groupState]);
 
-  // useEffect(() => {
-  //   scrollToBottom();
-  // }, [currentGroupState]);
-
-  // props.socketRef.current.on("Message Check", (data) => {
-  //   console.log("Message Check");
-  //   console.log(props.socketRef.id);
-  //   // console.log(data.currentGroup);
-  //   // console.log(currentGroupState._id);
-  //   let currentGroup = data.currentGroup;
-  //   if (currentGroup === currentGroupState._id) {
-  //     API.getGroup(currentGroupState.name)
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         setCurrentGroupState(res.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // });
-  // useEffect(() => {
-  //   scrollToBottom();
-  // }, [currentGroupState]);
-
+  // Loads initial group and starts socket listener
   function initialLoadGroup(groupName) {
     //console.log(groupName);
     API.getGroup(groupName)
@@ -223,18 +153,6 @@ function Group(props) {
       .catch((err) => console.log(err));
   }
 
-  // function loadSubGroup(groupName) {
-  //   console.log("Load SubGroup");
-  //   API.getGroup(groupName)
-  //     .then((res) => {
-  //       console.log("load Sub Group response");
-  //       console.log(res);
-  //       setCurrentGroupState(res.data);
-  //       //console.log(groupState);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
-
   function loadUser(username) {
     //console.log("before");
     //console.log(username);
@@ -249,26 +167,12 @@ function Group(props) {
       .catch((err) => console.log(err));
   }
 
-  //functionality to delete a group?
-
   function onEmojiClick(event, emoji) {
     let input = document.getElementById("messageBar");
-
-    console.log(input.value);
+    //console.log(input.value);
     input.value = input.value + emoji.emoji;
     setFormObject({ ...formObject, message: input.value });
-    // if(input.value === null) {
-    //   input.value = emoji.emoji
-    //   console.log(input.value)
-    //   setFormObject({...formObject , message: input.value})
-    // } else {
-    //   input.value = input.value + emoji.emoji
-    //   setFormObject({ ...formObject, message: input.value });
-    // }
-    console.log(formObject);
-
-    // let emojiMessage = formObject.message + emoji.emoji;
-    // setFormObject({ ...formObject, message: emojiMessage });
+    //console.log(formObject);
   }
 
   //updates component state when the user types a message
@@ -277,8 +181,7 @@ function Group(props) {
     setFormObject({ ...formObject, [name]: value.trim() });
   }
 
-  //when new message is submitted, use API.postMessage metohd to save
-  //the message, then reload messages from the database
+  // Posts new message to DB then sends a new message alert for server to handle
   function sendMessage(event) {
     // event.preventDefault();
     let fullName = userState.first_name + " " + userState.last_name;
@@ -310,8 +213,6 @@ function Group(props) {
     }
   }
 
-  // a lot of what is here in the example from 21.5, we have in the actual component
-  // rather here in the page?
   if (userState.username === "") {
     return <Redirect to={"/"} />;
   } else {
