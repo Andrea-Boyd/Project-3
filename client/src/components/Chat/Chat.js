@@ -13,7 +13,7 @@ import Popup from "reactjs-popup";
 import { Redirect, Link } from "react-router-dom";
 import { GroupContext } from "../../utils/GroupStore";
 import { CurrentGroupContext } from "../../utils/CurrentGroupStore";
-import NewGroupModal from "../../NewGroupModal/NewGroupModal";
+import NewGroupModal from "../NewGroupModal/NewGroupModal";
 import Logo from "../../images/k-logo.png";
 
 import API from "../../utils/API";
@@ -118,7 +118,7 @@ function Chat(props) {
             <div className="chat__header__right">
               <Popup trigger={<EmojiPeopleIcon />} position="bottom right">
                 {currentGroupState.groupMembers.map((subMembers) => (
-                <p>{subMembers.name}</p>
+                  <p>{subMembers.name}</p>
                 ))}
               </Popup>
 
@@ -144,9 +144,7 @@ function Chat(props) {
                     </div>
                   ))}
                   <Popup
-                    trigger={
-                      <button className="note__button">Kit Code</button>
-                    }
+                    trigger={<button className="note__button">Kit Code</button>}
                     position="left center"
                     nested
                   >

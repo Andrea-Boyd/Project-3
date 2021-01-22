@@ -8,10 +8,10 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import SideBarChat from "../SideBarChat/SideBarChat";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import NewGroupModal from "../../NewGroupModal/NewGroupModal";
+import NewGroupModal from "../NewGroupModal/NewGroupModal";
 import { GroupContext } from "../../utils/GroupStore";
 import NoteIcon from "@material-ui/icons/Note";
-import Logo from "../../images/logo_transparent.png"
+import Logo from "../../images/logo_transparent.png";
 
 function Sidebar(props) {
   const { groupState, setGroupState } = useContext(GroupContext);
