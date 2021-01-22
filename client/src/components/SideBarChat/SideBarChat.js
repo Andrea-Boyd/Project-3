@@ -62,10 +62,8 @@ function SideBarChat(props) {
               </h2>
             </div>
           ))}
-          ;
         </div>
       )}
-      ;
     </div>
   );
 }

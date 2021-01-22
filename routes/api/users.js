@@ -33,7 +33,7 @@ router.route("/subgroup/:id").put(userController.addSubGroup);
 // Matches with "/api/users/:id"
 router
   .route("/:username")
-  .get(isAuth, userController.findOne)
+  .get(userController.findOne)
   .put(userController.updateGroup)
   .delete(userController.remove);
 
