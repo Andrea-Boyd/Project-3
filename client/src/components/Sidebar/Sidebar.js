@@ -22,11 +22,6 @@ function Sidebar(props) {
         <div className="sidebar__headerRight"></div>
       </div>
       <div className="sidebar__search">
-        {/* <div className="sidebar__searchContainer">
-          <SearchOutlinedIcon />
-          <input placeholder="Search" type="text"></input>
-        </div> */}
-
         <Popup
           className="popup__content"
           trigger={<button className="note__button">Kit Kode</button>}
