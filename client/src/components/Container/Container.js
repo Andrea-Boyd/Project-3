@@ -1,11 +1,9 @@
-import React, { useSate } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import socketClient from "socket.io-client";
 import Group from "../../pages/Group";
 import User from "../../pages/User";
 import SignUp from "../../pages/Signup";
 import Login from "../../pages/Login";
-import API from "../../utils/API";
 import UserStore from "../../utils/UserStore";
 import GroupStore from "../../utils/GroupStore";
 import CurrentGroupStore from "../../utils/CurrentGroupStore";
