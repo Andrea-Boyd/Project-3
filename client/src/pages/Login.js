@@ -7,6 +7,7 @@ import { UserContext } from "../utils/UserStore";
 import { ContactsOutlined } from "@material-ui/icons";
 import Logo from "../images/logo.png";
 import { Container, Col, Row } from "reactstrap";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 function Login() {
   const [newLogin, setLogin] = useState({});
@@ -115,6 +116,50 @@ function Login() {
                 </form>
               </div>
             </Col>
+          </Row>
+          <Row className="login__footer">
+            <div className="login__links">
+              <p class="github-text" id="footer-links">
+                <a href="https://github.com/outoftune266">
+                  <GitHubIcon />
+                  Zak
+                </a>
+              </p>
+            </div>
+
+            <div className="login__links">
+              <p class="github-text" id="footer-links">
+                <a href="https://github.com/chadtarpey615">
+                  <GitHubIcon />
+                  Chad
+                </a>
+              </p>
+            </div>
+            <div className="login__links">
+              <p class="github-text" id="footer-links">
+                <a href="https://github.com/Andrea-Boyd">
+                  <GitHubIcon />
+                  Andrea
+                </a>
+              </p>
+            </div>
+            <div className="login__links">
+              <p class="github-text" id="footer-links">
+                <a href="https://github.com/Kevin-Pulley">
+                  <GitHubIcon />
+                  Kevin
+                </a>
+              </p>
+            </div>
+          </Row>
+          <Row className="footer__copyright">
+            <div className="footer__bottom">
+              <p className="footer__copyright">
+                Designed and built by: Zak Monnet, Chad Tarpey, Andrea Boyd,
+                Kevin Pulley
+              </p>
+              <p className="footer__copyright">&copy;, 2021</p>
+            </div>
           </Row>
         </Container>
       </div>

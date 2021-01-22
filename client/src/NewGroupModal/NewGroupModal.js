@@ -147,7 +147,7 @@ function NewGroupModal() {
 
         <div>
           {userFormState.map((user) => (
-            <p>{user.name}</p>
+            <button className="modal__submit__button">{user.name}</button>
           ))}
         </div>
         <br></br>
