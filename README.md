@@ -3,7 +3,7 @@
 
 KIT is a messaging application in which users can create a personal account with the ability to create groups,join existing groups, and invite friends to groups.
 
-![Preview of Application](./client/src/images/login_page.png)
+![Preview of Application](client/src/images/login_page.png)
 
 See it in action:
 [Click Me](https://sheltered-plains-45359.herokuapp.com/)
