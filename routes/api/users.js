@@ -16,7 +16,7 @@ router.route("/login").post((req, res, next) => {
         if (err) throw err;
         //res.send("Success!!!");
         res.json(req.user);
-        console.log(req.user);
+        //console.log(req.user);
       });
     }
   })(req, res, next);

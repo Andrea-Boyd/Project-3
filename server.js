@@ -20,12 +20,6 @@ const io = socket(server);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// app.use(bodyParser.json());
-// app.use(cors({
-//   origin: "http://localhost:3000",
-//   credentials: true
-// }))
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
@@ -49,9 +43,6 @@ app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  // console.log('req.session', req.session);
-  //console.log("user");
-  //console.log(req.session.cookie);
   return next();
 });
 
@@ -64,7 +55,7 @@ server.listen(PORT, () => {
 
 io.on("connection", (socket) => {
   console.log("New user connected");
-  console.log(socket.id);
+  //console.log(socket.id);
 
   socket.on("Join Group Request", (id) => {
     console.log("User has joined room: " + id);
@@ -73,14 +64,13 @@ io.on("connection", (socket) => {
 
   socket.on("Change Group Request", (data) => {
     console.log("Change Group Request");
-    console.log(data);
     socket.leave(data.currentID);
     socket.join(data.newID);
   });
 
   socket.on("new message", (data) => {
     console.log("Recieved New Message Alert");
-    console.log(data);
+
     io.to(data.currentGroup).emit("message check", data);
   });
 
@@ -88,7 +78,3 @@ io.on("connection", (socket) => {
     console.log("User Disconnected");
   });
 });
-
-// app.listen(PORT, function () {
-//   console.log(`Server is now listening on PORT ${PORT}!`);
-// });

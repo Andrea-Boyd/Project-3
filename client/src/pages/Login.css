@@ -24,13 +24,13 @@ img {
 }
 
 ::placeholder {
-    color: black !important;
+  color: black !important;
 }
 
 .form-control {
-    padding: 8px;
-    width: 280px;
-    color: black;
+  padding: 8px;
+  width: 280px;
+  color: black;
 }
 
 .login__content button {
