@@ -45,13 +45,9 @@ function Group(props) {
   function startSocketListener(id, name) {
     socket.current.on("message check", (data) => {
       console.log("Message Check");
-      console.log(data);
-      //console.log(currentGroupState);
       let currentGroup = data.currentGroupName;
       API.getGroup(currentGroup)
         .then((res) => {
-          console.log("Message Check Response");
-          //console.log(res.data);
           setCurrentGroupState(res.data);
           scrollToBottom();
         })
@@ -77,7 +73,6 @@ function Group(props) {
         if (index === array.length + 1) {
           resolve();
         } else {
-          console.log("filter Loop");
           groupState.subgroups.forEach((groupSubGroup) => {
             if (userSubGroup._id === groupSubGroup._id) {
               currentUsersSubGroups.push(groupSubGroup);
@@ -89,20 +84,15 @@ function Group(props) {
   }
 
   useEffect(() => {
-    console.log("Filter Start");
     filterSubGroups().then(() => {
-      console.log(currentUsersSubGroups);
       setCurrentSubGroupState(currentUsersSubGroups);
     });
   }, [groupState]);
 
   // Loads initial group and starts socket listener
   function initialLoadGroup(groupName) {
-    //console.log(groupName);
     API.getGroup(groupName)
       .then((res) => {
-        console.log("initial load group response");
-        console.log(res);
         setGroupState(res.data);
         setCurrentGroupState(res.data);
         sendGroupID(res.data._id);
@@ -113,12 +103,8 @@ function Group(props) {
 
   //loads the current group and sets it to group
   function loadGroup(groupName) {
-    console.log(groupName);
     API.getGroup(groupName)
       .then((res) => {
-        console.log("load group response");
-        console.log(res);
-        //props.joinGroupRequest(res.data._id);
         setGroupState(res.data);
         setCurrentGroupState(res.data);
       })
@@ -131,11 +117,8 @@ function Group(props) {
   }
 
   function loadCurrentGroup(groupName) {
-    //console.log(groupName);
     API.getGroup(groupName)
       .then((res) => {
-        //console.log("load group response");
-        //console.log(res.data);
         setCurrentGroupState(res.data);
       })
       .catch((err) => console.log(err));
@@ -143,10 +126,8 @@ function Group(props) {
 
   function onEmojiClick(event, emoji) {
     let input = document.getElementById("messageBar");
-    //console.log(input.value);
     input.value = input.value + emoji.emoji;
     setFormObject({ ...formObject, message: input.value });
-    //console.log(formObject);
   }
 
   //updates component state when the user types a message
@@ -157,11 +138,8 @@ function Group(props) {
 
   // Posts new message to DB then sends a new message alert for server to handle
   function sendMessage(event) {
-    // event.preventDefault();
     let fullName = userState.first_name + " " + userState.last_name;
     let timeStamp = Date.now();
-    console.log("Send Message Funciton");
-    console.log(currentGroupState.name);
     if (formObject.message) {
       API.postMessage(
         {
@@ -178,10 +156,8 @@ function Group(props) {
             currentGroup: currentGroupState._id,
             currentGroupName: currentGroupState.name,
           });
-          console.log(res.data);
           loadCurrentGroup(currentGroupState.name);
           scrollToBottom();
-          //event.target.reset();
         })
         .catch((err) => console.log(err));
     }
